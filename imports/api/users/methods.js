@@ -13,7 +13,7 @@ if (Meteor.isServer) {
       return User.findOne({
         where: { id }
       }).then(function(result) {
-        return result.get();
+        return result && result.get();
       });
     },
 
@@ -42,7 +42,10 @@ if (Meteor.isServer) {
           where: { fbUserId: response.userID }
         });
       }).then(function(result) {
-        const user = result.get();
+        const user = result && result.get();
+
+        if (!user)
+          throw new Meteor.Error("loginFacebook.invalidUser", "Could not fetch authenticated user.");
 
         return {
           user: user,
