@@ -12,10 +12,10 @@ const User = sequelize.define(tableName, {
   },
 
   displayName: {
-    type: DataType.STRING(100),
+    type: DataType.TEXT(),
   },
 
-  profilePictureUrl: {
+  profilePictureId: {
     type: DataType.STRING(255),
   },
 
@@ -28,7 +28,7 @@ const User = sequelize.define(tableName, {
   },
 
   website: {
-    type: DataType.STRING(255),
+    type: DataType.TEXT(),
   },
 
   birthday: {
@@ -41,7 +41,7 @@ const User = sequelize.define(tableName, {
   },
 
   fbToken: {
-    type: DataType.STRING(100),
+    type: DataType.TEXT(),
   },
 
   homeUniId: {
