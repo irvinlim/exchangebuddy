@@ -23,7 +23,7 @@ import NotFound from '../../ui/pages/not-found';
 
 // Route event handlers
 const requireAuth = (nextState, replace) => {
-  if (!Meteor.theUserId) {
+  if (!Meteor.userId()) {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname },
@@ -32,9 +32,9 @@ const requireAuth = (nextState, replace) => {
 };
 
 const authenticatedRedirect = (nextState, replace) => {
-  if (Meteor.theUserId) {
+  if (Meteor.userId()) {
     let path;
-    if (Meteor.theUser.homeUniEmailVerified) {
+    if (Meteor.user().homeUniEmailVerified) {
       path = 'group';
     } else {
       path = 'signup';
@@ -60,7 +60,7 @@ Meteor.startup(() => {
       <Provider store={ Store }>
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
-            <IndexRoute name="home" component={ Home } />
+            <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>
