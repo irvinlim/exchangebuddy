@@ -12,8 +12,8 @@ export const setCurrentUser = (callback) => {
       return callback(false);
 
     // Set to Meteor variable
-    Meteor.theUser = user;
-    Meteor.theUserId = user.id;
+    Meteor.theUser = () => user;
+    Meteor.theUserId = () => user.id;
 
     // Continue with the rest of loading
     return callback(true);
