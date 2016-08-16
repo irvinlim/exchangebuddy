@@ -1,0 +1,37 @@
+{
+  "name": "exchangebuddy",
+  "version": "1.0.0",
+  "description": "Find your exchange buddies!",
+  "scripts": {
+    "start": "meteor --settings settings-development.json",
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 5000",
+    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
+    "chimp-test": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
+    "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
+    "production": "meteor deploy production.meteor.com --settings settings-production.json"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^2.2.4",
+    "jquery-validation": "^1.15.1",
+    "jsonwebtoken": "^7.1.9",
+    "material-ui": "^0.15.4",
+    "mysql": "^2.11.1",
+    "react": "^15.3.0",
+    "react-addons-pure-render-mixin": "^15.2.1",
+    "react-dom": "^15.3.0",
+    "react-facebook-login": "^3.1.0",
+    "react-ga": "^2.1.1",
+    "react-komposer": "^1.13.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.0",
+    "react-router-redux": "^4.0.5",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.5.2",
+    "redux-store": "0.0.0",
+    "sequelize": "^3.24.0"
+  }
+}
