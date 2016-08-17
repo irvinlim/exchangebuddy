@@ -18,6 +18,7 @@ import App from '../../ui/layouts/app';
 
 // Pages
 import Home from '../../ui/pages/home';
+import Signup from '../../ui/pages/signup';
 import NotFound from '../../ui/pages/not-found';
 
 // Group
@@ -29,7 +30,7 @@ import GroupInfo from '../../ui/pages/group/info';
 const requireAuth = (nextState, replace) => {
   if (!Meteor.userId()) {
     replace({
-      pathname: '/login',
+      pathname: '/',
       state: { nextPathname: nextState.location.pathname },
     });
   }
@@ -39,9 +40,9 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = 'group';
+      path = '/group';
     } else {
-      path = 'signup';
+      path = '/signup';
     }
 
     // Redirect user only if logged in
@@ -66,6 +67,7 @@ Meteor.startup(() => {
           <Route path="/" component={ App }>
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
             <Route path="group" component={ GroupInfo } >
               <Route path="info" component={ GroupInfo } />
               {/*
@@ -74,7 +76,6 @@ Meteor.startup(() => {
               */}
               <Redirect from="*" to="info" />
             </Route>
-
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>
