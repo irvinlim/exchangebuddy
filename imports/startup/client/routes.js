@@ -2,7 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Store from './redux-store';
@@ -39,7 +39,7 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = 'group/info';
+      path = 'group';
     } else {
       path = 'signup';
     }
@@ -66,12 +66,13 @@ Meteor.startup(() => {
           <Route path="/" component={ App }>
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
-            <Route path="group(:/id)">
+            <Route path="group" component={ GroupInfo } >
               <Route path="info" component={ GroupInfo } />
               {/*
               <Route path="chat" component={ GroupChat } />
               <Route path="news" component={ GroupNews } />
               */}
+              <Redirect from="*" to="info" />
             </Route>
 
             <Route path="*" component={ NotFound } />

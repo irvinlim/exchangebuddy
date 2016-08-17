@@ -66,7 +66,7 @@ function mapStateToProps(state, ownProps) {
   // if (groupId && state.groups.length > 0) {
   //   group = getGroupById(state.groups, groupId);
   // }
-  console.log(uniSectionItems)
+
   return {
     group,
     university,
