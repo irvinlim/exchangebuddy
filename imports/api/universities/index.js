@@ -9,6 +9,26 @@ const University = sequelize.define(tableName, {
     type: DataType.TEXT(),
   },
 
+  city: {
+    type: DataType.TEXT(),
+  },
+
+  logoImageId: {
+    type: DataType.STRING(255),
+  },
+
+  emailDomains: {
+    type: DataType.TEXT(),
+  },
+
+  terms: {
+    type: DataType.TEXT(),
+  },
+
+  countryId: {
+    type: DataType.INTEGER(),
+  },
+
 });
 
 export default University;
