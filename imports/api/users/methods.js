@@ -24,6 +24,7 @@ if (Meteor.isServer) {
         const token = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
         return token;
       } catch (exc) {
+        throw new Meteor.Error("verifyTokenException", exc);
         return null;
       }
     },
@@ -55,7 +56,7 @@ if (Meteor.isServer) {
         return {
           user: user,
           token: jwt.sign(user, Meteor.settings.private.jsonWebTokenSecret, {
-            expiresIn: 20160 // 14 days
+            expiresIn: "14d"
           })
         };
       }).catch(function(errors) {
