@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Header = (props) => (
+const Header = ({ user }) => (
   <div id="header">
-    Header!
+    Header! { user ? `Welcome, ${user.displayName}.` : "Please log in." }
   </div>
 );
 

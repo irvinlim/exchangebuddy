@@ -6,7 +6,7 @@ import Header from './Header';
 
 const composer = (props, onData) => {
   onData(null, {
-    // Pass in props to the component here
+    user: Meteor.user()
   });
 };
 
