@@ -17,10 +17,15 @@ if (Meteor.isServer) {
       });
     },
 
-    verifyToken(token, callback) {
+    verifyToken(token) {
       check(token, String);
 
-      return jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+      try {
+        const token = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+        return token;
+      } catch (exc) {
+        return null;
+      }
     },
 
     loginFacebook(response) {

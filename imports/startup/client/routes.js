@@ -25,7 +25,7 @@ import NotFound from '../../ui/pages/not-found';
 const requireAuth = (nextState, replace) => {
   if (!Meteor.userId()) {
     replace({
-      pathname: '/login',
+      pathname: '/',
       state: { nextPathname: nextState.location.pathname },
     });
   }
@@ -35,9 +35,9 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = 'group';
+      path = '/group';
     } else {
-      path = 'signup';
+      path = '/signup';
     }
 
     // Redirect user only if logged in
