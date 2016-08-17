@@ -16,7 +16,7 @@ const responseFacebook = (self) => (response) => {
 
       self.setState({ snackbarOpen: true });
     } else {
-      setUserSession(user.id, token);
+      setUserSession(user, token);
       browserHistory.push('/signup');
     }
   });
