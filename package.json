@@ -14,7 +14,10 @@
     "redux-devtools": "^3.3.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.0.2",
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
+    "flexboxgrid": "^6.3.1",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
     "jsonwebtoken": "^7.1.9",
@@ -27,6 +30,7 @@
     "react-addons-pure-render-mixin": "^15.2.1",
     "react-dom": "^15.3.0",
     "react-facebook-login": "^3.1.0",
+    "react-flexbox-grid": "^0.10.2",
     "react-ga": "^2.1.1",
     "react-komposer": "^1.13.1",
     "react-redux": "^4.4.5",
