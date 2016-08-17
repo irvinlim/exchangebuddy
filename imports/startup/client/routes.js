@@ -18,6 +18,7 @@ import App from '../../ui/layouts/app';
 
 // Pages
 import Home from '../../ui/pages/home';
+import Signup from '../../ui/pages/signup';
 import NotFound from '../../ui/pages/not-found';
 
 
@@ -61,6 +62,7 @@ Meteor.startup(() => {
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>
