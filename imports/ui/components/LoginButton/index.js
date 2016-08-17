@@ -1,50 +1,25 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { composeWithTracker } from 'react-komposer';
+import Loading from '../Loading';
 
-import Snackbar from 'material-ui/Snackbar';
-import FacebookLogin from 'react-facebook-login';
-import { setUserSession } from '../../../util/session';
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-const responseFacebook = (self) => (response) => {
-  if (!response || !response.userID)
-    return;
+// Action creators
+import { showSnackbar } from '../../../client/actions/snackbar';
 
-  Meteor.call('loginFacebook', response, (error, { user, token }) => {
-    if (error || !user || !token) {
-      if (error)
-        console.log("Error in invoking loginFacebook: " + error);
+// Component
+import ChildComponent from './LoginButton';
 
-      self.setState({ snackbarOpen: true });
-    } else {
-      setUserSession(user, token);
-      browserHistory.push('/signup');
-    }
-  });
+// redux
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ showSnackbar }, dispatch),
+  };
 };
 
-export default class LoginButton extends React.Component {
-  constructor(props) {
-    super(props);
+const LoginButton = connect(null, mapDispatchToProps)(ChildComponent);
 
-    this.state = {
-      snackbarOpen: false
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <FacebookLogin
-          appId={ Meteor.settings.public.Facebook.appId }
-          fields="name,email,picture,gender"
-          callback={ responseFacebook(this) } />
-
-        <Snackbar
-          open={ this.state.snackbarOpen }
-          message="Could not log in to Facebook."
-          autoHideDuration={2000}
-          onRequestClose={ () => this.setState({ snackbarOpen: false }) } />
-      </div>
-    );
-  }
-}
+export default LoginButton;

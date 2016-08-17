@@ -3,6 +3,7 @@ import MuiTheme from './mui-theme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Header from '../components/Header';
+import MessageSnackbar from '../components/MessageSnackbar';
 
 const App = React.createClass({
   propTypes: {
@@ -17,6 +18,8 @@ const App = React.createClass({
           <div id="main">
             { this.props.children }
           </div>
+
+          <MessageSnackbar />
         </div>
       </MuiThemeProvider>
     );

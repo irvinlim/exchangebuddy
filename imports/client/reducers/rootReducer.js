@@ -1,8 +1,15 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
+// Reducers
+import { messageSnackbarOpen, messageSnackbarMessage } from './messageSnackbar';
+
 const rootReducer = combineReducers({
-  // Add your reducers here
+  // Add more reducers here
+  messageSnackbarOpen,
+  messageSnackbarMessage,
+
+  // Add routerReducer
   routing: routerReducer
 });
 
