@@ -20,6 +20,10 @@ import App from '../../ui/layouts/app';
 import Home from '../../ui/pages/home';
 import NotFound from '../../ui/pages/not-found';
 
+// Group
+import GroupInfo from '../../ui/pages/group/info';
+// import GroupChat from '../../ui/pages/group/chat';
+// import GroupNews from '../../ui/pages/group/news';
 
 // Route event handlers
 const requireAuth = (nextState, replace) => {
@@ -35,7 +39,7 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = 'group';
+      path = 'group/info';
     } else {
       path = 'signup';
     }
@@ -60,7 +64,16 @@ Meteor.startup(() => {
       <Provider store={ Store }>
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
+
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <Route path="group(:/id)">
+              <Route path="info" component={ GroupInfo } />
+              {/*
+              <Route path="chat" component={ GroupChat } />
+              <Route path="news" component={ GroupNews } />
+              */}
+            </Route>
+
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>
