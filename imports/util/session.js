@@ -1,11 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { browserHistory } from 'react-router';
 
 export const setUserSession = (user, token) => {
   Session.setPersistent("currentUserToken", token);
   Session.setPersistent("currentUser", user);
 };
 
+export const clearUserSession = () => {
+  Session.setPersistent("currentUser", null);
+  Session.setPersistent("currentUserToken", null);
+};
+
+// Called at Meteor.startup
 export const setCurrentUser = (callback = () => {}) => {
   // Let Meteor.user get from session variable
   Meteor.user = () => Session.get("currentUser");
@@ -14,8 +21,7 @@ export const setCurrentUser = (callback = () => {}) => {
   verifyCurrentUser((error, user) => {
     // Clear session variable if we cannot verify the user.
     if (error || !user) {
-      Session.setPersistent("currentUser", undefined);
-      Session.setPersistent("currentUserToken", undefined);
+      clearUserSession();
       return callback(false);
     }
 
@@ -27,6 +33,7 @@ export const setCurrentUser = (callback = () => {}) => {
   });
 };
 
+// Used at Meteor.startup
 export const verifyCurrentUser = (callback) => {
   const sessionUser = Session.get("currentUser");
   const sessionUserToken = Session.get("currentUserToken");
@@ -49,4 +56,16 @@ export const verifyCurrentUser = (callback) => {
         return callback(null, user);
     });
   });
+};
+
+// Handles log out actions
+export const handleLogout = (callback) => {
+  // Clear user sessions
+  clearUserSession();
+
+  // Go to main page
+  browserHistory.push('/');
+
+  if (callback)
+    callback();
 };
