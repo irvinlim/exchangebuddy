@@ -4,9 +4,10 @@ import { Session } from 'meteor/session';
 export const setUserSession = (userId, token) => {
   Session.setPersistent("currentUserToken", token);
   Session.setPersistent("currentUserId", userId);
+  setCurrentUser();
 };
 
-export const setCurrentUser = (callback) => {
+export const setCurrentUser = (callback = () => {}) => {
   verifyCurrentUser((error, user) => {
     if (error || !user)
       return callback(false);
