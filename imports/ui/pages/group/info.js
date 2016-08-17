@@ -1,38 +1,37 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import InfoList from '../../components/Group/InfoList';
 
+import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
+
+import InfoList from '../../components/Group/Info/InfoList';
+
+// TODO:
 export class GroupInfo extends React.Component {
 	constructor(props, context) {
 		super(props, context);
+    this.state={
+      xe: null,
+      weather: null
+    }
 	}
 
   render(){
     return (
-      <InfoList
-        group={this.props.groups}
-        university={this.props.university}
-        countrySectionItems={this.props.countrySectionItems}
-        uniSectionItems={this.props.uniSectionItems} />
+      <Grid>
+        <InfoList
+          group={this.props.groups}
+          university={this.props.university}
+          countrySectionItems={this.props.countrySectionItems}
+          uniSectionItems={this.props.uniSectionItems} />
+      </Grid>
     )
   }
 }
 
-// // Use like `this.props.actions.removeInfo`
-// GroupInfo.propTypes = {
-//   actions: PropTypes.object.isRequired
-// };
-
 GroupInfo.contextTypes = {
   router: PropTypes.object
 };
-
-function getGroupById(groups, id) {
-  const group = groups.filter(group => group.id == id);
-  if (group) return group[0]; //since filter returns an array, have to grab the first.
-  return null;
-}
 
 function generateSecItems(type) {
   let res = [];
@@ -56,16 +55,11 @@ function generateSecItems(type) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const groupId = ownProps.params.id; // from the path `/group/:id`
 
   let group = { id: '1', universityId: '1', year: '2', term: '3' };
-  let university = { id: '', name: '', city: '', logoImageId: '', emailDomains: '', countryId: '', terms: '' };
+  let university = { id: '10', name: '10', city: '10', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
   let countrySectionItems = generateSecItems('country');
   let uniSectionItems = generateSecItems('uni');
-
-  // if (groupId && state.groups.length > 0) {
-  //   group = getGroupById(state.groups, groupId);
-  // }
 
   return {
     group,
@@ -75,14 +69,5 @@ function mapStateToProps(state, ownProps) {
   };
 
 }
-
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(groupActions, dispatch)
-//   };
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(GroupInfo);
 
 export default connect(mapStateToProps)(GroupInfo);
