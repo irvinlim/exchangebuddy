@@ -21,11 +21,9 @@ if (Meteor.isServer) {
       check(token, String);
 
       try {
-        const token = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
-        return token;
+        return jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
       } catch (exc) {
         throw new Meteor.Error("verifyTokenException", exc);
-        return null;
       }
     },
 
