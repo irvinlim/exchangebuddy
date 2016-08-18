@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { handleLogout } from '../../../util/session';
 import * as ImagesHelper from '../../../util/images';
 import * as IconsHelper from '../../../util/icons';
@@ -6,6 +7,8 @@ import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import HeaderProfile from './HeaderProfile';
+
+const gotourl = (url) => () => browserHistory.push(url);
 
 const Header = ({ user, uni, actions }) => (
   <div id="header" style={{
@@ -30,9 +33,9 @@ const Header = ({ user, uni, actions }) => (
         <Col xs={0} md={2}></Col>
         <Col xs={12} md={8} id="header-tab-row">
         <Tabs inkBarStyle={{backgroundColor: "#fff"}}>
-          <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab"/>
-          <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab"/>
-          <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab"/>
+          <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl('/group/info') } />
+          <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab" onActive={ gotourl('/group/chat') } />
+          <Tab icon={IconsHelper.materialIcon("public")} label="NEWS" className="header-tab" onActive={ gotourl('/group/news') } />
         </Tabs>
         </Col>
       </Row>
