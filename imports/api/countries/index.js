@@ -5,20 +5,39 @@ const tableName = 'countries';
 
 const Country = sequelize.define(tableName, {
 
+  // Use this as the primary key to identify countries
+  // Has to be uppercase.
+  alpha2Code: {
+    type: DataType.CHAR(2),
+    primaryKey: true,
+  },
+
+  // Other fields
   name: {
     type: DataType.TEXT(),
   },
-
-  countryCode2: {
-    type: DataType.STRING(2),
+  alpha3Code: {
+    type: DataType.CHAR(3),
+  },
+  region: {
+    type: DataType.ENUM('Africa', 'Americas', 'Asia', 'Europe', 'Oceania'),
   },
 
-  countryCode3: {
-    type: DataType.STRING(3),
+  // Stored as JSON stringified arrays
+  altSpellings: {
+    type: DataType.TEXT(),
   },
-
-  flagImageId: {
-    type: DataType.STRING(255),
+  currencies: {
+    type: DataType.TEXT(),
+  },
+  languages: {
+    type: DataType.TEXT(),
+  },
+  timezones: {
+    type: DataType.TEXT(),
+  },
+  callingCodes: {
+    type: DataType.TEXT(),
   },
 
 });

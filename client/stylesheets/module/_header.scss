@@ -1,0 +1,14 @@
+#header-profile {
+  position: absolute;
+  top: 6%;
+  right: 3%;
+}
+
+#header-uni-logo{
+  width: 90px !important;
+  height: 90px !important;
+  position: absolute !important;
+  > div > div {
+    opacity: 0;
+  }
+}

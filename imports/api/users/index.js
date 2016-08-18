@@ -57,8 +57,9 @@ const User = sequelize.define(tableName, {
     type: DataType.BOOLEAN(),
   },
 
-  countryId: {
-    type: DataType.INTEGER(),
+  // 2-letter country code
+  homeCountryCode: {
+    type: DataType.CHAR(2),
   }
 
 }, {

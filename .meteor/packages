@@ -30,3 +30,8 @@ ddp-rate-limiter@1.0.5
 numtel:mysql
 u2622:persistent-session
 lifefilm:react-flexbox-grid
+<<<<<<< HEAD
+http
+=======
+lepozepo:cloudinary
+>>>>>>> dev-components
