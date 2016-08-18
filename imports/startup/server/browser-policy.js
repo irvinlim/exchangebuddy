@@ -16,3 +16,10 @@ BrowserPolicy.content.allowScriptOrigin( 'graph.facebook.com' );
 
 // Image CDN
 BrowserPolicy.content.allowImageOrigin( 'res.cloudinary.com' );
+
+// Mocks
+// Avatars
+BrowserPolicy.content.allowImageOrigin( 'avatars.io' );
+
+// Gifs
+BrowserPolicy.content.allowImageOrigin( 'media.giphy.com' );
