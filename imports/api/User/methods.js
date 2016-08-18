@@ -17,6 +17,16 @@ if (Meteor.isServer) {
       });
     },
 
+    updateProfile(values) {
+      check(values, Object);
+
+      const { id, displayName } = values;
+      check(id, Number);
+      check(displayName, String);
+
+      return User.update({ displayName }, { where: { id } });
+    },
+
     verifyToken(token) {
       check(token, String);
 

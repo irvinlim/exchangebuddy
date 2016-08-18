@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const submitFormStyle ={ height: $(window).height()*1/5, padding: "0 2% 0" }
+const submitFormStyle = {
+  height: $(window).height() / 5,
+  padding: "0 2% 0"
+};
+
 const validate = values => {
   const errors = {};
   const requiredFields = [ 'message' ];
@@ -10,7 +15,8 @@ const validate = values => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
     }
-  })
+  });
+
   return errors;
 }
 
@@ -41,8 +47,8 @@ class SubmitForm extends Component {
             withRef  />
           </div>
           <div>
-            <button type="submit" disabled={pristine || submitting}>Submit</button>
-            <button type="button" disabled={pristine || submitting} onClick={reset}>Clear</button>
+            <RaisedButton style={{ marginRight: 10 }} primary={true} type="submit" disabled={pristine || submitting}>Submit</RaisedButton>
+            <RaisedButton style={{ marginRight: 10 }} type="button" disabled={pristine || submitting} onClick={reset}>Clear</RaisedButton>
           </div>
 
       </form>

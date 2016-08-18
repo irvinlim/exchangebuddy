@@ -3,6 +3,7 @@ import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize(Meteor.settings.private.databaseUrl, {
   dialect: 'mysql',
+  logging: false,
   define: {
     freezeTableName: true,
     charset: 'utf8',
