@@ -23,9 +23,12 @@ const University = sequelize.define(tableName, {
     type: DataType.TEXT(),
   },
 
-  // Optional url for logo, to be entered by users/admins
-  largeLogoUrl: {
-    type: DataType.TEXT(),
+  // Cloudinary images
+  logoImageId: {
+    type: DataType.STRING(255),
+  },
+  bgImageId: {
+    type: DataType.STRING(255),
   },
 
   // JSON.stringify()-ed strings
@@ -40,26 +43,6 @@ const University = sequelize.define(tableName, {
   topUnisId: {
     type: DataType.INTEGER(),
     unique: true,
-  },
-
-  city: {
-    type: DataType.TEXT(),
-  },
-
-  logoImageId: {
-    type: DataType.STRING(255),
-  },
-
-  emailDomains: {
-    type: DataType.TEXT(),
-  },
-
-  terms: {
-    type: DataType.TEXT(),
-  },
-
-  countryId: {
-    type: DataType.INTEGER(),
   },
 
 });
