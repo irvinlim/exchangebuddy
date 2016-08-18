@@ -22,9 +22,10 @@ import Signup from '../../ui/pages/signup';
 import NotFound from '../../ui/pages/not-found';
 
 // Group
+import Group from '../../ui/pages/group/group';
 import GroupInfo from '../../ui/pages/group/info';
-// import GroupChat from '../../ui/pages/group/chat';
-// import GroupNews from '../../ui/pages/group/news';
+import GroupChat from '../../ui/pages/group/chat';
+import GroupNews from '../../ui/pages/group/news';
 
 // Route event handlers
 const requireAuth = (nextState, replace) => {
@@ -40,7 +41,7 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = '/group';
+      path = '/group/info';
     } else {
       path = '/signup';
     }
@@ -52,6 +53,8 @@ const authenticatedRedirect = (nextState, replace) => {
     });
   }
 };
+
+const goToGroupInfo = () => browserHistory.push('/group/info');
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, Store);
@@ -68,12 +71,11 @@ Meteor.startup(() => {
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
-            <Route path="group" component={ GroupInfo } >
+            <Route path="group" component={ Group }>
+              <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
               <Route path="info" component={ GroupInfo } />
-              {/*
               <Route path="chat" component={ GroupChat } />
               <Route path="news" component={ GroupNews } />
-              */}
               <Redirect from="*" to="info" />
             </Route>
             <Route path="*" component={ NotFound } />

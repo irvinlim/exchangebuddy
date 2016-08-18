@@ -15,7 +15,7 @@ const InfoItem = ({ info }) => (
       </Card>
     </Col>
   </Row>
-  )
+)
 
 const InfoSection = ({ items }) => (
   <Row>
@@ -23,7 +23,6 @@ const InfoSection = ({ items }) => (
     {items.map( item => ( <InfoItem key={ item.createdAt } info={ item } /> ))}
     </Col>
   </Row>
-
-  )
+)
 
 export default InfoSection;

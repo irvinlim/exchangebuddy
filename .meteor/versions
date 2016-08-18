@@ -24,6 +24,7 @@ caching-compiler@1.0.6
 caching-html-compiler@1.0.6
 callback-hook@1.0.9
 check@1.2.3
+coffeescript@1.0.17
 dburles:factory@1.1.0
 ddp@1.2.5
 ddp-client@1.2.9
@@ -47,6 +48,7 @@ http@1.1.8
 id-map@1.0.8
 jquery@1.11.9
 launch-screen@1.0.12
+lepozepo:cloudinary@4.2.4
 lifefilm:react-flexbox-grid@0.9.6
 livedata@1.0.18
 localstorage@1.0.11
