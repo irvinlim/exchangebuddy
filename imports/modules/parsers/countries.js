@@ -1,4 +1,4 @@
-import { bulkCreateOrUpdate } from '../../api/countries/methods';
+import { bulkCreateOrUpdate } from '../../api/Country/methods';
 import { HTTP } from 'meteor/http';
 
 const stringify = (s) => s ? JSON.stringify(s) : "";

@@ -1,12 +1,10 @@
 import sequelize from './sequelize';
 
-import User from './users';
-import './users/methods';
-
-import University from './universities';
-import Country from './countries';
-import Group from './groups';
-import GroupChatMessage from './group_chat_messages';
+import User from './User';
+import University from './University';
+import Country from './Country';
+import Group from './Group';
+import GroupChatMessage from './GroupChatMessage';
 
 User.belongsTo(University, {
   foreignKey: 'homeUniId',

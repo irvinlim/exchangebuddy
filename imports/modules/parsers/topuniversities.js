@@ -1,4 +1,4 @@
-import { bulkCreateOrUpdate } from '../../api/universities/methods';
+import { bulkCreateOrUpdate } from '../../api/University/methods';
 
 export const parseJSON = (json) => {
   const countryMapping = require('../../../data/topuniversities/countryMapping.json');

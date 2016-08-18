@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
 // Models
-import Country from '../../api/countries';
-import University from '../../api/universities';
+import Country from '../../api/Country';
+import University from '../../api/University';
 
 // Methods
 import { updateCountries } from '../../modules/parsers/countries';
