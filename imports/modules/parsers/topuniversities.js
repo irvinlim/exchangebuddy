@@ -1,7 +1,7 @@
 import { bulkCreateOrUpdate } from '../../api/universities/methods';
 
 export const parseJSON = (json) => {
-  const countryMapping = require('../../../data/sources/topuniversities/countryMapping.json');
+  const countryMapping = require('../../../data/topuniversities/countryMapping.json');
 
   return json.map(uni => {
     let logoUrl = "",
@@ -29,7 +29,7 @@ export const parseJSON = (json) => {
 
 export const updateUniversities = () => {
   // Read input file
-  const inputJSON = require('../../../data/sources/topuniversities/299926.json');
+  const inputJSON = require('../../../data/topuniversities/299926.json');
 
   // Update parsed JSON to database
   const parsed = parseJSON(inputJSON);
