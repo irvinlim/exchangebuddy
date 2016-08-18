@@ -1,10 +1,14 @@
 import sequelize from './sequelize';
 
+// Models
 import User from './User';
 import University from './University';
 import Country from './Country';
 import Group from './Group';
 import GroupChatMessage from './GroupChatMessage';
+
+// Methods
+import './User/methods';
 
 User.belongsTo(University, {
   foreignKey: 'homeUniId',
