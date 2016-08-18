@@ -27,7 +27,8 @@ const responseFacebook = (actions) => (response) => {
 const LoginButton = ({ actions }) => (
   <FacebookLogin
     appId={ Meteor.settings.public.Facebook.appId }
-    fields="name,email,picture,gender"
+    scope="public_profile,email,user_education_history,user_location"
+    fields="name,email,picture,gender,education,location"
     callback={ responseFacebook(actions) } />
 );
 
