@@ -39,10 +39,6 @@ export default class HeaderProfile extends React.Component {
     this.setState({ open: false });
   }
 
-  noUser() {
-    browserHistory.push('/');
-  }
-
   showProfileButton(user) {
     const gotourl = (url) => () => browserHistory.push(url);
     const handle = () => handleLogout( () => this.props.showSnackbar());
@@ -58,7 +54,7 @@ export default class HeaderProfile extends React.Component {
           open={ this.state.open }
           onRequestClose={ this.closePopover.bind(this) }
           anchorEl={ this.state.anchorEl }
-          anchorOrigin={{"horizontal":"right","vertical":"bottom"}}
+          anchorOrigin={{"horizontal":"right","vertical":"top"}}
           targetOrigin={{"horizontal":"right","vertical":"top"}}
           style={{ padding: '4px 0' }}>
           <List id="header-profile-popover">
@@ -74,6 +70,6 @@ export default class HeaderProfile extends React.Component {
   }
 
   render() {
-    return this.props.user ? this.showProfileButton(this.props.user) : this.noUser();
+    return this.props.user ? this.showProfileButton(this.props.user) : null;
   }
 }

@@ -14,7 +14,6 @@ const App = React.createClass({
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
-          <Header />
           <div id="main">
             { this.props.children }
           </div>
