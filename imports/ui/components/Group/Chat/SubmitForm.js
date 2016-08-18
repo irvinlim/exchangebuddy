@@ -24,8 +24,10 @@ class SubmitForm extends Component {
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    console.log(handleSubmit)
     return (
       <form style ={submitFormStyle} onSubmit={handleSubmit}>
+        <div>
           <Field
             name="message"
             component={TextField}
@@ -37,6 +39,12 @@ class SubmitForm extends Component {
             rows={3}
             ref="msg"
             withRef  />
+          </div>
+          <div>
+            <button type="submit" disabled={pristine || submitting}>Submit</button>
+            <button type="button" disabled={pristine || submitting} onClick={reset}>Clear</button>
+          </div>
+
       </form>
     )
   }
