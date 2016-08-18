@@ -1,14 +1,43 @@
+#header {
+  background-size: contain;
+  background: -moz-linear-gradient(top, rgba(25,25,25,0.72) 0%, rgba(0,0,0,0.93) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8191919', endColorstr='#ed000000',GradientType=0 ); /* IE6-9 */
+  #logo-image {
+    position: absolute;
+    top: 6%;
+    left: 3%;
+  }
+}
+
+#header-title {
+  text-align: center;
+  margin-top: 137px;
+  #uni-name { line-height: 2.1rem; color: #fff; }
+  #uni-description { color: #fff; opacity: 0.75;}
+}
+
 #header-profile {
   position: absolute;
   top: 6%;
   right: 3%;
 }
 
-#header-uni-logo{
+#header-uni-logo {
   width: 90px !important;
   height: 90px !important;
   position: absolute !important;
   > div > div {
     opacity: 0;
   }
+}
+
+#header-tab-row {
+  > div > div { background-color: rgba(255,255,255,0) !important; }
+}
+
+.header-tab > div > div {
+  flex-direction: row !important; font-size: 21px !important;
+  > span { margin-bottom: 0 !important; margin-right: 5px; }
 }
