@@ -27,6 +27,11 @@ const Home = () => (
     </div>
 
     <div id="welcome-body">
+      <div id="welcome-body-message">Share tips,</div>
+      <div id="welcome-body-message">chat about adventures,</div>
+      <div id="welcome-body-message">stay updated with the latest news.</div>
+    </div>
+    <div id="login-button">
       <LoginButton />
     </div>
   </div>
