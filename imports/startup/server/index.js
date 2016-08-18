@@ -7,3 +7,6 @@ import './fixtures';
 
 // Browser policy
 import './browser-policy';
+
+// Cloudinary
+import './cloudinary';
