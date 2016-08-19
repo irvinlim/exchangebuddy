@@ -7,8 +7,12 @@ import Country from './Country';
 import Group from './Group';
 import GroupChatMessage from './GroupChatMessage';
 
+// Relational tables
+import UserGroup from './UserGroup';
+
 // Methods
 import './User/methods';
+import './Group/methods';
 
 // Publications
 import './University/publications';
@@ -26,6 +30,18 @@ User.belongsTo(Country, {
   as: 'homeCountry',
   onUpdate: 'cascade',
   onDelete: 'cascade',
+});
+
+User.belongsToMany(Group, {
+  as: 'userGroup',
+  through: UserGroup,
+  foreignKey: 'userId'
+});
+
+Group.belongsToMany(User, {
+  as: 'userGroup',
+  through: UserGroup,
+  foreignKey: 'groupId'
 });
 
 Group.belongsTo(University, {

@@ -14,7 +14,7 @@ const Group = sequelize.define(tableName, {
   },
 
   term: {
-    type: DataType.TEXT(),
+    type: DataType.STRING(50),
   },
 
 });

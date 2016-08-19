@@ -1,5 +1,6 @@
 import React from 'react';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
+import { LinkButton } from '../Link';
 
 import Step1 from '../SignupStepper/Step1';
 import Step2 from '../SignupStepper/Step2';
@@ -54,7 +55,8 @@ export default class SignupStepper extends React.Component {
         <Step>
           <StepLabel>Verify your email</StepLabel>
           <StepContent>
-
+            <p className="small-text">Feature not yet implemented.</p>
+            <LinkButton to="/group" label="Go to your group" />
           </StepContent>
         </Step>
       </Stepper>

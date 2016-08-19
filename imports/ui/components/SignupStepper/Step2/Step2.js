@@ -10,13 +10,13 @@ import ExchangeTermSelect from './ExchangeTermSelect';
 
 import { propExistsDeep } from '../../../../util/helper';
 
-export const fields = [ 'exchangeUniName' ];
+export const fields = [ 'exchangeUniName', 'exchangeUniYear', 'exchangeTerm' ];
 
 const saveForm = (callback) => {
   return (values) => {
-    const { exchangeUniName } = values;
+    const { exchangeUniName, exchangeUniYear, exchangeTerm } = values;
 
-    Meteor.call('updateProfile', { id: Meteor.userId(), exchangeUniName }, (err, result) => {
+    Meteor.call('addUserToGroup', { userId: Meteor.userId(), exchangeUniName, exchangeUniYear, exchangeTerm }, (err, result) => {
       if (!err)
         if (callback)
           callback();
@@ -26,7 +26,7 @@ const saveForm = (callback) => {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [ 'exchangeUniName' ];
+  const requiredFields = [ 'exchangeUniName', 'exchangeUniYear', 'exchangeTerm' ];
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -68,7 +68,7 @@ class Step2 extends React.Component {
         <AutoCompleteFormField
           id="exchangeUniName"
           name="exchangeUniName"
-          floatingLabelText="Which university will you be going to for exchange?"
+          floatingLabelText="Your exchange university"
           openOnFocus={true}
           filter={ filter }
           maxSearchResults={10}
