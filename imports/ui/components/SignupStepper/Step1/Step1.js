@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import { TextFormField, SelectFormField, AutoCompleteFormField } from '../../Field';
 import NextButton from '../NextButton';
 
+import * as SessionHelper from '../../../../util/session';
+
 export const fields = [ 'displayName', 'gender', 'homeUniName' ];
 
 const saveForm = (callback) => {
@@ -14,8 +16,7 @@ const saveForm = (callback) => {
 
     Meteor.call('updateProfile', { id: Meteor.userId(), displayName, gender, homeUniName }, (err, result) => {
       if (!err)
-        if (callback)
-          callback();
+        SessionHelper.setCurrentUser(callback); // Required so that Meteor.user() will reflect the new user information
     });
   };
 };
