@@ -32,6 +32,18 @@ const validate = values => {
   return errors;
 };
 
+const filter = (searchText, key) => {
+  searchText = searchText.toLowerCase();
+  key = key.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+
+  if (searchText.length < 3)
+    return false;
+
+  return searchText.split(' ').every(searchTextSubstring =>
+    key.split(' ').some(s => s.substr(0, searchTextSubstring.length) == searchTextSubstring)
+  );
+};
+
 class Step1 extends React.Component {
   render() {
     const { universities, fields: { displayName, gender, homeUniName }, handleNext, handleSubmit, submitting } = this.props;
@@ -53,7 +65,8 @@ class Step1 extends React.Component {
               floatingLabelText="Current University"
               {...homeUniName}
               openOnFocus={true}
-              filter={ (searchText, key) => searchText.length > 2 && key.toLowerCase().replace(/[^a-z0-9 ]/g, '').split(' ').some(s => s.substr(0, searchText.length) == searchText) }
+              filter={ filter }
+              maxSearchResults={10}
               dataSource={ universities.map((uni) => uni.name ) } />
           </Col>
         </Row>
