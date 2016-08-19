@@ -7,38 +7,34 @@ import Loading from '../../Loading';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// Action creators
-
 // Component
-import ChildComponent from './Step1';
+import ChildComponent from './Step2';
 
 // react-komposer
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  // Get homeUni
-  Meteor.call('getUniById', user.homeUniId, (err, homeUni) => {
-
-    onData(null, {
-      initialValues: {
-        displayName: user.displayName,
-        gender: user.gender,
-        homeUniName: homeUni ? homeUni.name : "",
-      },
-    });
+  onData(null, {
 
   });
+
 };
 
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 
 // redux
+const mapStateToProps = (state) => {
+  return {
+    formState: state.form
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({  }, dispatch),
   };
 };
 
-const Step1 = connect(null, mapDispatchToProps)(ComposedComponent);
+const Step2 = connect(mapStateToProps, mapDispatchToProps)(ComposedComponent);
 
-export default Step1;
+export default Step2;

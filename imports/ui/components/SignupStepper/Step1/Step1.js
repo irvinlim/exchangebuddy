@@ -53,7 +53,7 @@ class Step1 extends React.Component {
       <form onSubmit={ handleSubmit(saveForm(handleNext)) }>
         <Row>
           <Col xs={12}>
-            <TextFormField name="displayName" floatingLabelText="Your Name" {...displayName} />
+            <TextFormField name="displayName" floatingLabelText="Your name" {...displayName} />
 
             <SelectFormField name="gender" floatingLabelText="Gender" {...gender}>
               <MenuItem value="male" primaryText="Male" />
@@ -63,7 +63,7 @@ class Step1 extends React.Component {
 
             <AutoCompleteFormField
               name="homeUniName"
-              floatingLabelText="Current University"
+              floatingLabelText="Current university"
               {...homeUniName}
               openOnFocus={true}
               filter={ filter }
