@@ -22,3 +22,37 @@ University.count({}).then(function(count) {
   if (!count)
     updateUniversities();
 });
+
+// Add some universities
+University.findOne({
+  where: { name: "Singapore University of Technology and Design" }
+}).then(function(result) {
+  if (!result)
+    University.create({
+      name: "Singapore University of Technology and Design",
+      city: "Singapore",
+      logoImageId: 'logo-sutd-main_hphs2p',
+      bgImageId: 'sutd-slider-aeriel-view_uckqr6_cdfnan',
+      emailDomains: JSON.stringify([ 'sutd.edu.sg' ]),
+      terms: JSON.stringify([ "Semester 1", "Semester 2", "Semester 3" ]),
+    });
+});
+
+// Add data for some universities
+University.update({
+  city: "Singapore",
+  emailDomains: JSON.stringify([ 'nus.edu.sg', 'u.nus.edu' ]),
+  terms: JSON.stringify([ "Semester 1", "Semester 2", "Special Term Part 1", "Special Term Part 2" ]),
+}, { where: { name: "National University of Singapore (NUS)" } });
+
+University.update({
+  city: "Singapore",
+  emailDomains: JSON.stringify([ 'ntu.edu.sg' ]),
+  terms: JSON.stringify([ "Semester 1", "Semester 2", "Special Term I", "Special Term II" ]),
+}, { where: { name: "Nanyang Technological University, Singapore (NTU)" } })
+
+University.update({
+  city: "Singapore",
+  emailDomains: JSON.stringify([ 'smu.edu.sg' ]),
+  terms: JSON.stringify([ "Semester 1", "Semester 2" ]),
+}, { where: { name: "Singapore Management University" } });
