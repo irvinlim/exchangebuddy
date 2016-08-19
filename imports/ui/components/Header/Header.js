@@ -10,7 +10,7 @@ import HeaderProfile from './HeaderProfile';
 
 const gotourl = (url) => () => browserHistory.push(url);
 
-const Header = ({ user, uni, actions }) => (
+const Header = ({ user, uni, group, actions }) => (
   <div id="header" style={{
     backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
       url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
@@ -25,7 +25,7 @@ const Header = ({ user, uni, actions }) => (
         <Col xs={0} md={2}></Col>
         <Col xs={12} md={8} id="header-title">
           <h2 id="uni-name">{ uni.name }</h2>
-          <p id="uni-description">{ `${ uni.terms } - ${ uni.emailDomains } Members` }</p>
+          <p id="uni-description">{ `${ uni.terms } - ${ group.size } Members` }</p>
         </Col>
       </Row>
 
