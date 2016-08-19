@@ -1,0 +1,19 @@
+@import '../common/mixins';
+@import '../common/colors';
+
+// Base
+html body {
+  &, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, p { font-family: Roboto, sans-serif; color: #444; }
+  .h1, .h2, .h3, .h4, h1, h2, h3, h4 { font-weight: 300; }
+  .h5, .h6, h5, h6 { font-weight: 400; color: #9c9c9c }
+
+  a { color: $link-color; }
+  strong { font-weight: 500; }
+  label { font-weight: inherit; }
+}
+
+// Common elements
+a.button:hover { text-decoration: none; }
+
+// Misc
+.small-text { color: #9e9e9e; font-size: 12px; }
