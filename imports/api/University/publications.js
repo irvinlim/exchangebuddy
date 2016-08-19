@@ -6,3 +6,12 @@ Meteor.publish('all-universities', function() {
     [ { table: 'universities' } ]
   );
 });
+
+Meteor.publish('university-by-id', function(id) {
+  check(id, Number);
+
+  return LiveDB.select(
+    `SELECT * FROM universities WHERE id = '${LiveDB.db.escape(id)}'`,
+    [ { table: 'universities' } ]
+  );
+});

@@ -3,18 +3,16 @@ import { reduxForm } from 'redux-form';
 
 import { Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import MenuItem from 'material-ui/MenuItem';
-import { TextFormField, SelectFormField, AutoCompleteFormField } from '../Field';
-import NextButton from './NextButton';
+import { TextFormField, SelectFormField, AutoCompleteFormField } from '../../Field';
+import NextButton from '../NextButton';
 
-import MySQLHelper from '../../../util/mysql';
-
-export const fields = [ 'displayName', 'gender', 'homeUniId' ];
+export const fields = [ 'displayName', 'gender', 'homeUniName' ];
 
 const saveForm = (callback) => {
   return (values) => {
-    const { displayName } = values;
+    const { displayName, gender, homeUniName } = values;
 
-    Meteor.call('updateProfile', { id: Meteor.userId(), displayName }, (err, result) => {
+    Meteor.call('updateProfile', { id: Meteor.userId(), displayName, gender, homeUniName }, (err, result) => {
       if (!err)
         if (callback)
           callback();
@@ -24,7 +22,7 @@ const saveForm = (callback) => {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [ 'displayName', 'gender', 'homeUniId' ];
+  const requiredFields = [ 'displayName', 'gender', 'homeUniName' ];
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -36,7 +34,7 @@ const validate = values => {
 
 class Step1 extends React.Component {
   render() {
-    const { universities, fields: { displayName, gender, homeUniId }, handleNext, handleSubmit, submitting } = this.props;
+    const { universities, fields: { displayName, gender, homeUniName }, handleNext, handleSubmit, submitting } = this.props;
 
     return (
       <form onSubmit={ handleSubmit(saveForm(handleNext)) }>
@@ -51,12 +49,12 @@ class Step1 extends React.Component {
             </SelectFormField>
 
             <AutoCompleteFormField
-              name="homeUniId"
-              floatingLabelText="Current University" {...homeUniId}
+              name="homeUniName"
+              floatingLabelText="Current University"
+              {...homeUniName}
               openOnFocus={true}
               filter={ (searchText, key) => searchText.length > 2 && key.toLowerCase().replace(/[^a-z0-9 ]/g, '').split(' ').some(s => s.substr(0, searchText.length) == searchText) }
-              onNewRequest={ (searchText) => console.log(searchText) }
-              dataSource={ MySQLHelper.map(universities, (uni) => ({ value: uni.id, text: uni.name }) ) } />
+              dataSource={ universities.map((uni) => uni.name ) } />
           </Col>
         </Row>
 

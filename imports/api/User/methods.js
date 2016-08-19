@@ -1,5 +1,8 @@
-import User from '.';
 const jwt = require('jsonwebtoken');
+
+// Models
+import User from '.';
+import University from '../University'
 
 // Helpers
 import UserHelper from '../../util/user';
@@ -20,11 +23,19 @@ if (Meteor.isServer) {
     updateProfile(values) {
       check(values, Object);
 
-      const { id, displayName } = values;
+      const { id, displayName, gender, homeUniName } = values;
       check(id, Number);
       check(displayName, String);
+      check(gender, String);
+      check(homeUniName, String);
 
-      return User.update({ displayName }, { where: { id } });
+      return University.findOne({ where: { name: homeUniName } }).then(function(result) {
+        const homeUni = result && result.get();
+        const homeUniId = homeUni ? homeUni.id : null;
+
+        if (result)
+          return User.update({ displayName, gender, homeUniId }, { where: { id } });
+      });
     },
 
     verifyToken(token) {

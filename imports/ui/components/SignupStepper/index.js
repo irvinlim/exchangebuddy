@@ -13,12 +13,11 @@ import { connect } from 'react-redux';
 import ChildComponent from './SignupStepper';
 
 // react-komposer
-const universities = new MysqlSubscription('all-universities');
 const composer = (props, onData) => {
   const user = Meteor.user();
 
   onData(null, {
-    universities, user,
+    user,
   });
 };
 
