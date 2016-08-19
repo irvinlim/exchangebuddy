@@ -24,7 +24,6 @@ class SubmitForm extends Component {
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
-    console.log(handleSubmit)
     return (
       <form style ={submitFormStyle} onSubmit={handleSubmit}>
         <div>
@@ -33,7 +32,6 @@ class SubmitForm extends Component {
             component={TextField}
             hintText="Message"
             floatingLabelText="Message"
-            multiLine={true}
             fullWidth={true}
             rowsMax={3}
             rows={3}
