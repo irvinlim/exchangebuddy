@@ -61,6 +61,7 @@ export default class HeaderProfile extends React.Component {
             <ListItem leftIcon={ IconsHelper.icon("group") } primaryText="Members" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/members') } />
             <ListItem leftIcon={ IconsHelper.icon("person_add") } primaryText="Invite friends" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/invite') } />
             <Divider />
+            <ListItem primaryText={ "Welcome, " + user.displayName }/>
             <ListItem leftIcon={ IconsHelper.icon("settings") } primaryText="Profile & Account" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/settings') } />
             <ListItem leftIcon={ IconsHelper.icon("exit_to_app") } primaryText="Log Out" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handle } />
           </List>
