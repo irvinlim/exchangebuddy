@@ -25,7 +25,7 @@ import NotFound from '../../ui/pages/not-found';
 import Group from '../../ui/pages/group/group';
 import GroupInfo from '../../ui/pages/group/info';
 import GroupChat from '../../ui/pages/group/chat';
-import GroupNews from '../../ui/pages/group/news';
+import GroupEvents from '../../ui/pages/group/events';
 
 // Route event handlers
 const requireAuth = (nextState, replace) => {
@@ -75,7 +75,7 @@ Meteor.startup(() => {
               <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
               <Route path="info" component={ GroupInfo } />
               <Route path="chat" component={ GroupChat } />
-              <Route path="news" component={ GroupNews } />
+              <Route path="events" component={ GroupEvents } />
               <Redirect from="*" to="info" />
             </Route>
             <Route path="*" component={ NotFound } />

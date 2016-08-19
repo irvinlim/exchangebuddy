@@ -18,7 +18,7 @@
     "bootstrap": "^3.3.7",
     "chat-template": "0.0.22",
     "classnames": "^2.2.5",
-    "facebook-events-by-location": "^0.5.3",
+    "facebook-events-by-location-core": "^0.1.4",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
     "jsonwebtoken": "^7.1.9",

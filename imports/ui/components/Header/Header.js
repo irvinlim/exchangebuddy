@@ -35,7 +35,7 @@ const Header = ({ user, uni, actions }) => (
         <Tabs inkBarStyle={{backgroundColor: "#fff"}}>
           <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl('/group/info') } />
           <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab" onActive={ gotourl('/group/chat') } />
-          <Tab icon={IconsHelper.materialIcon("public")} label="NEWS" className="header-tab" onActive={ gotourl('/group/news') } />
+          <Tab icon={IconsHelper.materialIcon("event")} label="EVENTS" className="header-tab" onActive={ gotourl('/group/events') } />
         </Tabs>
         </Col>
       </Row>
