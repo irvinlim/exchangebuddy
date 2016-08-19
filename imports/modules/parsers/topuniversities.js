@@ -18,7 +18,7 @@ export const parseJSON = (json) => {
     }
 
     return {
-      name: uni.title,
+      name: uni.title.trim(),
       countryCode: countryMapping[uni.country_tid],
       topUnisId: uni.cid,
       logoUrl,

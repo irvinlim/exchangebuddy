@@ -36,7 +36,10 @@ export default class SignupStepper extends React.Component {
         <Step>
           <StepLabel>Complete your profile</StepLabel>
           <StepContent>
-            <Step1 handleNext={ this.handleNext.bind(this) } initialValues={ this.props.user } />
+            <Step1
+              handleNext={ this.handleNext.bind(this) }
+              universities={ this.props.universities }
+              initialValues={ this.props.user } />
           </StepContent>
         </Step>
         <Step>

@@ -10,6 +10,10 @@ import GroupChatMessage from './GroupChatMessage';
 // Methods
 import './User/methods';
 
+// Publications
+import './University/publications';
+
+// Declare foreign keys
 User.belongsTo(University, {
   foreignKey: 'homeUniId',
   as: 'homeUni',

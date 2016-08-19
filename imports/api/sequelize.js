@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize(Meteor.settings.private.databaseUrl, {
+const sequelize = new Sequelize(Meteor.settings.private.MySQL.connectionString, {
   dialect: 'mysql',
   logging: false,
   define: {

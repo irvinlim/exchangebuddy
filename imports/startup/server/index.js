@@ -2,6 +2,7 @@
 import './browser-policy';
 
 // Setup database
+import './reactive-mysql';
 import sequelize from '../../api';
 
 // Wrap in Meteor.bindEnvironment to prevent error
