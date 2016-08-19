@@ -2,6 +2,7 @@ import React from 'react';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 
 import Step1 from '../SignupStepper/Step1';
+import Step2 from '../SignupStepper/Step2';
 
 export default class SignupStepper extends React.Component {
   constructor(props) {
@@ -38,14 +39,16 @@ export default class SignupStepper extends React.Component {
           <StepContent>
             <Step1
               handleNext={ this.handleNext.bind(this) }
-              universities={ this.props.universities }
-              initialValues={ this.props.user } />
+              universities={ this.props.universities } />
           </StepContent>
         </Step>
         <Step>
           <StepLabel>Select your exchange university</StepLabel>
           <StepContent>
-
+            <Step2
+              handlePrev={ this.handlePrev.bind(this) }
+              handleNext={ this.handleNext.bind(this) }
+              universities={ this.props.universities } />
           </StepContent>
         </Step>
         <Step>

@@ -16,21 +16,19 @@ import ChildComponent from './Step1';
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  // Get all universities
-  Meteor.call('getAllUnis', (err, universities) => {
-    // Get homeUni
-    Meteor.call('getUniById', user.homeUniId, (err, homeUni) => {
+  console.log(user);
 
-      onData(null, {
-        universities,
-        initialValues: {
-          displayName: user.displayName,
-          gender: user.gender,
-          homeUniName: homeUni ? homeUni.name : "",
-        },
-      });
+  // Get homeUni
+  Meteor.call('getUniById', user.homeUniId, (err, homeUni) => {
 
+    onData(null, {
+      initialValues: {
+        displayName: user.displayName,
+        gender: user.gender,
+        homeUniName: homeUni ? homeUni.name : "",
+      },
     });
+
   });
 };
 
