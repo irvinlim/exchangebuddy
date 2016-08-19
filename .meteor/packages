@@ -10,25 +10,22 @@ reactive-var@1.0.10            # Reactive variable for tracker
 session@1.1.6
 tracker@1.1.0                 # Meteor's client-side reactive programming library
 
-standard-minifier-css@1.1.8   # CSS minifier run for production mode
-standard-minifier-js@1.1.8    # JS minifier run for production mode
-es5-shim@4.6.13                # ECMAScript 5 compatibility for older browsers.
-ecmascript@0.5.7              # Enable ECMAScript2015+ syntax in app code
+standard-minifier-css   # CSS minifier run for production mode
+standard-minifier-js    # JS minifier run for production mode
+es5-shim@4.6.14                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.5.8              # Enable ECMAScript2015+ syntax in app code
 
 check@1.2.3
 audit-argument-checks@1.0.7
 browser-policy@1.0.9
 
 fourseven:scss
-aldeed:collection2
-alanning:roles
-themeteorchef:bert
-static-html@1.1.11
+static-html@1.1.12
 mdg:validated-method
-dburles:factory@1.0.0
 ddp-rate-limiter@1.0.5
 numtel:mysql
 u2622:persistent-session
 lifefilm:react-flexbox-grid
-http
+http@1.2.9
 lepozepo:cloudinary
+shell-server
