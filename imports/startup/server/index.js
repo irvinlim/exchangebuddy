@@ -1,8 +1,11 @@
 // Browser policy
 import './browser-policy';
 
+// Reactive mysql
+// Disable for now
+// import './reactive-mysql';
+
 // Setup database
-import './reactive-mysql';
 import sequelize from '../../api';
 
 // Wrap in Meteor.bindEnvironment to prevent error
