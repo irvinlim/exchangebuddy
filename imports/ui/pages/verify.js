@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 // Action creators
 import { showSnackbar } from '../../client/actions/snackbar';
+import * as SessionHelper from '../../util/session';
 
 class Verify extends React.Component {
   constructor(props) {
@@ -29,8 +30,12 @@ class Verify extends React.Component {
       if (err || !result) {
         self.setState({ verifyFail: true });
       } else {
-        browserHistory.push('/group');
-        this.props.actions.showSnackbar("Email successfully verified.");
+        // Required so that Meteor.user() will reflect the new user information
+        SessionHelper.setCurrentUser(() => {
+          // Redirect to group
+          browserHistory.push('/group');
+          this.props.actions.showSnackbar("Email successfully verified.");
+        });
       }
     });
   }

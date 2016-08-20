@@ -7,6 +7,8 @@ import NextButton from '../NextButton';
 
 export const fields = [ 'homeUniEmail' ];
 
+import * as SessionHelper from '../../../../util/session';
+
 let uniEmailDomains;
 
 const validUniEmail = (value) => {
@@ -54,10 +56,12 @@ const submitForm = (self) => (values) => {
   const { homeUniEmail } = values;
 
   Meteor.call('sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
-    if (err)
+    if (err) {
       return console.log("Error in invoking sendVerificationEmail: " + err);
-    else
+    } else {
+      SessionHelper.setCurrentUser(); // Required so that Meteor.user() will reflect the new user information
       self.setState({ emailSent: true });
+    }
   });
 };
 
