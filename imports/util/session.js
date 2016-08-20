@@ -1,33 +1,47 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { browserHistory } from 'react-router';
 
-export const setUserSession = (userId, token) => {
+export const setUserSession = (user, token) => {
   Session.setPersistent("currentUserToken", token);
-  Session.setPersistent("currentUserId", userId);
+  Session.setPersistent("currentUser", user);
 };
 
-export const setCurrentUser = (callback) => {
-  verifyCurrentUser((error, user) => {
-    if (error || !user)
-      return callback(false);
+export const clearUserSession = () => {
+  Session.setPersistent("currentUser", null);
+  Session.setPersistent("currentUserToken", null);
+};
 
-    // Set to Meteor variable
-    Meteor.user = () => user;
-    Meteor.userId = () => user.id;
+// Called at Meteor.startup
+export const setCurrentUser = (callback = () => {}) => {
+  // Let Meteor.user get from session variable
+  Meteor.user = () => Session.get("currentUser");
+  Meteor.userId = () => Session.get("currentUser") && Session.get("currentUser").id;
+
+  verifyCurrentUser((error, user) => {
+    // Clear session variable if we cannot verify the user.
+    if (error || !user) {
+      clearUserSession();
+      return callback(false);
+    }
+
+    // Set session variable (in case not already set)
+    Session.setPersistent("currentUser", user);
 
     // Continue with the rest of loading
     return callback(true);
   });
 };
 
+// Used at Meteor.startup
 export const verifyCurrentUser = (callback) => {
-  const sessionUserId = Session.get("currentUserId");
+  const sessionUser = Session.get("currentUser");
   const sessionUserToken = Session.get("currentUserToken");
 
-  if (!sessionUserId || !sessionUserToken)
+  if (!sessionUser || !sessionUserToken)
     return callback(null, null);
 
-  Meteor.call('getUser', sessionUserId, (error, user) => {
+  Meteor.call('getUser', sessionUser.id, (error, user) => {
     if (error)
       return callback(error, null);
     else if (!user)
@@ -42,4 +56,16 @@ export const verifyCurrentUser = (callback) => {
         return callback(null, user);
     });
   });
+};
+
+// Handles log out actions
+export const handleLogout = (callback) => {
+  // Clear user sessions
+  clearUserSession();
+
+  // Go to main page
+  browserHistory.push('/');
+
+  if (callback)
+    callback();
 };

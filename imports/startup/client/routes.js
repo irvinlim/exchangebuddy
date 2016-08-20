@@ -2,7 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Store from './redux-store';
@@ -18,14 +18,20 @@ import App from '../../ui/layouts/app';
 
 // Pages
 import Home from '../../ui/pages/home';
+import Signup from '../../ui/pages/signup';
 import NotFound from '../../ui/pages/not-found';
 
+// Group
+import Group from '../../ui/pages/group/group';
+import GroupInfo from '../../ui/pages/group/info';
+import GroupChat from '../../ui/pages/group/chat';
+import GroupEvents from '../../ui/pages/group/events';
 
 // Route event handlers
 const requireAuth = (nextState, replace) => {
   if (!Meteor.userId()) {
     replace({
-      pathname: '/login',
+      pathname: '/',
       state: { nextPathname: nextState.location.pathname },
     });
   }
@@ -35,9 +41,9 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = 'group';
+      path = '/group/info';
     } else {
-      path = 'signup';
+      path = '/signup';
     }
 
     // Redirect user only if logged in
@@ -47,6 +53,8 @@ const authenticatedRedirect = (nextState, replace) => {
     });
   }
 };
+
+const goToGroupInfo = () => browserHistory.push('/group/info');
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, Store);
@@ -60,7 +68,16 @@ Meteor.startup(() => {
       <Provider store={ Store }>
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
+
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
+            <Route path="group" component={ Group }>
+              <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
+              <Route path="info" component={ GroupInfo } />
+              <Route path="chat" component={ GroupChat } />
+              <Route path="events" component={ GroupEvents } />
+              <Redirect from="*" to="info" />
+            </Route>
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>
