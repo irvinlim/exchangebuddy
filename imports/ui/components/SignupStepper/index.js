@@ -18,8 +18,13 @@ const composer = (props, onData) => {
 
   // Get all universities
   Meteor.call('getAllUnis', (err, universities) => {
-    onData(null, {
-      user, universities
+    // Check if user has joined a group
+    Meteor.call('getUserGroups', user.id, (err, userGroups) => {
+      const hasJoinedGroup = userGroups && userGroups.length;
+
+      onData(null, {
+        user, universities, hasJoinedGroup
+      });
     });
   });
 };

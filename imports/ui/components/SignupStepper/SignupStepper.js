@@ -32,6 +32,11 @@ export default class SignupStepper extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.hasJoinedGroup)
+      this.setState({ stepIndex: 2 });
+  }
+
   render() {
     return (
       <Stepper activeStep={ this.state.stepIndex } orientation="vertical">
