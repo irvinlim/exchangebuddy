@@ -86,9 +86,11 @@ if (Meteor.isServer) {
         const user = result.get();
 
         if (!user)
-          throw new Meteor.Error("verifyEmailToken.undefinedUser", "No such user.")
-        if (user.homeUniEmail != decoded.homeUniEmail)
-          throw new Meteor.Error("verifyEmailToken.emailMismatch", "Email mismatch.")
+          throw new Meteor.Error("verifyEmailToken.undefinedUser", "No such user.");
+        else if (user.homeUniEmail != decoded.homeUniEmail)
+          throw new Meteor.Error("verifyEmailToken.emailMismatch", "Email mismatch.");
+        else if (user.homeUniEmailVerified)
+          return true;
         else
           return User.update({ homeUniEmailVerified: true }, { where: { id: decoded.userId } });
       });
