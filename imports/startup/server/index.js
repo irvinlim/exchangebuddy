@@ -1,3 +1,6 @@
+// Set environment variables
+import './env-vars';
+
 // Browser policy
 import './browser-policy';
 
