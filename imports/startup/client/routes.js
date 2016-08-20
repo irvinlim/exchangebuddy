@@ -19,6 +19,7 @@ import App from '../../ui/layouts/app';
 // Pages
 import Home from '../../ui/pages/home';
 import Signup from '../../ui/pages/signup';
+import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
 
 // Group
@@ -71,6 +72,7 @@ Meteor.startup(() => {
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
+            <Route name="verify" path="verify/:token" component={ Verify } />
             <Route path="group" component={ Group }>
               <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
               <Route path="info" component={ GroupInfo } />
