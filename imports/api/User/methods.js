@@ -52,7 +52,7 @@ if (Meteor.isServer) {
       }).then(Meteor.bindEnvironment(function(result) {
         const user = result.get();
         const token = jwt.sign({ userId, homeUniEmail }, Meteor.settings.private.jsonWebTokenSecret, { expiresIn: "2d" });
-        const verifyUrl = "http://localhost:3000/verify/" + token;
+        const verifyUrl = Meteor.absoluteUrl("verify/" + token);
 
         try {
           Email.send({
