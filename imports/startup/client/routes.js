@@ -29,6 +29,14 @@ import GroupChat from '../../ui/pages/group/chat';
 import GroupEvents from '../../ui/pages/group/events';
 
 // Route event handlers
+const combine = (handlers) => {
+  return (nextState, replace) => {
+    handlers.forEach(function (handler) {
+      handler.call(null, nextState, replace);
+    });
+  };
+};
+
 const requireAuth = (nextState, replace) => {
   if (!Meteor.userId()) {
     replace({
@@ -55,6 +63,14 @@ const authenticatedRedirect = (nextState, replace) => {
   }
 };
 
+const verifiedRedirect = (nextState, replace) => {
+  if (Meteor.user() && Meteor.user().homeUniEmailVerified)
+    replace({
+      pathname: '/group',
+      state: { nextPathname: nextState.location.pathname }
+    });
+};
+
 const goToGroupInfo = () => browserHistory.push('/group/info');
 
 // Create an enhanced history that syncs navigation events with the store
@@ -71,7 +87,7 @@ Meteor.startup(() => {
           <Route path="/" component={ App }>
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
-            <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
+            <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
             <Route path="group" component={ Group }>
               <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
