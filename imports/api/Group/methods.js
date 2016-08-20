@@ -21,13 +21,11 @@ if (Meteor.isServer) {
         const values = { universityId: uni.id, year: exchangeUniYear, term: exchangeTerm };
 
         return Group.findOrCreate({ where: values, defaults: values });
-      }).then(function(group) {
-        // NOTE: Not working for now.
-        //
-        // console.log(group[0]);
+      }).then(function(result) {
+        const group = result[0];
 
-        // if (group)
-        //   return group[0].addUser(userId);
+        if (group)
+          return group.addUser(userId);
       });
     },
   });

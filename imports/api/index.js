@@ -33,13 +33,11 @@ User.belongsTo(Country, {
 });
 
 User.belongsToMany(Group, {
-  as: 'userGroup',
   through: UserGroup,
   foreignKey: 'userId'
 });
 
 Group.belongsToMany(User, {
-  as: 'userGroup',
   through: UserGroup,
   foreignKey: 'groupId'
 });
