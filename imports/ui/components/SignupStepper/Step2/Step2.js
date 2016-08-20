@@ -17,9 +17,10 @@ const saveForm = (callback) => {
     const { exchangeUniName, exchangeUniYear, exchangeTerm } = values;
 
     Meteor.call('addUserToGroup', { userId: Meteor.userId(), exchangeUniName, exchangeUniYear, exchangeTerm }, (err, result) => {
-      if (!err)
-        if (callback)
-          callback();
+      if (err)
+        console.log("Error in invoking addUserToGroup: " + err);
+      else if (callback)
+        callback();
     });
   };
 };

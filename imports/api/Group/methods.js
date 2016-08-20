@@ -26,6 +26,13 @@ if (Meteor.isServer) {
 
         if (group)
           return group.addUser(userId);
+        else
+          return false;
+      }).then(function(result) {
+        if (result)
+          return true;
+        else
+          return false;
       });
     },
   });
