@@ -4,6 +4,7 @@ import { LinkButton } from '../Link';
 
 import Step1 from '../SignupStepper/Step1';
 import Step2 from '../SignupStepper/Step2';
+import Step3 from '../SignupStepper/Step3';
 
 export default class SignupStepper extends React.Component {
   constructor(props) {
@@ -60,8 +61,7 @@ export default class SignupStepper extends React.Component {
         <Step>
           <StepLabel>Verify your email</StepLabel>
           <StepContent>
-            <p className="small-text">Feature not yet implemented.</p>
-            <LinkButton to="/group" label="Go to your group" />
+            <Step3 />
           </StepContent>
         </Step>
       </Stepper>

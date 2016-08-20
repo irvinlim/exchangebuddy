@@ -9,6 +9,8 @@ export const TextFormField = ({ name, ...rest }) =>
     fullWidth={true}
     {...rest} />;
 
+export const EmailFormField = (props) => <TextFormField type="email" {...props} />;
+
 export const SelectFormField = ({ name, ...rest }) =>
   <Field
     component={ SelectField }
