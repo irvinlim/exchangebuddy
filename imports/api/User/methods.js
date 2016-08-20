@@ -69,6 +69,31 @@ if (Meteor.isServer) {
       }));
     },
 
+    verifyEmailToken(token) {
+      check(token, String);
+      let decoded;
+
+      try {
+        decoded = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+
+        if (!decoded)
+          return false;
+      } catch (exc) {
+        throw new Meteor.Error("verifyEmailTokenException", exc);
+      }
+
+      return User.findOne({ id: decoded.userId }).then(function(result) {
+        const user = result.get();
+
+        if (!user)
+          throw new Meteor.Error("verifyEmailToken.undefinedUser", "No such user.")
+        if (user.homeUniEmail != decoded.homeUniEmail)
+          throw new Meteor.Error("verifyEmailToken.emailMismatch", "Email mismatch.")
+        else
+          return User.update({ homeUniEmailVerified: true }, { where: { id: decoded.userId } });
+      });
+    },
+
     // Authentication
 
     verifyToken(token) {

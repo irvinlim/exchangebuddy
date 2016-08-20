@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { browserHistory } from 'react-router';
+
 import Loading from '../components/Loading';
 import Link from '../components/Link';
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
@@ -23,7 +25,7 @@ class Verify extends React.Component {
   componentDidMount() {
     const self = this;
 
-    Meteor.call('verifyEmailToken', this.props.token, (err, result) => {
+    Meteor.call('verifyEmailToken', this.props.params.token, (err, result) => {
       if (err || !result) {
         self.setState({ verifyFail: true });
       } else {
