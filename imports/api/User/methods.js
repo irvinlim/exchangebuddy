@@ -38,6 +38,38 @@ if (Meteor.isServer) {
       });
     },
 
+    // Verify email
+
+    sendVerificationEmail(values) {
+      check(values, Object);
+
+      const { userId, homeUniEmail } = values;
+      check(userId, Number);
+      check(homeUniEmail, String);
+
+      return User.findOne({
+        where: { id: userId }
+      }).then(Meteor.bindEnvironment(function(result) {
+        const user = result.get();
+        const verifyUrl = "http://localhost:3000/verify";
+
+        try {
+          Email.send({
+            to: homeUniEmail,
+            from: "ExchangeBuddy <no-reply@mg.irvinlim.com>",
+            subject: "ExchangeBuddy: Please confirm your email",
+            html: `<p>Hi ${user.displayName},</p><p>Please click the link below to verify your email.</p><p><a href="${verifyUrl}">${verifyUrl}</a></p><p>Cheers,<br />ExchangeBuddy</p>`,
+          });
+        } catch (error) {
+          throw new Meteor.Error("sendVerificationEmail.cannotSendMail", "Could not send verification email: " + error);
+        }
+
+        return User.update({ homeUniEmail }, { where: { id: userId } });
+      }));
+    },
+
+    // Authentication
+
     verifyToken(token) {
       check(token, String);
 

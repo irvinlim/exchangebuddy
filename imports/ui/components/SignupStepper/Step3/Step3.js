@@ -50,16 +50,26 @@ const validate = (values) => {
   return errors;
 };
 
-const submitForm = (values) => {
+const submitForm = (self) => (values) => {
   const { homeUniEmail } = values;
 
   Meteor.call('sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
     if (err)
-      console.log("Error in invoking sendVerificationEmail: " + err);
+      return console.log("Error in invoking sendVerificationEmail: " + err);
+    else
+      self.setState({ emailSent: true });
   });
 };
 
 class Step3 extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      emailSent: false
+    };
+  }
+
   render() {
     uniEmailDomains = this.props.emailDomains;
 
@@ -67,7 +77,7 @@ class Step3 extends React.Component {
     const { user, university, emailDomains } = this.props;
 
     return (
-      <form onSubmit={ handleSubmit(submitForm) }>
+      <form onSubmit={ handleSubmit(submitForm(this)) }>
 
         <p>To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
         <p>We will be sending a verification email to confirm your place at the university.</p>
@@ -77,6 +87,8 @@ class Step3 extends React.Component {
         <EmailFormField
           name="homeUniEmail"
           floatingLabelText="Your university email address" />
+
+        { this.state.emailSent ? <p>Verification email sent!</p> : null }
 
         <div style={{ marginTop: 12 }}>
           <NextButton label="Send verification email" disabled={submitting} />
