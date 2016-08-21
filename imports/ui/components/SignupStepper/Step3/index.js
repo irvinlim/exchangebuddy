@@ -1,43 +1,44 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { composeWithTracker } from 'react-komposer';
-import Loading from '../Loading';
+import Loading from '../../Loading';
 
 // Redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// Action creators
-
 // Component
-import ChildComponent from './SignupStepper';
+import ChildComponent from './Step3';
 
 // react-komposer
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  // Get all universities
-  Meteor.call('getAllUnis', (err, universities) => {
-    // Check if user has joined a group
-    Meteor.call('getUserGroups', user.id, (err, userGroups) => {
-      const hasJoinedGroup = userGroups && userGroups.length;
+  Meteor.call('getUniById', user.homeUniId, (err, uni) => {
+    const emailDomains = JSON.parse(uni.emailDomains);
 
-      onData(null, {
-        user, universities, hasJoinedGroup
-      });
+    onData(null, {
+      user, university: uni, emailDomains
     });
   });
+
 };
 
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 
 // redux
+const mapStateToProps = (state) => {
+  return {
+    formState: state.form
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({  }, dispatch),
   };
 };
 
-const SignupStepper = connect(null, mapDispatchToProps)(ComposedComponent);
+const Step3 = connect(mapStateToProps, mapDispatchToProps)(ComposedComponent);
 
-export default SignupStepper;
+export default Step3;

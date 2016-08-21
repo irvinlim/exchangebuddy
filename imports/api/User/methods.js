@@ -38,6 +38,66 @@ if (Meteor.isServer) {
       });
     },
 
+    // Verify email
+
+    sendVerificationEmail(values) {
+      check(values, Object);
+
+      const { userId, homeUniEmail } = values;
+      check(userId, Number);
+      check(homeUniEmail, String);
+
+      return User.findOne({
+        where: { id: userId }
+      }).then(Meteor.bindEnvironment(function(result) {
+        const user = result.get();
+        const token = jwt.sign({ userId, homeUniEmail }, Meteor.settings.private.jsonWebTokenSecret, { expiresIn: "2d" });
+        const verifyUrl = Meteor.absoluteUrl("verify/" + token);
+
+        try {
+          Email.send({
+            to: homeUniEmail,
+            from: "ExchangeBuddy <no-reply@mg.irvinlim.com>",
+            subject: "ExchangeBuddy: Please confirm your email",
+            html: `<p>Hi ${user.displayName},</p><p>Please click the link below to verify your email address.</p><p><a href="${verifyUrl}">${verifyUrl}</a></p><p>Cheers,<br />ExchangeBuddy</p>`,
+          });
+        } catch (error) {
+          throw new Meteor.Error("sendVerificationEmail.cannotSendMail", "Could not send verification email: " + error);
+        }
+
+        return User.update({ homeUniEmail }, { where: { id: userId } });
+      }));
+    },
+
+    verifyEmailToken(token) {
+      check(token, String);
+      let decoded;
+
+      try {
+        decoded = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+
+        if (!decoded)
+          return false;
+      } catch (exc) {
+        throw new Meteor.Error("verifyEmailTokenException", exc);
+      }
+
+      return User.findOne({ id: decoded.userId }).then(function(result) {
+        const user = result.get();
+
+        if (!user)
+          throw new Meteor.Error("verifyEmailToken.undefinedUser", "No such user.");
+        else if (user.homeUniEmail != decoded.homeUniEmail)
+          throw new Meteor.Error("verifyEmailToken.emailMismatch", "Email mismatch.");
+        else if (user.homeUniEmailVerified)
+          return true;
+        else
+          return User.update({ homeUniEmailVerified: true }, { where: { id: decoded.userId } });
+      });
+    },
+
+    // Authentication
+
     verifyToken(token) {
       check(token, String);
 

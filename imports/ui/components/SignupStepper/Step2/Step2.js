@@ -73,7 +73,6 @@ class Step2 extends React.Component {
           openOnFocus={true}
           filter={ filter }
           maxSearchResults={10}
-          onNewRequest={ (chosenRequest, index) => console.log(chosenRequest) }
           dataSource={ universities.map((uni) => uni.name ) } />
 
         <SelectFormField

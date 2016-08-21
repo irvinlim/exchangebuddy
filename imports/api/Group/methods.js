@@ -1,9 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import Group from '.';
 import University from '../University';
+import User from '../User';
 
 if (Meteor.isServer) {
   Meteor.methods({
+
     addUserToGroup(values) {
       check(values, Object);
 
@@ -35,5 +37,16 @@ if (Meteor.isServer) {
           return false;
       });
     },
+
+    getUserGroups(userId) {
+      check(userId, Number);
+
+      return User.findOne({ where: { id: userId } }).then(function(userResult) {
+        return userResult.getGroups();
+      }).then(function(result) {
+        return result.map(x => x.get({ plain: true }));
+      });
+    },
+
   });
 }
