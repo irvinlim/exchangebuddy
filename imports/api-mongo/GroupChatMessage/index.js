@@ -60,4 +60,4 @@ GroupChatMessage.schema = new SimpleSchema({
 
 GroupChatMessage.attachSchema(GroupChatMessage.schema);
 
-export default const GroupChatMessage;
+export default GroupChatMessage;

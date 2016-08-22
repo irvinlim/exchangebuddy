@@ -9,6 +9,7 @@ import './browser-policy';
 // import './reactive-mysql';
 
 // Setup database
+import '../../api-mongo';
 import sequelize from '../../api';
 
 // Wrap in Meteor.bindEnvironment to prevent error
