@@ -14,6 +14,10 @@ BrowserPolicy.content.allowOriginForAll( 'www.facebook.com' );
 BrowserPolicy.content.allowOriginForAll( 'staticxx.facebook.com' );
 BrowserPolicy.content.allowScriptOrigin( 'graph.facebook.com' );
 
+// Facebook images
+BrowserPolicy.content.allowImageOrigin( 'scontent.xx.fbcdn.net' );
+BrowserPolicy.content.allowImageOrigin( 'fbcdn-profile-a.akamaihd.net' );
+
 // Image CDN
 BrowserPolicy.content.allowImageOrigin( 'res.cloudinary.com' );
 

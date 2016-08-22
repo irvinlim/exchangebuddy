@@ -20,15 +20,11 @@ export default class EventsList extends React.Component {
     switch(this.props.source){
       case 'Facebook':
         Meteor.call('getGroupFbEvents', this.props.uni.latLng, (err, res)=>{
-          console.log(res)
-
           this.setState({ groupEvents: res.events });
         })
       break;
       case 'Meetup':
         Meteor.call('getGroupMuEvents', this.props.uni.latLng, this.props.uni.city, (err, res) => {
-          console.log(res)
-
           this.setState({ groupEvents: res.results });
         });
       break;

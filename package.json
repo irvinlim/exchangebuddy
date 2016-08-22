@@ -28,6 +28,7 @@
     "material-ui": "^0.15.4",
     "meetup-api": "^1.4.3",
     "meteor-node-stubs": "^0.2.3",
+    "moment": "^2.14.1",
     "mysql": "^2.11.1",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
@@ -49,6 +50,7 @@
     "redux-store": "0.0.0",
     "sequelize": "^3.24.0",
     "striptags": "^2.1.1",
+    "truncate": "^2.0.0",
     "utf-8-validate": "^1.2.1",
     "validator": "^5.5.0"
   }
