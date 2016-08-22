@@ -51,13 +51,10 @@ if (Meteor.isServer) {
       });
     },
 
-    getGroupFbEvents(countryId) {
-      check(countryId, String);
+    getGroupFbEvents(latLng) {
+      check(latLng, Array);
 
-      const countryMapping = require('../../../data/topuniversities/countryMapping.json');
-      const countryLatLngMapping = require('../../../data/countrytolatlng/countryLatLngMapping.json');
-      const latLng = countryLatLngMapping[countryMapping[countryId].toLowerCase()];
-
+      // Search by latLng of uni
       const es = new EventSearch({
         "lat": latLng[0],
         "lng": latLng[1],
@@ -74,12 +71,20 @@ if (Meteor.isServer) {
 
     },
 
-    getGroupMuEvents(cityName) {
+    getGroupMuEvents(latLng, cityName) {
+      check(latLng, Array);
       check(cityName, String);
 
+      // Search events by latLng and city name of uni
       const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
       const eventsPromise = new Promise(function(resolve, reject){
-        Meetup.getOpenEvents({ "topic": cityName }, (error, events)=>{
+        Meetup.getOpenEvents({
+          "text": cityName,
+          "order": "trending",
+          "lat": latLng[0],
+          "lng": latLng[1],
+          "page": 20
+        }, (error, events)=>{
           if(error)
             console.log(error);
           else
