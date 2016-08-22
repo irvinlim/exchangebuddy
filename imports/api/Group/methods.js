@@ -1,7 +1,12 @@
 import { Meteor } from 'meteor/meteor';
+import { HTTP } from 'meteor/http';
 import Group from '.';
 import University from '../University';
 import User from '../User';
+import EventSearch from "facebook-events-by-location-core";
+import meetup from "meetup-api";
+
+const Meetup = meetup(Meteor.settings.private.Meetup.apiKey);
 
 if (Meteor.isServer) {
   Meteor.methods({
@@ -48,5 +53,32 @@ if (Meteor.isServer) {
       });
     },
 
+    getGroupFbEvents(countryId) {
+      check(countryId, String);
+
+      const countryMapping = require('../../../data/topuniversities/countryMapping.json');
+      const countryLatLngMapping = require('../../../data/countrytolatlng/countryLatLngMapping.json');
+      const latLng = countryLatLngMapping[countryMapping[countryId].toLowerCase()];
+
+      const es = new EventSearch({
+        "lat": latLng[0],
+        "lng": latLng[1],
+        "accessToken": Meteor.settings.public.Facebook.appAccessToken,
+        // distance in metres
+        "distance": 25000
+      });
+
+      return es.search().then(function (events) {
+        return events;
+      }).catch(function (error) {
+        console.error(JSON.stringify(error));
+      });
+
+    },
+
+    getGroupMeetupEvents(cityName) {
+
+
+    }
   });
 }

@@ -16,21 +16,22 @@ export default class EventsList extends React.Component {
 
 	componentDidMount() {
 		// TODO: query group events from fb and meetup API by location
-		this.setState({
-			groupEvents: [{
-				title:'a',
-				description: 'description',
-				link:"http://google.com"
-			},{
-				title:'b',
-				description: 'description',
-				link:"http://google.com"
-			},{
-				title:'c',
-				description: 'description',
-				link:"http://google.com"
-			},]
-		})
+    switch(this.props.source){
+      case 'Facebook':
+        Meteor.call('getGroupFbEvents', this.props.uni.countryId, (err, res)=>{
+          this.setState({ groupEvents: res.events });
+        })
+      break;
+      case 'Meetup':
+        Meteor.call('getGroupMeetupEvents', this.props.uni.city, (err, res)=>{
+          this.setState({ groupEvents: res.events });
+        })
+      break;
+      default:
+      break;
+    }
+
+
 	}
 
 	render() {
