@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import { TextFormField, SelectFormField, AutoCompleteFormField } from '../../Field';
 import NextButton from '../NextButton';
 
+import * as SessionHelper from '../../../../util/session';
+
 export const fields = [ 'displayName', 'gender', 'homeUniName' ];
 
 const saveForm = (callback) => {
@@ -14,8 +16,7 @@ const saveForm = (callback) => {
 
     Meteor.call('updateProfile', { id: Meteor.userId(), displayName, gender, homeUniName }, (err, result) => {
       if (!err)
-        if (callback)
-          callback();
+        SessionHelper.setCurrentUser(callback); // Required so that Meteor.user() will reflect the new user information
     });
   };
 };
@@ -52,7 +53,7 @@ class Step1 extends React.Component {
       <form onSubmit={ handleSubmit(saveForm(handleNext)) }>
         <Row>
           <Col xs={12}>
-            <TextFormField name="displayName" floatingLabelText="Your Name" {...displayName} />
+            <TextFormField name="displayName" floatingLabelText="Your name" {...displayName} />
 
             <SelectFormField name="gender" floatingLabelText="Gender" {...gender}>
               <MenuItem value="male" primaryText="Male" />
@@ -62,7 +63,7 @@ class Step1 extends React.Component {
 
             <AutoCompleteFormField
               name="homeUniName"
-              floatingLabelText="Current University"
+              floatingLabelText="Current university"
               {...homeUniName}
               openOnFocus={true}
               filter={ filter }

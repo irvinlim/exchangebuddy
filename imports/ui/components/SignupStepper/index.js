@@ -16,8 +16,16 @@ import ChildComponent from './SignupStepper';
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  onData(null, {
-    user,
+  // Get all universities
+  Meteor.call('getAllUnis', (err, universities) => {
+    // Check if user has joined a group
+    Meteor.call('getUserGroups', user.id, (err, userGroups) => {
+      const hasJoinedGroup = userGroups && userGroups.length;
+
+      onData(null, {
+        user, universities, hasJoinedGroup
+      });
+    });
   });
 };
 

@@ -4,3 +4,6 @@ settings-production.json
 npm-debug.log
 
 node_modules
+
+mup.json
+settings.json

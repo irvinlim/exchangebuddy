@@ -19,15 +19,24 @@ import App from '../../ui/layouts/app';
 // Pages
 import Home from '../../ui/pages/home';
 import Signup from '../../ui/pages/signup';
+import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
 
 // Group
 import Group from '../../ui/pages/group/group';
 import GroupInfo from '../../ui/pages/group/info';
 import GroupChat from '../../ui/pages/group/chat';
-import GroupNews from '../../ui/pages/group/news';
+import GroupEvents from '../../ui/pages/group/events';
 
 // Route event handlers
+const combine = (handlers) => {
+  return (nextState, replace) => {
+    handlers.forEach(function (handler) {
+      handler.call(null, nextState, replace);
+    });
+  };
+};
+
 const requireAuth = (nextState, replace) => {
   if (!Meteor.userId()) {
     replace({
@@ -54,6 +63,14 @@ const authenticatedRedirect = (nextState, replace) => {
   }
 };
 
+const verifiedRedirect = (nextState, replace) => {
+  if (Meteor.user() && Meteor.user().homeUniEmailVerified)
+    replace({
+      pathname: '/group',
+      state: { nextPathname: nextState.location.pathname }
+    });
+};
+
 const goToGroupInfo = () => browserHistory.push('/group/info');
 
 // Create an enhanced history that syncs navigation events with the store
@@ -70,12 +87,13 @@ Meteor.startup(() => {
           <Route path="/" component={ App }>
 
             <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
-            <Route name="signup" path="signup" component={ Signup } onEnter={ requireAuth } />
+            <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
+            <Route name="verify" path="verify/:token" component={ Verify } />
             <Route path="group" component={ Group }>
               <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
               <Route path="info" component={ GroupInfo } />
               <Route path="chat" component={ GroupChat } />
-              <Route path="news" component={ GroupNews } />
+              <Route path="events" component={ GroupEvents } />
               <Redirect from="*" to="info" />
             </Route>
             <Route path="*" component={ NotFound } />

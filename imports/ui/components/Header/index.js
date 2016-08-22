@@ -18,9 +18,16 @@ const composer = (props, onData) => {
   const user = Meteor.user();
   // const uni = University.find(user.homeUniId);
   let uni = { id: '10', name: 'Singapore University of Technology and Design', city: 'Singapore', logoImageId: 'logo-sutd-main_hphs2p', emailDomains: '10', countryId: '1', terms: 'Summer 2016', bgImageId: 'sutd-slider-aeriel-view_uckqr6_cdfnan'};
+  // SELECT COUNT(user_id) WHERE group_id = groupId
+  // Mock sum of group members
+  groupMemberCount = 10;
+  let group = { id: '1', universityId: '1', year: '2', term: '3' };
+  group.size = groupMemberCount;
+
   onData(null, {
     user,
     uni,
+    group
   });
 };
 

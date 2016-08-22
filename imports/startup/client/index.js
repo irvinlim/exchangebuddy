@@ -1,5 +1,4 @@
 // Initialize configs
-import './config/bert';
 import './config/reactga';
 import './config/cloudinary';
 

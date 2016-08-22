@@ -18,6 +18,14 @@ if (Meteor.isServer) {
       });
     },
 
+    getUniByName(name) {
+      check(name, String);
+
+      return University.findOne({ where: { name } }).then(function(result) {
+        return result && result.get();
+      });
+    },
+
   });
 
   export const bulkCreateOrUpdate = (unis) => {

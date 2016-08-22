@@ -20,7 +20,7 @@ const InfoItem = ({ info }) => (
 const InfoSection = ({ items }) => (
   <Row>
     <Col xs={12}>
-    {items.map( item => ( <InfoItem key={ item.createdAt } info={ item } /> ))}
+    {items.map( (item, idx) => ( <InfoItem key={ idx } info={ item } /> ))}
     </Col>
   </Row>
 )

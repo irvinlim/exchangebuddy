@@ -42,13 +42,13 @@ class SubmitForm extends Component {
             rowsMax={3}
             rows={3}
             ref="msg"
-            withRef  />
-          </div>
-          <div>
-            <RaisedButton style={{ marginRight: 10 }} primary={true} type="submit" disabled={pristine || submitting}>Submit</RaisedButton>
-            <RaisedButton style={{ marginRight: 10 }} type="button" disabled={pristine || submitting} onClick={reset}>Clear</RaisedButton>
-          </div>
-
+            withRef
+          />
+        </div>
+        <div>
+          <button type="submit" disabled={pristine || submitting}>Submit</button>
+          <button type="button" disabled={pristine || submitting} onClick={reset}>Clear</button>
+        </div>
       </form>
     )
   }
