@@ -86,7 +86,7 @@ Meteor.startup(() => {
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
 
-            <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <IndexRoute name="home" component={ Home } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
             <Route path="group" component={ Group }>
