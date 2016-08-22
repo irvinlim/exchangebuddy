@@ -101,11 +101,15 @@ if (Meteor.isServer) {
     verifyToken(token) {
       check(token, String);
 
+      let decoded = null;
+
       try {
-        return jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+        decoded = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
       } catch (exc) {
         throw new Meteor.Error("verifyTokenException", exc);
       }
+
+      return decoded;
     },
 
     loginFacebook(response) {
@@ -155,4 +159,16 @@ if (Meteor.isServer) {
     },
 
   });
+
+  export const verifyToken = (token) => {
+    let decoded = null;
+
+    try {
+      decoded = jwt.verify(token, Meteor.settings.private.jsonWebTokenSecret);
+    } catch (exc) {
+      decoded = null;
+    }
+
+    return decoded;
+  };
 }

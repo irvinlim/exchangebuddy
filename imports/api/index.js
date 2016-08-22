@@ -11,6 +11,8 @@ import UserGroup from './UserGroup';
 
 // Methods
 import './User/methods';
+import './University/methods';
+import './Country/methods';
 import './Group/methods';
 
 // Publications

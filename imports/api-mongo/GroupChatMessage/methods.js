@@ -1,89 +1,46 @@
+import { Meteor } from 'meteor/meteor';
 import GroupChatMessage from '.';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import Group from '../../api/Group';
+import User from '../../api/User';
 
-// Only logged in users can insert comments.
-export const addMessage = new ValidatedMethod({
-  name: 'groupChatMessage.addMessage',
-  validate: new SimpleSchema({
-    userId: { type: Number },
-    userToken: { type: String },
-    groupId: { type: Number },
-    userId: { type: Number },
-    content: { type: String },
-  }).validator(),
-  run({ userToken, groupId, userId, content }) {
-    Meteor.call('getGroup', groupId, (err, group) => {
-      Meteor.call('verifyToken', userToken, (err, decodedToken) => {
-        console.log(decodedToken);
+import { verifyToken } from '../../api/User/methods';
 
-        if (!this.userId)
-          throw new Meteor.Error("groupChatMessage.addMessage.notLoggedIn", "Must be logged in to insert comment.");
-        else if (this.userId != userId)
-          throw new Meteor.Error("groupChatMessage.addMessage.notAuthenticated", "User ID does not match.");
-        else if (!group)
-          throw new Meteor.Error("groupChatMessage.addMessage.undefinedGroup", "No such Group found.");
+if (Meteor.isServer) {
 
-        // Insert comment
-        GroupChatMessage.insert({ groupId, userId, content });
+  Meteor.methods({
+
+    'groupChat.addMessage': function(values) {
+      check(values, Object);
+
+      const { userId, userToken, groupId, content } = values;
+      check(userId, Number);
+      check(userToken, String);
+      check(groupId, Number);
+      check(content, String);
+
+      const mongoAction = Meteor.bindEnvironment(() => GroupChatMessage.insert({ groupId, userId, content }));
+
+      return Group.findById(groupId).then(function(result) {
+        const group = result.get();
+        const user = verifyToken(userToken);
+
+        if (!group || group.isRemoved)
+          throw new Meteor.Error("groupChat.addMessage.undefinedGroup", "No such Group.");
+        else if (!user || user.id != userId)
+          throw new Meteor.Error("groupChat.addMessage.notAuthenticated", "User token is not authenticated.");
+
+        return User.findById(userId);
+      }).then(function(user) {
+        return user.getGroups();
+      }).then(function(userGroups) {
+        const userIsInGroup = userGroups.some(group => group.get().id === groupId);
+        if (!userIsInGroup)
+          throw new Meteor.Error("groupChat.addMessage.notAuthorized", "You are not authorized.");
+
+        // Finally run Mongo action
+        return mongoAction();
       });
-    });
-  },
-});
+    },
 
-// Only message author and mods/admins can edit messages.
-export const editMessage = new ValidatedMethod({
-  name: 'groupChatMessage.edit',
-  validate: new SimpleSchema({
-    userToken: { type: String },
-    _id: { type: String },
-    userId: { type: String },
-    content: { type: String }
-  }).validator(),
-  run({ _id, userId, content }) {
-    // Get comment
-    const comment = GroupChatMessage.findOne(_id);
-
-    if (!comment)
-      throw new Meteor.Error("groupChatMessage.editMessage.undefinedComment", "No such comment found.");
-
-    // Check authorized
-    const isAuthorized = Roles.userIsInRole(this.userId, ['moderator', 'admin']) || userId == comment.userId;
-
-    if (!this.userId || this.userId != userId)
-      throw new Meteor.Error("groupChatMessage.editMessage.notLoggedIn", "Must be logged in to edit comment.");
-    else if (!isAuthorized)
-      throw new Meteor.Error("groupChatMessage.editMessage.notAuthorized", "Not authorized to edit comment.");
-
-    // Update comment
-    GroupChatMessage.update(_id, { $set: { content } });
-  },
-});
-
-// Only comment author and mods/admins can remove comments.
-export const removeMessage = new ValidatedMethod({
-  name: 'groupChatMessage.remove',
-  validate: new SimpleSchema({
-    userToken: { type: String },
-    _id: { type: String },
-    userId: { type: String },
-  }).validator(),
-  run({ _id, userId }) {
-    // Get comment
-    const comment = GroupChatMessage.findOne(_id);
-
-    if (!comment)
-      throw new Meteor.Error("groupChatMessage.removeMessage.undefinedComment", "No such comment found.");
-
-    // Check authorized
-    const isAuthorized = Roles.userIsInRole(this.userId, ['moderator', 'admin']) || userId == comment.userId;
-
-    if (!this.userId || this.userId != userId)
-      throw new Meteor.Error("groupChatMessage.removeMessage.notLoggedIn", "Must be logged in to remove comment.");
-    else if (!isAuthorized)
-      throw new Meteor.Error("groupChatMessage.removeMessage.notAuthorized", "Not authorized to remove comment.");
-
-    // Update comment
-    GroupChatMessage.update(_id, { $set: { isRemoved: true, removeUserId: userId } });
-  },
-});
+  });
+}

@@ -15,6 +15,6 @@ Meteor.publish('messages-for-group', function(groupId) {
     isRemoved: { $ne: true },
   };
 
-  // Publish all comments for this giveaway that are not removed.
+  // Publish all messages that are not removed.
   return GroupChatMessage.find(selector);
 });

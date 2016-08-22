@@ -8,10 +8,15 @@ import SubmitForm from '../../components/Group/Chat/SubmitForm'
 import MessageView from '../../components/Group/Chat/MessageView'
 
 const showResults = values =>
-  new Promise(resolve => {
+  new Promise((resolve, reject) => {
     setTimeout(() => {  // simulate server latency
-      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-      resolve()
+      // TODO: Replace groupId with actual group ID from prop
+      Meteor.call('groupChat.addMessage', { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: 1, content: values.message }, (err, success) => {
+        if (err)
+          reject("Cannot add message.", err);
+
+        resolve();
+      });
     }, 500)
   })
 

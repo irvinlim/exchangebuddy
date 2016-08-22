@@ -17,6 +17,7 @@ export const setCurrentUser = (callback = () => {}) => {
   // Let Meteor.user get from session variable
   Meteor.user = () => Session.get("currentUser");
   Meteor.userId = () => Session.get("currentUser") && Session.get("currentUser").id;
+  Meteor.userToken = () => Session.get("currentUserToken");
 
   verifyCurrentUser((error, user) => {
     // Clear session variable if we cannot verify the user.

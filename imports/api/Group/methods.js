@@ -12,7 +12,10 @@ if (Meteor.isServer) {
       return Group.findOne({
         where: { id }
       }).then(function(result) {
-        return result && result.get();
+        if (result)
+          return result.get();
+        else
+          throw new Meteor.Error('getGroup.undefinedGroup');
       });
     },
 
