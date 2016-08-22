@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 
-const EventItem = ({ groupEvent }) => (
+const EventItemFb = ({ groupEvent }) => (
   <Row>
     <Col xs={12}>
       <Card>
@@ -19,4 +19,4 @@ const EventItem = ({ groupEvent }) => (
   </Row>
 )
 
-export default EventItem;
+export default EventItemFb;

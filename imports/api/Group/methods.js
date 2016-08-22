@@ -6,8 +6,6 @@ import User from '../User';
 import EventSearch from "facebook-events-by-location-core";
 import meetup from "meetup-api";
 
-const Meetup = meetup(Meteor.settings.private.Meetup.apiKey);
-
 if (Meteor.isServer) {
   Meteor.methods({
 
@@ -76,8 +74,21 @@ if (Meteor.isServer) {
 
     },
 
-    getGroupMeetupEvents(cityName) {
+    getGroupMuEvents(cityName) {
+      check(cityName, String);
 
+      const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
+      const eventsPromise = new Promise(function(resolve, reject){
+        Meetup.getOpenEvents({ "topic": cityName }, (error, events)=>{
+          if(error)
+            console.log(error);
+          else
+            resolve(events);
+        });
+      })
+      return eventsPromise.then(function(events) {
+        return events;
+      })
 
     }
   });
