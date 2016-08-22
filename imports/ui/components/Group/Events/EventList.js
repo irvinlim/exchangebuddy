@@ -37,7 +37,7 @@ export default class EventsList extends React.Component {
 
 	render() {
 		return (
-			<div style={{height: $(window).height(), overflowY: "scroll"}}>
+			<div style={{height: $(window).height(), overflowY: "scroll", overflowX: "hidden"}}>
 			{ this.state.groupEvents.length > 0 ?
         this.props.source == "Facebook" ?
 				  this.state.groupEvents.map( (groupEvent, idx) => ( <EventItemFb key={ idx } groupEvent={ groupEvent } /> ))
