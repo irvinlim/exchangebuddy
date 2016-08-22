@@ -6,6 +6,16 @@ import User from '../User';
 if (Meteor.isServer) {
   Meteor.methods({
 
+    getGroup(id) {
+      check(id, Number);
+
+      return Group.findOne({
+        where: { id }
+      }).then(function(result) {
+        return result && result.get();
+      });
+    },
+
     addUserToGroup(values) {
       check(values, Object);
 
