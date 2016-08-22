@@ -51,29 +51,52 @@ if (Meteor.isServer) {
       });
     },
 
-    getGroupFbEvents(latLng) {
-      check(latLng, Array);
+    getGroupFbEvents(countryId, uniCBDLatLng) {
+      check(countryId, String);
+      check(uniCBDLatLng, Array);
 
-      // Search by latLng of uni
-      const es = new EventSearch({
+      const countryMapping = require('../../../data/topuniversities/countryMapping.json');
+      const countryLatLngMapping = require('../../../data/countrytolatlng/countryLatLngMapping.json');
+      const latLng = countryLatLngMapping[countryMapping[countryId].toLowerCase()];
+
+      // Search by latLng of country center & CBD of city of uni
+      const esCountry = new EventSearch({
         "lat": latLng[0],
         "lng": latLng[1],
         "accessToken": Meteor.settings.public.Facebook.appAccessToken,
         // distance in metres
-        "distance": 25000
+        "distance": 50000
       });
 
-      return es.search().then(function (events) {
-        return events;
-      }).catch(function (error) {
-        console.error(JSON.stringify(error));
-      });
+      const esUni = new EventSearch({
+        "lat": uniCBDLatLng[0],
+        "lng": uniCBDLatLng[1],
+        "accessToken": Meteor.settings.public.Facebook.appAccessToken,
+        // distance in metres
+        "distance": 50000
+      })
+
+      return esCountry.search().then(function (res) {
+        return esUni.search().then(function(res2) {
+          return res2.events.concat(res.events).sort( (a,b) => {
+            if(a.stats.attending < b.stats.attending){
+              return 1;
+            } else if(a.stats.attending > b.stats.attending){
+              return -1;
+            } else {
+              return 0;
+            }
+          });
+        }).catch(error => console.error(JSON.stringify(error)));
+      }).catch(error => console.error(JSON.stringify(error)));
+
 
     },
 
-    getGroupMuEvents(latLng, cityName) {
+    getGroupMuEvents(latLng, cityName, pageNumber) {
       check(latLng, Array);
       check(cityName, String);
+      check(pageNumber, Number);
 
       // Search events by latLng and city name of uni
       const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
@@ -81,15 +104,16 @@ if (Meteor.isServer) {
         Meetup.getOpenEvents({
           "text": cityName,
           "order": "trending",
-          "lat": latLng[0],
-          "lng": latLng[1],
-          "page": 20
+          "page": 20,
+          "offset": pageNumber,
+          "desc": true
         }, (error, events)=>{
           if(error)
             console.log(error);
           else
             resolve(events);
         });
+
       })
       return eventsPromise.then(function(events) {
         return events;

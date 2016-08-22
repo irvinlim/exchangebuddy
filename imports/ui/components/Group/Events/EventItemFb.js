@@ -8,10 +8,10 @@ import truncate from 'truncate';
 const EventItemFb = ({ groupEvent }) => (
   <Row>
     <Col xs={12}>
-      <Card style={{paddingBottom: "12px"}}>
+      <Card className="event-item-card">
         <CardHeader
           title={ groupEvent.name }
-          subtitle={ `Starting on ${ moment(groupEvent.startTime).format("Q MMM ddd, hA") }` }
+          subtitle={ `${ moment(groupEvent.startTime).format("Q MMM, ddd, hA") } - ${groupEvent.stats.attending} attending` }
           avatar={ groupEvent.venue.profilePicture || groupEvent.profilePicture }
           actAsExpander={ true }
           showExpandableButton={ true }

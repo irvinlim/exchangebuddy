@@ -18,6 +18,10 @@ BrowserPolicy.content.allowScriptOrigin( 'graph.facebook.com' );
 BrowserPolicy.content.allowImageOrigin( 'scontent.xx.fbcdn.net' );
 BrowserPolicy.content.allowImageOrigin( 'fbcdn-profile-a.akamaihd.net' );
 
+// Meetup images
+BrowserPolicy.content.allowImageOrigin( '*.meetupstatic.com' );
+BrowserPolicy.content.allowImageOrigin( '*.e.akamai.net' );
+
 // Image CDN
 BrowserPolicy.content.allowImageOrigin( 'res.cloudinary.com' );
 
