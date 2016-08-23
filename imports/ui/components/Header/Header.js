@@ -14,7 +14,7 @@ const Header = ({ user, uni, group, actions }) => (
   <div id="header" style={{
     backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
       url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
-    backgroundSize: "cover" }}>
+    backgroundSize: "cover", height: 360 }}>
 
     <div id="logo-image">
       { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 99, "exchangebuddy-logo") }
