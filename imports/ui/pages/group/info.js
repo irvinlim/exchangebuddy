@@ -6,7 +6,6 @@ import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
 
 import InfoList from '../../components/Group/Info/InfoList';
 
-// TODO:
 export class GroupInfo extends React.Component {
 	constructor(props, context) {
 		super(props, context);

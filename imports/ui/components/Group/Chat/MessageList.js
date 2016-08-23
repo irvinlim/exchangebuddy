@@ -14,8 +14,8 @@ export default class MessageList extends React.Component {
     const { messages } = this.props;
     return(
       <div>
-      { messages.length>0 && messages.map(message => (
-        <Message height={300} message={message} key={message.id}/>
+      { messages.length>0 && messages.map((message, idx) => (
+        <Message height={300} message={message} key={idx} />
         )) }
       </div>
     )

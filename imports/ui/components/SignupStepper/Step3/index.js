@@ -14,13 +14,15 @@ import ChildComponent from './Step3';
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  Meteor.call('getUniById', user.homeUniId, (err, uni) => {
-    const emailDomains = JSON.parse(uni.emailDomains);
+  if (user.homeUniId) {
+    Meteor.call('getUniById', user.homeUniId, (err, uni) => {
+      const emailDomains = JSON.parse(uni.emailDomains);
 
-    onData(null, {
-      user, university: uni, emailDomains
+      onData(null, {
+        user, university: uni, emailDomains
+      });
     });
-  });
+  }
 
 };
 

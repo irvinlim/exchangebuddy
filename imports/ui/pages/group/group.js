@@ -9,7 +9,7 @@ const Group = React.createClass({
   render() {
     return (
       <div>
-        <Header />
+        <Header params={ this.props.params } tab={ this.props.routes[2].path } />
         <div id="group-container">
           { this.props.children }
         </div>

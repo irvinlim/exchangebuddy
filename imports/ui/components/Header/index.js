@@ -34,12 +34,19 @@ const composer = (props, onData) => {
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 
 // redux
+const mapStateToProps = (state, ownProps) => {
+  return{
+    params: ownProps.params,
+    tab: ownProps.tab
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators({ showSnackbar }, dispatch),
   };
 };
 
-const Header = connect(null, mapDispatchToProps)(ComposedComponent);
+const Header = connect(mapStateToProps, mapDispatchToProps)(ComposedComponent);
 
 export default Header;
