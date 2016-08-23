@@ -12,7 +12,7 @@ const EventItemMu = ({ groupEvent }) => (
       <Card className="event-item-card">
         <CardHeader
           title={ groupEvent.name }
-          subtitle={ `${ moment(groupEvent.time).format("Q MMM ddd, hA") } - ${groupEvent.yes_rsvp_count} RSVPs` }
+          subtitle={ `${ moment(groupEvent.time).format("D MMM, ddd, hA") } - ${groupEvent.yes_rsvp_count} RSVPs` }
           actAsExpander={true}
           showExpandableButton={true}
         />

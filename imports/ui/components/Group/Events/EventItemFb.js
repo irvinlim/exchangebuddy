@@ -11,7 +11,7 @@ const EventItemFb = ({ groupEvent }) => (
       <Card className="event-item-card">
         <CardHeader
           title={ groupEvent.name }
-          subtitle={ `${ moment(groupEvent.startTime).format("Q MMM, ddd, hA") } - ${groupEvent.stats.attending} attending` }
+          subtitle={ `${ moment(groupEvent.startTime).format("D MMM, ddd, hA") } - ${groupEvent.stats.attending} attending` }
           avatar={ groupEvent.venue.profilePicture || groupEvent.profilePicture }
           actAsExpander={ true }
           showExpandableButton={ true }
