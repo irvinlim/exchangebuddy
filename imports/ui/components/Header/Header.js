@@ -8,9 +8,9 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import HeaderProfile from './HeaderProfile';
 
-const gotourl = (url) => () => browserHistory.push(url);
+const gotourl = (groupId, tab) => () => { browserHistory.push(`/group/${groupId}/${tab}`) }
 
-const Header = ({ user, uni, group, actions }) => (
+const Header = ({ user, uni, group, actions, params }) => (
   <div id="header" style={{
     backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
       url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
@@ -33,9 +33,10 @@ const Header = ({ user, uni, group, actions }) => (
         <Col xs={0} md={2}></Col>
         <Col xs={12} md={8} id="header-tab-row">
         <Tabs inkBarStyle={{backgroundColor: "#fff"}}>
-          <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl('/group/info') } />
-          <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab" onActive={ gotourl('/group/chat') } />
-          <Tab icon={IconsHelper.materialIcon("event")} label="EVENTS" className="header-tab" onActive={ gotourl('/group/events') } />
+          <Tab icon={IconsHelper.materialIcon("home")} label="HOME" className="header-tab" onActive={ gotourl(params.id, "home") } />
+          <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl(params.id, "info") } />
+          <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab" onActive={ gotourl(params.id, "chat") } />
+          <Tab icon={IconsHelper.materialIcon("event")} label="EVENTS" className="header-tab" onActive={ gotourl(params.id, "events") } />
         </Tabs>
         </Col>
       </Row>

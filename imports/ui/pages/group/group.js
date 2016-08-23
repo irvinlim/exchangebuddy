@@ -9,7 +9,7 @@ const Group = React.createClass({
   render() {
     return (
       <div>
-        <Header />
+        <Header params={ this.props.params } />
         <div id="group-container">
           { this.props.children }
         </div>
