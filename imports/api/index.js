@@ -61,7 +61,12 @@ Group.belongsToMany(User, {
 
 Group.belongsTo(University, {
   foreignKey: 'universityId',
-  as: 'university',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+University.hasMany(Group, {
+  foreignKey: 'universityId',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });

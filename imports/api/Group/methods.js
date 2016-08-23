@@ -12,11 +12,9 @@ if (Meteor.isServer) {
     getGroup(id) {
       check(id, Number);
 
-      return Group.findById(id).then(function(result) {
-        if (result)
-          return result.get();
-        else
-          throw new Meteor.Error('getGroup.undefinedGroup');
+      return Group.findOne({ where: { id }, include: [ University ], plain: true }).then(function(result) {
+        const group = result && result.get({ plain: true });
+        return group;
       });
     },
 
