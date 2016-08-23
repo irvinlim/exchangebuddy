@@ -1,0 +1,11 @@
+.grid-list {
+  margin-top: 12px !important;
+  > div {
+    margin-bottom: 60px !important;
+  }
+}
+
+.grid-img {
+  max-height: 250px;
+  transform: translateY(0) !important;
+}

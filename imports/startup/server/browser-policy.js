@@ -26,8 +26,7 @@ BrowserPolicy.content.allowImageOrigin( '*.e.akamai.net' );
 BrowserPolicy.content.allowImageOrigin( 'res.cloudinary.com' );
 
 // Mocks
-// Avatars
 BrowserPolicy.content.allowImageOrigin( 'avatars.io' );
-
-// Gifs
 BrowserPolicy.content.allowImageOrigin( 'media.giphy.com' );
+BrowserPolicy.content.allowImageOrigin( 'placeholdit.imgix.net')
+BrowserPolicy.content.allowImageOrigin( 'placehold.it')

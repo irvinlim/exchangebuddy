@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
+import faker from 'faker';
 
 import InfoList from '../../components/Group/Info/InfoList';
 
@@ -36,14 +36,17 @@ function generateSecItems(type) {
   let res = [];
   switch(type){
     case 'country':
-      for(let i =0; i<5; i++) {
-          const secItem = {countrySectionId: i, countryId: type + i, content: type, createdAt: i, updatedAt: i, userId: i};
+      for(let i =1; i<6; i++) {
+          const secItem = {countrySectionId: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
+          secItem.sectionLabel= faker.Lorem.words();
+          secItem.img = 'http://placehold.it/'+Math.floor(Math.random()*i*100)+'x'+Math.floor(Math.random()*i*100);
           res.push(secItem);
       }
     break;
     case 'uni':
       for(let i =0; i<5; i++) {
-          const secItem = {uniSectionId: i, universities_id: type + i, content: i, createdAt: i, updatedAt: i, editUserId: i};
+          const secItem = {uniSectionId: "uniSectionId"+i, universities_id: "universities_id" + i, content: 'content' + i, createdAt: new Date(), updatedAt: new Date(), editUserId: i};
+          secItem.sectionLabel= type+"sectionLabel"+i;
           res.push(secItem);
       }
     break;

@@ -5,10 +5,11 @@
 @import "base/animations";
 @import "base/forms";
 
+@import "module/info";
+@import "module/events";
 @import "module/loading";
 @import "module/login";
 @import "module/signup";
 @import "module/header";
-@import "module/events";
 
 @import "state/navbar";
