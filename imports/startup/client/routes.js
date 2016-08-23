@@ -82,7 +82,7 @@ const goToDefaultGroup = (nextState, replace) => {
     });
   } else {
     // Check if have any other group; else just go to home.
-    Meteor.call('getUserGroups', Meteor.userId(), (err, groups) => {
+    Meteor.call('User.getGroups', Meteor.userId(), (err, groups) => {
       let path;
       if (groups.length)
         path = `/group/${ groups[0].id }`;

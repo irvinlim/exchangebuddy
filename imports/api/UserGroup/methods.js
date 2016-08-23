@@ -7,7 +7,7 @@ import User from '../User';
 if (Meteor.isServer) {
   Meteor.methods({
 
-    addUserToGroup(values) {
+    'UserGroup.addUserToGroup'(values) {
       check(values, Object);
 
       const { userId, exchangeUniName, exchangeUniYear, exchangeTerm } = values;
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
 
       return University.findOne({ where: { name: exchangeUniName } }).then(function(result) {
         if (!result)
-          throw new Meteor.Error("addUserToGroup.undefinedUniversity", "No such university found.");
+          throw new Meteor.Error("UserGroup.addUserToGroup.undefinedUniversity", "No such university found.");
 
         const uni = result.get();
         const values = { universityId: uni.id, year: exchangeUniYear, term: exchangeTerm };
@@ -31,20 +31,10 @@ if (Meteor.isServer) {
           group.addUser(userId);
           return group;
         } else {
-          throw new Meteor.Error("addUserToGroup.undefinedGroup", "No such Group found.");
+          throw new Meteor.Error("UserGroup.addUserToGroup.undefinedGroup", "No such Group found.");
         }
       }).then(function(group) {
         return User.update({ defaultGroupId: group.id }, { where: { id: userId } });
-      });
-    },
-
-    getUserGroups(userId) {
-      check(userId, Number);
-
-      return User.findOne({ where: { id: userId } }).then(function(userResult) {
-        return userResult.getGroups();
-      }).then(function(result) {
-        return result.map(x => x.get({ plain: true }));
       });
     },
 

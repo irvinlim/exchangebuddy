@@ -15,7 +15,7 @@ const composer = (props, onData) => {
   const user = Meteor.user();
 
   if (user.homeUniId) {
-    Meteor.call('getUniById', user.homeUniId, (err, uni) => {
+    Meteor.call('University.get', user.homeUniId, (err, uni) => {
       const emailDomains = JSON.parse(uni.emailDomains);
 
       onData(null, {

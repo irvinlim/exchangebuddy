@@ -18,12 +18,10 @@ const composer = (props, onData) => {
   const user = Meteor.user();
   const groupId = parseInt(props.params.id);
 
-  console.log(groupId);
-
   if (!groupId)
     return;
 
-  Meteor.call('getGroup', groupId, (err, group) => {
+  Meteor.call('Group.get', groupId, (err, group) => {
     groupMemberCount = 10;
     group.size = groupMemberCount;
 

@@ -9,7 +9,7 @@ import meetup from "meetup-api";
 if (Meteor.isServer) {
   Meteor.methods({
 
-    getGroup(id) {
+    'Group.get'(id) {
       check(id, Number);
 
       return Group.findOne({ where: { id }, include: [ University ], plain: true }).then(function(result) {
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
       });
     },
 
-    getGroupFbEvents(countryId, uniCBDLatLng) {
+    'Group.getFbEvents'(countryId, uniCBDLatLng) {
       check(countryId, String);
       check(uniCBDLatLng, Array);
 
@@ -58,7 +58,7 @@ if (Meteor.isServer) {
       }).catch(error => console.error(JSON.stringify(error)));
     },
 
-    getGroupMuEvents(latLng, cityName, pageNumber) {
+    'Group.getMeetupEvents'(latLng, cityName, pageNumber) {
       check(latLng, Array);
       check(cityName, String);
       check(pageNumber, Number);

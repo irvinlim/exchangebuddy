@@ -20,12 +20,12 @@ export default class EventsList extends React.Component {
 		// Search assuming uni has latlng info
     switch(this.props.source){
       case 'Facebook':
-        Meteor.call('getGroupFbEvents', this.props.uni.countryId, this.props.uni.latLng, (err, events)=>{
+        Meteor.call('Group.getFbEvents', this.props.uni.countryId, this.props.uni.latLng, (err, events)=>{
           this.setState({ groupEvents: events });
         })
       break;
       case 'Meetup':
-        Meteor.call('getGroupMuEvents', this.props.uni.latLng, this.props.uni.city, this.state.pageNumber,
+        Meteor.call('Group.getMeetupEvents', this.props.uni.latLng, this.props.uni.city, this.state.pageNumber,
           (err, res) => {
             this.setState({ groupEvents: res.results });
           });

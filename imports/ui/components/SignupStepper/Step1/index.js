@@ -23,7 +23,7 @@ const composer = (props, onData) => {
 
   // Get homeUni
   if (user.homeUniId)
-    Meteor.call('getUniById', user.homeUniId, (err, homeUni) =>
+    Meteor.call('University.get', user.homeUniId, (err, homeUni) =>
       onData(null, {
         initialValues: {
           ...initialValues,

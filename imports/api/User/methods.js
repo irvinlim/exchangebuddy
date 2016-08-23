@@ -10,7 +10,7 @@ import UserHelper from '../../util/user';
 if (Meteor.isServer) {
   Meteor.methods({
 
-    getUser(id) {
+    'User.get'(id) {
       check(id, Number);
 
       return User.findById(id).then(function(result) {
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
       });
     },
 
-    updateProfile(values) {
+    'User.updateProfile'(values) {
       check(values, Object);
 
       const { id, displayName, gender, homeUniName } = values;
@@ -36,9 +36,21 @@ if (Meteor.isServer) {
       });
     },
 
+    // Groups
+
+    'User.getGroups'(userId) {
+      check(userId, Number);
+
+      return User.findOne({ where: { id: userId } }).then(function(userResult) {
+        return userResult.getGroups();
+      }).then(function(result) {
+        return result.map(x => x.get({ plain: true }));
+      });
+    },
+
     // Verify email
 
-    sendVerificationEmail(values) {
+    'User.sendVerificationEmail'(values) {
       check(values, Object);
 
       const { userId, homeUniEmail } = values;
@@ -67,7 +79,7 @@ if (Meteor.isServer) {
       }));
     },
 
-    verifyEmailToken(token) {
+    'User.verifyEmailToken'(token) {
       check(token, String);
       let decoded;
 
@@ -77,16 +89,16 @@ if (Meteor.isServer) {
         if (!decoded)
           return false;
       } catch (exc) {
-        throw new Meteor.Error("verifyEmailTokenException", exc);
+        throw new Meteor.Error("User.verifyEmailToken.jwtVerifyException", exc);
       }
 
       return User.findOne({ id: decoded.userId }).then(function(result) {
         const user = result.get();
 
         if (!user)
-          throw new Meteor.Error("verifyEmailToken.undefinedUser", "No such user.");
+          throw new Meteor.Error("User.verifyEmailToken.undefinedUser", "No such user.");
         else if (user.homeUniEmail != decoded.homeUniEmail)
-          throw new Meteor.Error("verifyEmailToken.emailMismatch", "Email mismatch.");
+          throw new Meteor.Error("User.verifyEmailToken.emailMismatch", "Email mismatch.");
         else if (user.homeUniEmailVerified)
           return true;
         else
@@ -96,7 +108,7 @@ if (Meteor.isServer) {
 
     // Authentication
 
-    verifyToken(token) {
+    'User.verifyToken'(token) {
       check(token, String);
 
       let decoded = null;
@@ -110,11 +122,11 @@ if (Meteor.isServer) {
       return decoded;
     },
 
-    loginFacebook(response) {
+    'User.loginFacebook'(response) {
       check(response, Object);
 
       if (!response || !response.userID)
-        throw new Meteor.Error("loginFacebook.invalidResponse", "Invalid response from Facebook.");
+        throw new Meteor.Error("User.loginFacebook.invalidResponse", "Invalid response from Facebook.");
 
       // Get response data and upsert user information.
       // Return true to continue to set session variable.
@@ -143,7 +155,7 @@ if (Meteor.isServer) {
         const user = result && result.get();
 
         if (!user)
-          throw new Meteor.Error("loginFacebook.invalidUser", "Could not fetch authenticated user.");
+          throw new Meteor.Error("User.loginFacebook.invalidUser", "Could not fetch authenticated user.");
 
         return {
           user: user,
@@ -152,7 +164,7 @@ if (Meteor.isServer) {
           })
         };
       }).catch(function(errors) {
-        throw new Meteor.Error("loginFacebook.sequelizeError", `Internal Sequelize error: ${errors}`);
+        throw new Meteor.Error("User.loginFacebook.sequelizeError", `Internal Sequelize error: ${errors}`);
       });
     },
 

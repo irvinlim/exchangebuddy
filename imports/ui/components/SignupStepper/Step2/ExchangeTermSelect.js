@@ -26,7 +26,7 @@ const composer = (props, onData) => {
   if (!props.uniName)
     onData(null, {});
   else
-    Meteor.call('getUniByName', props.uniName, (err, uni) => {
+    Meteor.call('University.getByName', props.uniName, (err, uni) => {
       if (!uni)
         return;
 

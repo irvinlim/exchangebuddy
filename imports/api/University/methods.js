@@ -4,13 +4,13 @@ if (Meteor.isServer) {
 
   Meteor.methods({
 
-    getAllUnis() {
+    'University.getAll'() {
       return University.findAll().then(function(universities) {
         return universities.map(uni => uni.get());
       });
     },
 
-    getUniById(id) {
+    'University.get'(id) {
       check(id, Number);
 
       return University.findOne({ where: { id } }).then(function(result) {
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
       });
     },
 
-    getUniByName(name) {
+    'University.getByName'(name) {
       check(name, String);
 
       return University.findOne({ where: { name } }).then(function(result) {

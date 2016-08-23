@@ -42,13 +42,13 @@ export const verifyCurrentUser = (callback) => {
   if (!sessionUser || !sessionUserToken)
     return callback(null, null);
 
-  Meteor.call('getUser', sessionUser.id, (error, user) => {
+  Meteor.call('User.get', sessionUser.id, (error, user) => {
     if (error)
       return callback(error, null);
     else if (!user)
       return callback(null, null);
 
-    Meteor.call('verifyToken', sessionUserToken, (error, verified) => {
+    Meteor.call('User.verifyToken', sessionUserToken, (error, verified) => {
       if (error)
         return callback(error, null);
       else if (!verified)

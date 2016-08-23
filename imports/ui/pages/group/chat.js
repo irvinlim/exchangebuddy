@@ -11,7 +11,7 @@ const showResults = values =>
   new Promise((resolve, reject) => {
     setTimeout(() => {  // simulate server latency
       // TODO: Replace groupId with actual group ID from prop
-      Meteor.call('groupChat.addMessage', { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: 1, content: values.message }, (err, success) => {
+      Meteor.call('GroupChatMessage.sendToGroup', { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: 1, content: values.message }, (err, success) => {
         if (err)
           reject("Cannot add message.", err);
 

@@ -18,7 +18,7 @@ class Verify extends React.Component {
   componentDidMount() {
     const self = this;
 
-    Meteor.call('verifyEmailToken', this.props.params.token, (err, result) => {
+    Meteor.call('User.verifyEmailToken', this.props.params.token, (err, result) => {
       if (err || !result) {
         // Redirect to group
         browserHistory.push('/signup');

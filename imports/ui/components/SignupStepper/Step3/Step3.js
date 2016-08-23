@@ -59,9 +59,9 @@ const validate = (values) => {
 const submitForm = (self) => (values) => {
   const { homeUniEmail } = values;
 
-  Meteor.call('sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
+  Meteor.call('User.sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
     if (err) {
-      return console.log("Error in invoking sendVerificationEmail: " + err);
+      return console.log("Error in invoking User.sendVerificationEmail: " + err);
     } else {
       SessionHelper.setCurrentUser(); // Required so that Meteor.user() will reflect the new user information
       self.setState({ emailSent: true });
