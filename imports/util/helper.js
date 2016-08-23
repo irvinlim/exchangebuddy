@@ -25,3 +25,7 @@ export const propExistsDeep = function(parent, arrayOfChildProps) {
     return true;
   });
 };
+
+export const convertToSlug = (Text) => {
+  return Text.toLowerCase().replace(/[^\w ]+/g,'').split(' ').filter(s => s.length).join('-');
+};

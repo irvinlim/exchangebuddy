@@ -1,4 +1,5 @@
 import { bulkCreateOrUpdate } from '../../api/University/methods';
+import { convertToSlug } from '../../util/helper';
 
 export const parseJSON = (json) => {
   const countryMapping = require('../../../data/topuniversities/countryMapping.json');
@@ -21,8 +22,10 @@ export const parseJSON = (json) => {
       name: uni.title.trim(),
       countryCode: countryMapping[uni.country_tid],
       topUnisId: uni.cid,
-      logoUrl,
       linkUrl,
+
+      // Pre-upload all logos to Cloudinary, set logoImageId only if JSON data contains it
+      logoImageId: uni.logo ? 'university-logos/' + convertToSlug(uni.title) : null
     };
   });
 };
