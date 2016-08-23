@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-const InfoSectionCountry=({ items }) => (
+const InfoSection=({ items }) => (
   <GridList
     className="grid-list"
     cols={3}
@@ -53,4 +53,4 @@ const InfoSectionCountry=({ items }) => (
   </GridList>
 )
 
-export default InfoSectionCountry;
+export default InfoSection;

@@ -59,7 +59,8 @@ function generateSecItems(type) {
 function mapStateToProps(state, ownProps) {
 
   let group = { id: '1', universityId: '1', year: '2', term: '3' };
-  let university = { id: '10', name: '10', city: '10', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
+  let university = { id: '10', name: 'SUTD', city: 'Singapore', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
+  university.country = "Singapore"; // after map or from method
   let countrySectionItems = generateSecItems('country');
   let uniSectionItems = generateSecItems('uni');
 
