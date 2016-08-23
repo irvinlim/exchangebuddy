@@ -13,14 +13,16 @@ export default class ExchangeRate extends React.Component {
 
   componentDidMount() {
     // TODO: Query daily xe api
-    this.setState({ rates: 0.2 })
+    $.getJSON("http://api.fixer.io/latest?base=SGD",
+    result => this.setState({ rates: result.rates.USD }))
+    // this.setState({ rates: 0.2 })
   }
 
   render() {
    return (
     <Card>
       <CardHeader
-        title="ExchangeRate"
+        title="Currency Exchange Rate"
         subtitle={this.state.rates}
         actAsExpander={true}
         showExpandableButton={false} />

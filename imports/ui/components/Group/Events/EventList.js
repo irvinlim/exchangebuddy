@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import Loading from '../../Loading';
-import EventItem from './EventItem';
+import EventItemMu from './EventItemMu';
+import EventItemFb from './EventItemFb';
 
 export default class EventsList extends React.Component {
 	constructor(props) {
@@ -10,34 +11,41 @@ export default class EventsList extends React.Component {
 		this.state = {
 			uni: this.props.uni,
 			group: this.props.group,
-			groupEvents: []
+			groupEvents: [],
+      pageNumber: 0
 		}
 	}
 
 	componentDidMount() {
-		// TODO: query group events from fb and meetup API by location
-		this.setState({
-			groupEvents: [{
-				title:'a',
-				description: 'description',
-				link:"http://google.com"
-			},{
-				title:'b',
-				description: 'description',
-				link:"http://google.com"
-			},{
-				title:'c',
-				description: 'description',
-				link:"http://google.com"
-			},]
-		})
+		// Search assuming uni has latlng info
+    switch(this.props.source){
+      case 'Facebook':
+        Meteor.call('getGroupFbEvents', this.props.uni.countryId, this.props.uni.latLng, (err, events)=>{
+          this.setState({ groupEvents: events });
+        })
+      break;
+      case 'Meetup':
+        Meteor.call('getGroupMuEvents', this.props.uni.latLng, this.props.uni.city, this.state.pageNumber,
+          (err, res) => {
+            this.setState({ groupEvents: res.results });
+          });
+      break;
+      default:
+      break;
+    }
 	}
 
 	render() {
 		return (
-			<div>
+			<div style={{height: $(window).height(), overflowY: "scroll", overflowX: "hidden"}}>
 			{ this.state.groupEvents.length > 0 ?
-				this.state.groupEvents.map( (groupEvent, idx) => ( <EventItem key={ idx } groupEvent={ groupEvent } /> ))
+        this.props.source == "Facebook" ?
+				  this.state.groupEvents.map( (groupEvent, idx) => ( <EventItemFb key={ idx } groupEvent={ groupEvent } /> ))
+        :
+        this.props.source == "Meetup" ?
+          this.state.groupEvents.map( (groupEvent, idx) => ( <EventItemMu key={ idx } groupEvent={ groupEvent } /> ))
+        :
+        <div />
 			: <Loading />
 			}
 			</div>
