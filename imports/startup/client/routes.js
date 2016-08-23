@@ -51,9 +51,7 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      const user = Meteor.user();
-      user.currentGroupId = 1;
-      path = `/group/${user.currentGroupId}/home`;
+      path = `/group`;
     } else {
       path = '/signup';
     }
@@ -67,12 +65,34 @@ const authenticatedRedirect = (nextState, replace) => {
 };
 
 const verifiedRedirect = (nextState, replace) => {
-  if (Meteor.user() && Meteor.user().homeUniEmailVerified){
-    const user = Meteor.user();
-    user.currentGroupId = 1;
+  if (Meteor.user() && Meteor.user().homeUniEmailVerified) {
     replace({
-      pathname: `/group/${user.currentGroupId}/home`,
+      pathname: `/group`,
       state: { nextPathname: nextState.location.pathname }
+    });
+  }
+};
+
+const goToDefaultGroup = (nextState, replace) => {
+  if (Meteor.user() && Meteor.user().defaultGroupId) {
+    // If have default group, redirect there.
+    replace({
+      pathname: `/group/${Meteor.user().defaultGroupId}`,
+      state: { nextPathname: nextState.location.pathname }
+    });
+  } else {
+    // Check if have any other group; else just go to home.
+    Meteor.call('getUserGroups', Meteor.userId(), (err, groups) => {
+      let path;
+      if (groups.length)
+        path = `/group/${ groups[0].id }`;
+      else
+        path = '/';
+
+      replace({
+        pathname: path,
+        state: { nextPathname: nextState.location.pathname }
+      });
     });
   }
 };
@@ -93,12 +113,15 @@ Meteor.startup(() => {
             <IndexRoute name="home" component={ Home } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
-            <Route path="group(/:id)" component={ Group }>
-              <Route name="home" path="home" component={ GroupHome } />
-              <Route name="info" path="info" component={ GroupInfo } />
-              <Route name="chat" path="chat" component={ GroupChat } />
-              <Route name="events" path="events" component={ GroupEvents } />
-              <Redirect from="*" to="home" />
+            <Route path="group">
+              <IndexRoute onEnter={ goToDefaultGroup } />
+              <Route path=":id" component={ Group }>
+                <IndexRoute name="home" component={ GroupHome } />
+                <Route name="info" path="info" component={ GroupInfo } />
+                <Route name="chat" path="chat" component={ GroupChat } />
+                <Route name="events" path="events" component={ GroupEvents } />
+                <Redirect from="*" to="/group" />
+              </Route>
             </Route>
             <Route path="404" component={ NotFound } />
             <Route path="*" component={ NotFound } />
