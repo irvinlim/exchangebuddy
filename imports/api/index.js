@@ -14,6 +14,7 @@ import './User/methods';
 import './University/methods';
 import './Country/methods';
 import './Group/methods';
+import './UserGroup/methods';
 
 // Publications
 import './University/publications';
