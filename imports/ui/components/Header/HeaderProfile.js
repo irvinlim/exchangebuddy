@@ -8,7 +8,8 @@ import { List, ListItem } from 'material-ui/List';
 
 import * as ImagesHelper from '../../../util/images';
 import * as IconsHelper from '../../../util/icons';
-import * as AvatarHelper from '../../../util/avatar';
+import * as UniversityHelper from '../../../util/university';
+import { FullWidthAvatar } from '../../../util/avatar';
 import { handleLogout } from '../../../util/session';
 
 export default class HeaderProfile extends React.Component {
@@ -43,12 +44,15 @@ export default class HeaderProfile extends React.Component {
     const gotourl = (url) => () => browserHistory.push(url);
     const handle = () => handleLogout( () => this.props.showSnackbar());
 
+    const { uni } = this.props;
+
     return (
       <div id="header-profile">
         <IconButton id="header-uni-logo" onTouchTap={ this.openPopover.bind(this) }>
           <Avatar size={90} />
         </IconButton>
-        { AvatarHelper.makeFullWidthAvatar(this.props.uni.logoImageId, 90) }
+
+        <FullWidthAvatar size={90} src={ UniversityHelper.getImageUrl(uni, 90) } />
 
         <Popover
           open={ this.state.open }

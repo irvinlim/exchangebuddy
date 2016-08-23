@@ -8,12 +8,11 @@ export const getImage = (avatarId, size=64) => <img src={ getUrl(avatarId, size)
 export const makeAvatar = (avatarId, size=64, style={}) => <Avatar src={ ImagesHelper.getUrl(avatarId, size, size) } size={ size } style={ style } />;
 export const makeAvatarIcon = (icon, backgroundColor, size=64, style={}) => <Avatar icon={ icon } size={ size } backgroundColor={ backgroundColor } style={ style } />;
 
-export const makeFullWidthAvatar = (avatarId, size=90) => (
+export const FullWidthAvatar = ({ size=90, src }) =>
   <div style={{
-      height: `${size}px`,
-      width: `${size}px`,
-      background: `#fff url(${ImagesHelper.getUrlScale(avatarId, size)}) no-repeat center`,
-      backgroundSize: `90%`,
-      borderRadius: `50%`,
+    height: size,
+    width: size,
+    background: `#fff url('${src}') no-repeat center`,
+    backgroundSize: `90%`,
+    borderRadius: `50%`,
   }} />
-)
