@@ -13,9 +13,7 @@ if (Meteor.isServer) {
     getUser(id) {
       check(id, Number);
 
-      return User.findOne({
-        where: { id }
-      }).then(function(result) {
+      return User.findById(id).then(function(result) {
         return result && result.get();
       });
     },

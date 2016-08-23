@@ -9,9 +9,7 @@ if (Meteor.isServer) {
     getGroup(id) {
       check(id, Number);
 
-      return Group.findOne({
-        where: { id }
-      }).then(function(result) {
+      return Group.findById(id).then(function(result) {
         if (result)
           return result.get();
         else
