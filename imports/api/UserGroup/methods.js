@@ -27,15 +27,14 @@ if (Meteor.isServer) {
       }).then(function(result) {
         const group = result[0];
 
-        if (group)
-          return group.addUser(userId);
-        else
-          return false;
-      }).then(function(result) {
-        if (result)
-          return true;
-        else
-          return false;
+        if (group) {
+          group.addUser(userId);
+          return group;
+        } else {
+          throw new Meteor.Error("addUserToGroup.undefinedGroup", "No such Group found.");
+        }
+      }).then(function(group) {
+        return User.update({ defaultGroupId: group.id }, { where: { id: userId } });
       });
     },
 

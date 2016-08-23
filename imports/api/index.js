@@ -36,6 +36,13 @@ User.belongsTo(Country, {
   onDelete: 'cascade',
 });
 
+User.belongsTo(Group, {
+  foreignKey: 'defaultGroupId',
+  as: 'defaultGroup',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 User.belongsToMany(Group, {
   through: UserGroup,
   foreignKey: 'userId'

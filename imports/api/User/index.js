@@ -60,6 +60,10 @@ const User = sequelize.define(tableName, {
   // 2-letter country code
   homeCountryCode: {
     type: DataType.CHAR(2),
+  },
+
+  defaultGroupId: {
+    type: DataType.INTEGER(),
   }
 
 }, {
