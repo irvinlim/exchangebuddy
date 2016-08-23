@@ -36,7 +36,8 @@ const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 // redux
 const mapStateToProps = (state, ownProps) => {
   return{
-    params: ownProps.params
+    params: ownProps.params,
+    tab: ownProps.tab
   }
 }
 
