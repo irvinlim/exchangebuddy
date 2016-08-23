@@ -47,7 +47,7 @@ const Header = ({ user, uni, group, actions, params, tab }) => (
         <Col xs={0} md={2}></Col>
         <Col xs={12} md={8} id="header-title">
           <h2 id="uni-name">{ uni.name }</h2>
-          <p id="uni-description">{ `${ uni.terms } - ${ group.size } Members` }</p>
+          <p id="uni-description">{ `${ group.term } ${ group.year } - ${ group.size } Members` }</p>
         </Col>
       </Row>
 
