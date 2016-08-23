@@ -5,6 +5,7 @@ import User from './User';
 import University from './University';
 import Country from './Country';
 import Group from './Group';
+import DataStore from './DataStore';
 
 // Relational tables
 import UserGroup from './UserGroup';
@@ -15,6 +16,7 @@ import './University/methods';
 import './Country/methods';
 import './Group/methods';
 import './UserGroup/methods';
+import './DataStore/methods';
 
 // Publications
 import './University/publications';
