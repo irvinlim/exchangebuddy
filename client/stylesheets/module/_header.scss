@@ -2,7 +2,7 @@
 
 #header {
   position: fixed;
-  height: 328px;
+  height: 360px;
   width: 100%;
   top: 0%;
   background-size: contain;
@@ -18,10 +18,10 @@
     top: 15%;
     left: 3%;
   }
-  &.sticky {
-    height: 124px !important;
-  }
+  &.sticky { height: 160px; }
+  + #group-container { margin-top: 324px; }
 }
+
 
 #header-title {
   text-align: center;
@@ -32,20 +32,15 @@
   &.sticky {
     max-height: 144px;
     margin-top: 0px;
-    #uni-name { line-height: 0.6rem; color: #fff; margin-top: 39px; margin-bottom: 22px;}
+    #uni-name { margin-top: 27px; margin-bottom: 18px;}
   }
 }
 
 #header-profile {
   position: absolute;
-  top: 6%;
+  top: 15%;
   right: 3%;
   @include transition-all(0.5s);
-  &.sticky {
-    position: absolute;
-    top: 2%;
-    right: 1%;
-  }
 }
 
 #header-uni-logo {
@@ -59,10 +54,6 @@
   &.sticky {
     width: 45px !important;
     height: 45px !important;
-    position: absolute !important;
-    > div > div {
-      opacity: 0;
-    }
   }
 }
 
@@ -73,8 +64,4 @@
 .header-tab > div > div {
   flex-direction: row !important; font-size: 18px !important;
   > span { margin-bottom: 0 !important; margin-right: 5px; }
-}
-
-#group-container {
-  margin-top: 324px;
 }
