@@ -34,24 +34,12 @@ GroupInfo.contextTypes = {
 
 function generateSecItems(type) {
   let res = [];
-  switch(type){
-    case 'country':
-      for(let i =1; i<6; i++) {
-          const secItem = {countrySectionId: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
-          secItem.sectionLabel= faker.Lorem.words();
-          secItem.img = 'http://placehold.it/'+Math.floor(Math.random()*i*100)+'x'+Math.floor(Math.random()*i*100);
-          res.push(secItem);
-      }
-    break;
-    case 'uni':
-      for(let i =0; i<5; i++) {
-          const secItem = {uniSectionId: "uniSectionId"+i, universities_id: "universities_id" + i, content: 'content' + i, createdAt: new Date(), updatedAt: new Date(), editUserId: i};
-          secItem.sectionLabel= type+"sectionLabel"+i;
-          res.push(secItem);
-      }
-    break;
-    default:
-    break;
+  for(let i =1; i<6; i++) {
+    const secItem = {_id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
+    secItem.sectionLabel= faker.Lorem.words();
+    secItem.img = 'http://placehold.it/'+Math.floor(Math.random()*i*100)+'x'+Math.floor(Math.random()*i*100);
+    secItem.type=type;
+    res.push(secItem);
   }
   return res;
 }
@@ -62,7 +50,7 @@ function mapStateToProps(state, ownProps) {
   let university = { id: '10', name: 'SUTD', city: 'Singapore', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
   university.country = "Singapore"; // after map or from method
   let countrySectionItems = generateSecItems('country');
-  let uniSectionItems = generateSecItems('uni');
+  let uniSectionItems = generateSecItems('university');
 
   return {
     group,

@@ -5,6 +5,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import { browserHistory }from 'react-router'
 
 const styles = {
   root: {
@@ -29,19 +30,20 @@ const InfoSection=({ items }) => (
     paddingTop={57}
     style={styles.gridList}
   >
-    {items.map((tile, idx) => (
+    {items.map((tile, idx) => {
+      const goToInfoPg = () => { browserHistory.push(`/info/${tile.type}/${tile._id}`) };
+      return(
       <Card className="grid-tile-container">
         <GridTile
           className="grid-tile"
           key={idx}
           title={tile.sectionLabel}
-          actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-          actionPosition="left"
           titlePosition="top"
           titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
           cols={tile.featured ? 2 : 1}
           rows={tile.featured ? 2 : 1}
-          style={{background: "url("+tile.img +") no-repeat center center", height: "200px"}}
+          style={{background: "url("+tile.img +") no-repeat center center", height: "200px", cursor: "pointer"}}
+          onClick={ goToInfoPg }
         >
         </GridTile>
         <CardActions>
@@ -49,7 +51,8 @@ const InfoSection=({ items }) => (
           <small style={{float: "right", marginTop:"6px"}}>100 SHARES</small>
         </CardActions>
       </Card>
-    ))}
+      )
+    })}
   </GridList>
 )
 
