@@ -2,43 +2,67 @@
 
 #header {
   position: fixed;
+  height: 328px;
   width: 100%;
   top: 0%;
   background-size: contain;
-  @include transition-all(1s);
+  overflow: hidden;
+  z-index: 1000;
+  @include transition-all(0.5s);
   background: -moz-linear-gradient(top, rgba(25,25,25,0.72) 0%, rgba(0,0,0,0.93) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8191919', endColorstr='#ed000000',GradientType=0 ); /* IE6-9 */
   #logo-image {
     position: absolute;
-    top: 6%;
+    top: 15%;
     left: 3%;
+  }
+  &.sticky {
+    height: 124px !important;
   }
 }
 
 #header-title {
   text-align: center;
   margin-top: 137px;
-  @include transition-all(1s);
-  #uni-name { line-height: 2.1rem; color: #fff; @include transition-all(1s); }
+  @include transition-all(0.5s);
+  #uni-name { line-height: 2.1rem; color: #fff; @include transition-all(0.5s); }
   #uni-description { color: #fff; opacity: 0.75;}
+  &.sticky {
+    max-height: 144px;
+    margin-top: 0px;
+    #uni-name { line-height: 0.6rem; color: #fff; margin-top: 39px; margin-bottom: 22px;}
+  }
 }
 
 #header-profile {
   position: absolute;
   top: 6%;
   right: 3%;
-  @include transition-all(1s);
+  @include transition-all(0.5s);
+  &.sticky {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+  }
 }
 
 #header-uni-logo {
   width: 90px !important;
   height: 90px !important;
   position: absolute !important;
-  @include transition-all(1s);
+  @include transition-all(0.5s);
   > div > div {
     opacity: 0;
+  }
+  &.sticky {
+    width: 45px !important;
+    height: 45px !important;
+    position: absolute !important;
+    > div > div {
+      opacity: 0;
+    }
   }
 }
 
@@ -51,30 +75,6 @@
   > span { margin-bottom: 0 !important; margin-right: 5px; }
 }
 
-#header.sticky {
-  height: 72px !important;
-  background: orange !important;
-  background-image: none !important;
-}
-
-#header-title.sticky {
-  max-height: 72px;
-  margin-top: 0px;
-  #uni-name { line-height: 0.4rem; color: #fff; font-size: large; }
-  #uni-description { color: #fff; opacity: 0.75;}
-}
-
-#header-profile.sticky {
-  position: absolute;
-  top: 2%;
-  right: 1%;
-}
-
-#header-uni-logo.sticky {
-  width: 45px !important;
-  height: 45px !important;
-  position: absolute !important;
-  > div > div {
-    opacity: 0;
-  }
+#group-container {
+  margin-top: 324px;
 }

@@ -26,7 +26,9 @@ const composer = (props, onData) => {
     group.size = groupMemberCount;
 
     onData(null, {
-      user, uni: group.university, group
+      user,
+      uni: group.university,
+      group
     });
   });
 };

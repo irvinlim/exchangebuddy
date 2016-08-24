@@ -33,10 +33,15 @@ const tabToIdx = tab => {
 }
 
 const Header = ({ user, uni, group, actions, params, tab }) => (
-  <div id="header" style={{
-    backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
-      url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
-    backgroundSize: "cover", height: 360 }}>
+  <div
+    id="header"
+    style={{
+      backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
+        url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
+      backgroundSize: "cover",
+      backgroundColor: "#000000",
+    }}
+  >
 
     <div id="logo-image">
       { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 99, "exchangebuddy-logo") }
@@ -65,9 +70,11 @@ const Header = ({ user, uni, group, actions, params, tab }) => (
     </Grid>
 
     <HeaderProfile
+      className="header-profile"
       user={ user }
       uni={ uni }
-      showSnackbar={ () => actions.showSnackbar("Logged out.") } />
+      showSnackbar={ () => actions.showSnackbar("Logged out.") }
+    />
   </div>
 );
 

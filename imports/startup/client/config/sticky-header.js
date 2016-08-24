@@ -12,13 +12,3 @@ $(window).scroll(function() {
     $('#header-uni-logo').removeClass("sticky");
   }
 });
-
-$(window).load(function() {
-  setTimeout(function() {
-    $('#group-container').css('margin-top', $('#header').height() + 'px');
-  }, 500);
-});
-
-$(window).resize(function() {
-    $('#group-container').css('margin-top', $('#header').height() + 'px');
-});
