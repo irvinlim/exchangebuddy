@@ -12,9 +12,21 @@ if (Meteor.isServer) {
     'Group.get'(id) {
       check(id, Number);
 
-      return Group.findOne({ where: { id }, include: [ University ], plain: true }).then(function(result) {
+      return Group.findOne({ where: { id }, include: [ University ] }).then(function(result) {
         const group = result && result.get({ plain: true });
         return group;
+      });
+    },
+
+    'Group.getUsers'(id) {
+      check(id, Number);
+
+      return Group.findOne({ where: { id } }).then(function(result) {
+        return result.getUsers();
+      }).then(function(result) {
+        return result.map(user => {
+          return user.get({ plain: true })
+        });
       });
     },
 

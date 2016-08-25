@@ -31,3 +31,8 @@ BrowserPolicy.content.allowImageOrigin( 'media.giphy.com' );
 BrowserPolicy.content.allowImageOrigin( 'placeholdit.imgix.net')
 BrowserPolicy.content.allowImageOrigin( 'placehold.it')
 BrowserPolicy.content.allowImageOrigin( 'lorempixel.com')
+
+// Avatars
+BrowserPolicy.content.allowImageOrigin( 'graph.facebook.com' );
+BrowserPolicy.content.allowImageOrigin( '*.fbcdn.net' );
+BrowserPolicy.content.allowImageOrigin( '*.akamaihd.net' );
