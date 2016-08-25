@@ -26,6 +26,7 @@ import NotFound from '../../ui/pages/not-found';
 import Group from '../../ui/pages/group/group';
 import GroupHome from '../../ui/pages/group/home';
 import GroupInfo from '../../ui/pages/group/info';
+import GroupInfoPage from '../../ui/pages/group/info'; // temp
 import GroupChat from '../../ui/pages/group/chat';
 import GroupEvents from '../../ui/pages/group/events';
 
@@ -117,7 +118,10 @@ Meteor.startup(() => {
               <IndexRoute onEnter={ goToDefaultGroup } />
               <Route path=":id" component={ Group }>
                 <IndexRoute name="home" component={ GroupHome } />
-                <Route name="info" path="info" component={ GroupInfo } />
+                <Route name="info" path="info">
+                  <IndexRoute name="info-home" component={ GroupInfo } />
+                  <Route name="info-page" path=":id" component={ GroupInfoPage } />
+                </Route>
                 <Route name="chat" path="chat" component={ GroupChat } />
                 <Route name="events" path="events" component={ GroupEvents } />
                 <Redirect from="*" to="/group" />

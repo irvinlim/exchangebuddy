@@ -16,13 +16,15 @@ export class GroupInfo extends React.Component {
 	}
 
   render(){
+    const { group, university, countrySectionItems, uniSectionItems } = this.props;
+
     return (
       <Grid>
         <InfoList
-          group={this.props.groups}
-          university={this.props.university}
-          countrySectionItems={this.props.countrySectionItems}
-          uniSectionItems={this.props.uniSectionItems} />
+          group={ group }
+          university={ university }
+          countrySectionItems={ countrySectionItems }
+          uniSectionItems={ uniSectionItems } />
       </Grid>
     )
   }
@@ -37,7 +39,7 @@ function generateSecItems(type) {
   for(let i =1; i<6; i++) {
     const x = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
     const y = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
-    const secItem = {_id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
+    const secItem = { id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i) };
     secItem.sectionLabel= faker.lorem.words();
     secItem.img = 'http://lorempixel.com/'+x+'/'+y+'/city';
     secItem.type=type;

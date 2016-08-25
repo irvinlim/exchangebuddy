@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const InfoSection=({ items }) => (
+const InfoSection=({ group, items }) => (
   <GridList
     className="grid-list"
     cols={3}
@@ -29,7 +29,7 @@ const InfoSection=({ items }) => (
     style={styles.gridList}>
 
     {items.map((tile, idx) => {
-      const goToInfoPg = () => { browserHistory.push(`/info/${tile.type}/${tile._id}`) };
+      const goToInfoPg = () => { browserHistory.push(`/group/${group.id}/info/${tile.id}`) };
       return(
       <Card className="grid-tile-container">
         <GridTile
