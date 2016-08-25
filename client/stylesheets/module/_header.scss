@@ -80,5 +80,10 @@ $headerStickyHeight: 95px;
 
 .header-tab > div > div {
   flex-direction: row !important; font-size: 18px !important;
-  > span { margin-bottom: 0 !important; margin-right: 5px; }
+  span { margin-bottom: 0 !important; margin-right: 5px; }
+
+  @include media-xs-only {
+    span { margin-right: 0; }
+    &:not(span) { font-size: 0 !important; }
+  }
 }
