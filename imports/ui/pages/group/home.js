@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
+import MemberList from '../../components/Group/Home/MemberList';
 
-export default class GroupHome extends React.Component {
+export class GroupHome extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -12,8 +13,18 @@ export default class GroupHome extends React.Component {
   render(){
     return (
       <Grid>
-        <div>Home</div>
+				<h3 className="pinline"><span>Whos Going</span></h3>
+				<MemberList users={this.users} />
       </Grid>
     )
   }
 }
+
+function mapStateToProps(state, ownProps) {
+	let user1 = { id: '1', displayName: 'Thanh', profilePictureId: '' };
+	let users = [user1];
+
+	return users;
+}
+
+export default GroupHome;
