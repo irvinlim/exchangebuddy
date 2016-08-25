@@ -11,10 +11,10 @@
     "production": "meteor deploy production.meteor.com --settings settings-production.json"
   },
   "devDependencies": {
+    "faker": "^3.1.0",
     "redux-devtools": "^3.3.1"
   },
   "dependencies": {
-    "Faker": "^0.7.2",
     "babel-polyfill": "^6.0.2",
     "bootstrap": "^3.3.7",
     "bufferutil": "^1.2.1",

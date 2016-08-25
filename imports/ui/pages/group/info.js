@@ -36,7 +36,7 @@ function generateSecItems(type) {
   let res = [];
   for(let i =1; i<6; i++) {
     const secItem = {_id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
-    secItem.sectionLabel= faker.Lorem.words();
+    secItem.sectionLabel= faker.lorem.words();
     secItem.img = 'http://placehold.it/'+Math.floor(Math.random()*i*100)+'x'+Math.floor(Math.random()*i*100);
     secItem.type=type;
     res.push(secItem);
