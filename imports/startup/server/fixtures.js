@@ -77,7 +77,7 @@ const uniInfoSections = [
   { label: 'General Tips', subtitle: "Must-know tips for every student!" },
   { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items' ]) },
   { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]) },
-  { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]) },
+  { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'From the airport', 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]) },
   { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]) },
   { label: 'Administrative', defaultContentHeadings: JSON.stringify([ 'Important phone numbers', 'How to receive help' ]) },
   { label: 'Campus Life', subtitle: "All work and no play makes $USERNAME a dull person!", defaultContentHeadings: JSON.stringify([ 'Orientation activities', 'Clubs & societies', 'University events' ]) },
@@ -92,3 +92,21 @@ UniversityInfoSection.count({}).then(function(count) {
     });
 });
 
+// Add country info sections
+const countryInfoSections = [
+  { label: 'National Languages' },
+  { label: 'National Holidays' },
+  { label: 'Tourist Attractions' },
+  { label: 'Festivals & Culture' },
+  { label: 'Food' },
+  { label: 'Emergencies', subtitle: "Important phone numbers in case of emergency." },
+  { label: 'Telecommunications' },
+  { label: 'Banking' },
+];
+
+CountryInfoSection.count({}).then(function(count) {
+  if (!count)
+    countryInfoSections.forEach(section => {
+      CountryInfoSection.create(section);
+    });
+});
