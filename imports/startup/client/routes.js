@@ -120,7 +120,7 @@ Meteor.startup(() => {
                 <IndexRoute name="home" component={ GroupHome } />
                 <Route name="info" path="info">
                   <IndexRoute name="info-home" component={ GroupInfo } />
-                  <Route name="info-page" path=":id" component={ GroupInfoPage } />
+                  <Route name="info-page" path=":sectionId" component={ GroupInfoPage } />
                 </Route>
                 <Route name="chat" path="chat" component={ GroupChat } />
                 <Route name="events" path="events" component={ GroupEvents } />

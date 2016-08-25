@@ -1,8 +1,11 @@
 @import "../common/mixins";
 
+$headerHeight: 250px;
+$headerStickyHeight: 95px;
+
 #header {
   position: fixed;
-  height: 360px;
+  height: $headerHeight;
   width: 100%;
   top: 0%;
   background-size: contain;
@@ -13,55 +16,52 @@
   background: -webkit-linear-gradient(top, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8191919', endColorstr='#ed000000',GradientType=0 ); /* IE6-9 */
+
   #logo-image {
-    position: absolute;
-    top: 15%;
-    left: 3%;
+    display: flex; align-items: center;
+    img { width: 100%; }
   }
 
   + #group-container {
-    margin-top: 360px;
+    margin-top: $headerHeight;
     @include transition-standard(margin-top 450ms)
   }
 
   &.sticky {
-    height: 132px;
-    + #group-container { margin-top: 240px; }
+    height: $headerStickyHeight;
+    + #group-container { margin-top: $headerHeight - 30; }
   }
 }
 
 
 #header-title {
-  text-align: center;
-  margin-top: 137px;
+  text-align: center; margin-top: 50px; display: flex; flex-direction: column;
   @include transition(all 450ms);
+
+  h2, p { margin: 10px 0; }
   #uni-name { line-height: 2.1rem; color: #fff; @include transition(all 450ms); }
-  #uni-description { color: #fff; opacity: 0.75;}
+  #uni-description { color: rgba(#fff, 0.75); }
+
   &.sticky {
-    max-height: 144px;
-    margin-top: 0px;
-    #uni-name { margin-top: 27px; margin-bottom: 18px;}
+    max-height: 144px; margin-top: 0px;
+    #uni-name { font-size: 24px; }
   }
 }
 
 #header-profile {
-  position: absolute;
-  top: 15%;
-  right: 3%;
+  display: flex; align-items: center; justify-content: flex-end; height: 100%;
   @include transition(all 450ms);
+
+  button > div {
+    height: 100%; width: 100%;
+    img { object-fit: contain; background-color: #fff !important; }
+  }
 }
 
 #header-uni-logo {
-  width: 90px !important;
-  height: 90px !important;
-  position: absolute !important;
   @include transition(all 0.5s);
   > div > div {
     opacity: 0;
-  }
-  &.sticky {
-    width: 45px !important;
-    height: 45px !important;
   }
 }
 

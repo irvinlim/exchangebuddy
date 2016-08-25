@@ -39,25 +39,28 @@ const Header = ({ user, uni, group, actions, params, tab }) => (
       background: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
         url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())}) center center / cover no-repeat`,
       backgroundColor: "#000000",
-    }}
-  >
+    }}>
 
-    <div id="logo-image">
-      { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 99, "exchangebuddy-logo") }
-    </div>
 
     <Grid>
-      <Row>
-        <Col xs={0} md={2}></Col>
+      <Row id="header-row">
+
+        <Col xs={6} md={2} id="logo-image">
+          { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 95, "exchangebuddy-logo") }
+        </Col>
+
         <Col xs={12} md={8} id="header-title">
           <h2 id="uni-name">{ uni.name }</h2>
           <p id="uni-description">{ `${ group.term } ${ group.year } - ${ group.size } Members` }</p>
         </Col>
+
+        <Col xs={6} md={2}>
+          <HeaderProfile user={ user } uni={ uni } actions={ actions } />
+        </Col>
       </Row>
 
       <Row>
-        <Col xs={0} md={2}></Col>
-        <Col xs={12} md={8} id="header-tab-row">
+        <Col xs={12} md={8} mdOffset={2} id="header-tab-row">
         <Tabs inkBarStyle={{backgroundColor: "#fff"}} initialSelectedIndex={ tabToIdx(tab) } >
           <Tab icon={IconsHelper.materialIcon("home")} label="HOME" className="header-tab" onActive={ gotourl(params.id) } />
           <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl(params.id, "info") } />
@@ -67,13 +70,6 @@ const Header = ({ user, uni, group, actions, params, tab }) => (
         </Col>
       </Row>
     </Grid>
-
-    <HeaderProfile
-      className="header-profile"
-      user={ user }
-      uni={ uni }
-      showSnackbar={ () => actions.showSnackbar("Logged out.") }
-    />
   </div>
 );
 
