@@ -12,8 +12,11 @@ html body {
   label { font-weight: inherit; }
 }
 
+#main { overflow-x: hidden; }
+
 // Layout
-body .container { padding: 0 2rem; } // Make all containers fluid
+body .container { padding: 0 1rem; } // Make all containers fluid
+#group-container .container { padding: 0 0.5rem; }
 
 // Common elements
 a.button:hover { text-decoration: none; }
