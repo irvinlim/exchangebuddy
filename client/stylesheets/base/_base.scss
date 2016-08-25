@@ -12,6 +12,9 @@ html body {
   label { font-weight: inherit; }
 }
 
+// Layout
+body .container { padding: 0 2rem; } // Make all containers fluid
+
 // Common elements
 a.button:hover { text-decoration: none; }
 

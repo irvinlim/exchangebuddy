@@ -33,10 +33,19 @@ $headerStickyHeight: 95px;
   }
 }
 
+@include media-xs-only {
+  #header {
+    position: static; height: auto;
+    #header-row { padding: 20px 0; }
+    + #group-container { margin-top: 0; }
+  }
+}
 
 #header-title {
   text-align: center; margin-top: 50px; display: flex; flex-direction: column;
   @include transition(all 450ms);
+
+  @include media-xs-only { order: 10; margin-top: 20px; }
 
   h2, p { margin: 10px 0; }
   #uni-name { line-height: 2.1rem; color: #fff; @include transition(all 450ms); }
