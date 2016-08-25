@@ -49,6 +49,6 @@ const InfoSection=({ group, items }) => (
     })}
 
   </GridList>
-)
+);
 
 export default InfoSection;
