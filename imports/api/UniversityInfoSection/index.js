@@ -25,6 +25,12 @@ const UniversityInfoSection = sequelize.define(tableName, {
     type: DataType.TEXT('long'),
     optional: true,
   },
+  subtitle: {
+    // Shown as a subtitle in the section item page
+    // Use $UNIVERSITY to represent the university's name
+    type: DataType.TEXT(),
+    optional: true,
+  },
 
 });
 

@@ -25,6 +25,12 @@ const CountryInfoSection = sequelize.define(tableName, {
     type: DataType.TEXT('long'),
     optional: true,
   },
+  subtitle: {
+    // Shown as a subtitle in the section item page
+    // Use $COUNTRY to represent the country's name
+    type: DataType.TEXT(),
+    optional: true,
+  },
 
 });
 
