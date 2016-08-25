@@ -17,7 +17,7 @@ const UniversityInfoSection = sequelize.define(tableName, {
     defaultValue: true,
   },
   defaultImageId: {
-    type: DataType.CHAR(255),
+    type: DataType.STRING(255),
     optional: true,
   },
   defaultContentHeadings: {

@@ -15,7 +15,7 @@ const CountryInfoItem = sequelize.define(tableName, {
     type: DataType.INTEGER(),
   },
   imageId: {
-    type: DataType.CHAR(255),
+    type: DataType.STRING(255),
     optional: true,
   },
   content: {
