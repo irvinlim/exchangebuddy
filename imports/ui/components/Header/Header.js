@@ -76,7 +76,7 @@ export default class Header extends React.Component {
           <Row id="header-row">
 
             <Col xs={6} md={2} id="logo-image">
-              { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 95, "exchangebuddy-logo") }
+              { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 180, "exchangebuddy-logo") }
             </Col>
 
             <Col xs={12} md={8} id="header-title">
