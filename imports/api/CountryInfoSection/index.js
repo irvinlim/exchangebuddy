@@ -20,6 +20,11 @@ const CountryInfoSection = sequelize.define(tableName, {
     type: DataType.CHAR(255),
     optional: true,
   },
+  defaultContentHeadings: {
+    // JSON Array
+    type: DataType.TEXT('long'),
+    optional: true,
+  },
 
 });
 
