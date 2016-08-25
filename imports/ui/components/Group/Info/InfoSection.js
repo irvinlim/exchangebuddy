@@ -15,8 +15,6 @@ const styles = {
   },
   gridList: {
     width: "100%",
-    height: 450,
-    overflowY: 'auto',
     marginBottom: 24,
   },
 };
@@ -38,8 +36,6 @@ const InfoSection=({ items }) => (
           className="grid-tile"
           key={idx}
           title={tile.sectionLabel}
-          titlePosition="top"
-          titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
           cols={tile.featured ? 2 : 1}
           rows={tile.featured ? 2 : 1}
           style={{background: "url("+tile.img +") no-repeat center center", height: "200px", cursor: "pointer"}}
