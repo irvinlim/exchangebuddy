@@ -25,7 +25,6 @@ const InfoSection=({ group, items }) => (
     cols={3}
     cellHeight={210}
     padding={10}
-    paddingTop={57}
     style={styles.gridList}>
 
     {items.map((tile, idx) => {
@@ -38,7 +37,7 @@ const InfoSection=({ group, items }) => (
           title={tile.sectionLabel}
           cols={tile.featured ? 2 : 1}
           rows={tile.featured ? 2 : 1}
-          style={{background: "url("+tile.img +") no-repeat center center", backgroundSize: 'cover', height: "200px", cursor: "pointer"}}
+          style={{background: "url("+tile.img +") center center / cover no-repeat", height: "200px", cursor: "pointer"}}
           onClick={ goToInfoPg }>
         </GridTile>
         <CardActions>

@@ -36,9 +36,8 @@ const Header = ({ user, uni, group, actions, params, tab }) => (
   <div
     id="header"
     style={{
-      backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
-        url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())})`,
-      backgroundSize: "cover",
+      background: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
+        url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())}) center center / cover no-repeat`,
       backgroundColor: "#000000",
     }}
   >

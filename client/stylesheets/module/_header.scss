@@ -8,7 +8,7 @@
   background-size: contain;
   overflow: hidden;
   z-index: 1000;
-  @include transition-all(0.5s);
+  @include transition(all 0.5s);
   background: -moz-linear-gradient(top, rgba(25,25,25,0.72) 0%, rgba(0,0,0,0.93) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -18,16 +18,24 @@
     top: 15%;
     left: 3%;
   }
-  &.sticky { height: 132px; }
-  + #group-container { margin-top: 360px; }
+
+  + #group-container {
+    margin-top: 360px;
+    @include transition-standard(margin-top 450ms)
+  }
+
+  &.sticky {
+    height: 132px;
+    + #group-container { margin-top: 240px; }
+  }
 }
 
 
 #header-title {
   text-align: center;
   margin-top: 137px;
-  @include transition-all(0.5s);
-  #uni-name { line-height: 2.1rem; color: #fff; @include transition-all(0.5s); }
+  @include transition(all 450ms);
+  #uni-name { line-height: 2.1rem; color: #fff; @include transition(all 450ms); }
   #uni-description { color: #fff; opacity: 0.75;}
   &.sticky {
     max-height: 144px;
@@ -40,14 +48,14 @@
   position: absolute;
   top: 15%;
   right: 3%;
-  @include transition-all(0.5s);
+  @include transition(all 450ms);
 }
 
 #header-uni-logo {
   width: 90px !important;
   height: 90px !important;
   position: absolute !important;
-  @include transition-all(0.5s);
+  @include transition(all 0.5s);
   > div > div {
     opacity: 0;
   }
