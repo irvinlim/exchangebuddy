@@ -14,7 +14,7 @@ const CountryInfoSection = sequelize.define(tableName, {
   },
   editable: {
     type: DataType.BOOLEAN(),
-    defaultValue: false,
+    defaultValue: true,
   },
   defaultImageId: {
     type: DataType.CHAR(255),

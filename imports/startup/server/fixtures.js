@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 // Models
 import Country from '../../api/Country';
 import University from '../../api/University';
+import UniversityInfoSection from '../../api/UniversityInfoSection';
+import CountryInfoSection from '../../api/CountryInfoSection';
 
 // Methods
 import { updateCountries } from '../../modules/parsers/countries';
@@ -69,3 +71,24 @@ setTimeout(() => {
 // TODO: Set a cron job to update exchange rates
 // $.getJSON("http://api.fixer.io/latest?base=SGD",
 //   result => jsonfile.writeFile('../../../data/exchangeRates.json', result, function(err) { }))
+
+// Add university info sections
+const uniInfoSections = [
+  { label: 'General Tips', subtitle: "Must-know tips for every student!" },
+  { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items' ]) },
+  { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]) },
+  { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]) },
+  { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]) },
+  { label: 'Administrative', defaultContentHeadings: JSON.stringify([ 'Important phone numbers', 'How to receive help' ]) },
+  { label: 'Campus Life', subtitle: "All work and no play makes $USERNAME a dull person!", defaultContentHeadings: JSON.stringify([ 'Orientation activities', 'Clubs & societies', 'University events' ]) },
+  { label: 'School Amenities', subtitle: "Find out more about the facilities around campus.", defaultContentHeadings: JSON.stringify([ 'Healthcare', 'Sports facilities', 'Getting daily necessities', 'Banks & ATMs', 'Post offices', 'Internet connectivity' ]) },
+  { label: 'Activities Outside School', subtitle: "Going on exchange isn't all about just staying in school!", defaultContentHeadings: JSON.stringify([ 'Places of interest', 'Shopping malls', 'Food', 'Night life' ]) },
+];
+
+UniversityInfoSection.count({}).then(function(count) {
+  if (!count)
+    uniInfoSections.forEach(section => {
+      UniversityInfoSection.create(section);
+    });
+});
+
