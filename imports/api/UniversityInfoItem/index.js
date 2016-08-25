@@ -11,11 +11,15 @@ const UniversityInfoItem = sequelize.define(tableName, {
   universityId: {
     type: DataType.INTEGER(),
   },
-  content: {
-    type: DataType.TEXT('long'),
-  },
   userId: {
     type: DataType.INTEGER(),
+  },
+  imageId: {
+    type: DataType.CHAR(255),
+    optional: true,
+  },
+  content: {
+    type: DataType.TEXT('long'),
   },
 
 });

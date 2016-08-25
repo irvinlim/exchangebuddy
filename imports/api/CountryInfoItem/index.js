@@ -11,11 +11,15 @@ const CountryInfoItem = sequelize.define(tableName, {
   countryCode: {
     type: DataType.CHAR(2),
   },
-  content: {
-    type: DataType.TEXT('long'),
-  },
   userId: {
     type: DataType.INTEGER(),
+  },
+  imageId: {
+    type: DataType.CHAR(255),
+    optional: true,
+  },
+  content: {
+    type: DataType.TEXT('long'),
   },
 
 });

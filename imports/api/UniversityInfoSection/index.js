@@ -16,6 +16,10 @@ const UniversityInfoSection = sequelize.define(tableName, {
     type: DataType.BOOLEAN(),
     defaultValue: false,
   },
+  defaultImageId: {
+    type: DataType.CHAR(255),
+    optional: true,
+  },
 
 });
 
