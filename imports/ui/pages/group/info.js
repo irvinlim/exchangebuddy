@@ -35,9 +35,11 @@ GroupInfo.contextTypes = {
 function generateSecItems(type) {
   let res = [];
   for(let i =1; i<6; i++) {
+    const x = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
+    const y = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
     const secItem = {_id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i)};
     secItem.sectionLabel= faker.lorem.words();
-    secItem.img = 'http://placehold.it/'+Math.floor(Math.random()*i*100)+'x'+Math.floor(Math.random()*i*100);
+    secItem.img = 'http://lorempixel.com/'+x+'/'+y+'/city';
     secItem.type=type;
     res.push(secItem);
   }

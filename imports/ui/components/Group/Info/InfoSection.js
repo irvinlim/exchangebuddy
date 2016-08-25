@@ -26,8 +26,8 @@ const InfoSection=({ items }) => (
     cellHeight={210}
     padding={10}
     paddingTop={57}
-    style={styles.gridList}
-  >
+    style={styles.gridList}>
+
     {items.map((tile, idx) => {
       const goToInfoPg = () => { browserHistory.push(`/info/${tile.type}/${tile._id}`) };
       return(
@@ -38,9 +38,8 @@ const InfoSection=({ items }) => (
           title={tile.sectionLabel}
           cols={tile.featured ? 2 : 1}
           rows={tile.featured ? 2 : 1}
-          style={{background: "url("+tile.img +") no-repeat center center", height: "200px", cursor: "pointer"}}
-          onClick={ goToInfoPg }
-        >
+          style={{background: "url("+tile.img +") no-repeat center center", backgroundSize: 'cover', height: "200px", cursor: "pointer"}}
+          onClick={ goToInfoPg }>
         </GridTile>
         <CardActions>
           <FlatButton label="Share" />
@@ -49,6 +48,7 @@ const InfoSection=({ items }) => (
       </Card>
       )
     })}
+
   </GridList>
 )
 

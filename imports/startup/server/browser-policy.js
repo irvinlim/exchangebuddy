@@ -30,3 +30,4 @@ BrowserPolicy.content.allowImageOrigin( 'avatars.io' );
 BrowserPolicy.content.allowImageOrigin( 'media.giphy.com' );
 BrowserPolicy.content.allowImageOrigin( 'placeholdit.imgix.net')
 BrowserPolicy.content.allowImageOrigin( 'placehold.it')
+BrowserPolicy.content.allowImageOrigin( 'lorempixel.com')
