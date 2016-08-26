@@ -21,6 +21,7 @@ import Home from '../../ui/pages/home';
 import Signup from '../../ui/pages/signup';
 import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
+import InfoDisplay from '../../ui/pages/info-display';
 
 // Group
 import Group from '../../ui/pages/group/group';
@@ -120,7 +121,10 @@ Meteor.startup(() => {
                 <IndexRoute name="home" component={ GroupHome } />
                 <Route name="info" path="info">
                   <IndexRoute name="info-home" component={ GroupInfo } />
-                  <Route name="info-page" path=":sectionId" component={ GroupInfoPage } />
+                  <Route path=":sectionId">
+                    <IndexRoute name= "info-page" component={ GroupInfoPage } />
+                    <Route name="info-page-edit" path="edit" component={ InfoDisplay } />
+                  </Route>
                 </Route>
                 <Route name="chat" path="chat" component={ GroupChat } />
                 <Route name="events" path="events" component={ GroupEvents } />
