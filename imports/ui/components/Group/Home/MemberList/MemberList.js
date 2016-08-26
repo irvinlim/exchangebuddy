@@ -23,10 +23,10 @@ const MemberTile = ({ idx, user }) => (
   </GridTile>
 );
 
-const MemberList = ({ groupUsers }) => (
+const MemberList = ({ groupUsers, isMobile }) => (
   <GridList
     className="member-list"
-    cols={3}
+    cols={ isMobile ? 1 : 3 }
     cellHeight={100}
     padding={40}
     style={ styles.gridList }>
