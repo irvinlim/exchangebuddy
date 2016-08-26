@@ -22,11 +22,9 @@ if (Meteor.isServer) {
       check(id, Number);
 
       return Group.findOne({ where: { id } }).then(function(result) {
-        return result.getUsers();
+        return result && result.getUsers({ include: [ { model: University, as: 'homeUniversity' } ] });
       }).then(function(result) {
-        return result.map(user => {
-          return user.get({ plain: true })
-        });
+        return result && result.map(user => user.get({ plain: true }));
       });
     },
 

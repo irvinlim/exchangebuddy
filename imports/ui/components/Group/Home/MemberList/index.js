@@ -13,10 +13,11 @@ const composer = (props, onData) => {
 
   // Get groupUsers
   if (groupId) {
-    Meteor.call('Group.getUsers', groupId, (err, groupUsers) =>
+    Meteor.call('Group.getUsers', groupId, (err, groupUsers) => {
       onData(null, {
         groupUsers
-      }));
+      })
+    });
   }
 
 };

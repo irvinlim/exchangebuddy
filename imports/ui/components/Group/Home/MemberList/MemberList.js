@@ -19,7 +19,7 @@ const styles = {
 
 const MemberTile = ({ idx, user }) => (
   <GridTile key={ idx } className="grid-tile" title="" titleBackground="none" cols={1} rows={1}>
-    <ListItem primaryText={ user.displayName } leftAvatar={ getAvatar(user, 40) } />
+    <ListItem primaryText={ user.displayName } secondaryText={ user.homeUniversity.name } leftAvatar={ getAvatar(user, 40) } />
   </GridTile>
 );
 

@@ -30,7 +30,7 @@ import './University/publications';
 // Declare foreign keys
 User.belongsTo(University, {
   foreignKey: 'homeUniId',
-  as: 'homeUni',
+  as: 'homeUniversity',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
@@ -38,6 +38,12 @@ User.belongsTo(University, {
 User.belongsTo(Country, {
   foreignKey: 'homeCountryCode',
   as: 'homeCountry',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+Country.hasMany(User, {
+  foreignKey: 'homeCountryCode',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
