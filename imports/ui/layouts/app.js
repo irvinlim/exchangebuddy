@@ -12,8 +12,7 @@ class App extends React.Component {
     // Declare window resize handlers
     this.windowResizeHandlers = [
       (e) => {
-        console.log('resize');
-        console.log(this.props.actions.resizeBrowserWindow);
+        this.props.actions.resizeBrowserWindow($(window).width());
       },
     ];
 

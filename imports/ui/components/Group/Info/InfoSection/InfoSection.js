@@ -19,17 +19,18 @@ const styles = {
   },
 };
 
-const InfoSection=({ group, items }) => (
+const InfoSection = ({ group, items, isMobile }) => (
   <GridList
     className="grid-list"
-    cols={3}
+    cols={ isMobile ? 2 : 3 }
     cellHeight={210}
     padding={10}
     style={styles.gridList}>
 
     {items.map((tile, idx) => {
       const goToInfoPg = () => { browserHistory.push(`/group/${group.id}/info/${tile.id}`) };
-      return(
+
+      return (
       <Card className="grid-tile-container">
         <GridTile
           className="grid-tile"
