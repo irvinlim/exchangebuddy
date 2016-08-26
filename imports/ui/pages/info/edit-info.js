@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
-import InfoView from '../components/InfoView/InfoView';
+import InfoViewEdit from '../../components/InfoView/InfoViewEdit';
 
-const InfoDisplay = () => (
+const EditInfo = () => (
       <Grid>
         <div>Information Section Display</div>
-        <InfoView />
+        <InfoViewEdit />
       </Grid>
     )
 
-export default InfoDisplay
+export default EditInfo;
