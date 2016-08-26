@@ -9,3 +9,10 @@
   max-height: 250px;
   transform: translateY(0) !important;
 }
+
+.formBtn {
+  margin-top: 10px !important;
+  > button {
+    height: 52px !important;
+  }
+}
