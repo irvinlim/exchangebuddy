@@ -1,12 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
+import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import InfoViewEdit from '../../components/InfoView/InfoViewEdit';
 
 const EditInfo = () => (
       <Grid>
-        <div>Information Section Display</div>
+        <Row>
+          <Col xs={12}>
+          <h3 className="pinline"> <span>Edit Information Section</span> </h3>
+          </Col>
+        </Row>
         <InfoViewEdit />
       </Grid>
     )
