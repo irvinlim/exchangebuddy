@@ -21,7 +21,10 @@ import Home from '../../ui/pages/home';
 import Signup from '../../ui/pages/signup';
 import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
-import InfoDisplay from '../../ui/pages/info-display';
+
+// Info
+import ViewInfo from '../../ui/pages/info/view-info';
+import EditInfo from '../../ui/pages/info/edit-info';
 
 // Group
 import Group from '../../ui/pages/group/group';
@@ -122,8 +125,8 @@ Meteor.startup(() => {
                 <Route name="info" path="info">
                   <IndexRoute name="info-home" component={ GroupInfo } />
                   <Route path=":sectionId">
-                    <IndexRoute name= "info-page" component={ GroupInfoPage } />
-                    <Route name="info-page-edit" path="edit" component={ InfoDisplay } />
+                    <IndexRoute name= "info-page" component={ ViewInfo } />
+                    <Route name="info-page-edit" path="edit" component={ EditInfo } />
                   </Route>
                 </Route>
                 <Route name="chat" path="chat" component={ GroupChat } />

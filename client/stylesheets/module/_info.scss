@@ -9,3 +9,15 @@
   max-height: 250px;
   transform: translateY(0) !important;
 }
+
+.formBtn > button {
+  height: 42px !important;
+  > div > div {
+    height: 42px !important;
+  }
+}
+
+.mdEditorPaper {
+  min-height: 300px;
+  padding: 24px;
+}

@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
-import faker from 'faker';
 
 import InfoList from '../../components/Group/Info/InfoList';
 
@@ -40,7 +39,7 @@ function generateSecItems(type) {
     const x = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
     const y = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
     const secItem = { id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i) };
-    secItem.sectionLabel= faker.lorem.words();
+    secItem.sectionLabel= Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;;
     secItem.img = 'http://lorempixel.com/'+x+'/'+y+'/city';
     secItem.type=type;
     res.push(secItem);
