@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
-import { GridList, GridTile } from 'material-ui/GridList';
 import { ListItem } from 'material-ui/List';
 
 import { getAvatar } from '../../../../../util/user';
@@ -11,29 +10,27 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
   },
+
   gridList: {
     width: "100%",
-    marginBottom: 24,
+    margin: "0 auto",
   },
 };
 
 const MemberTile = ({ idx, user }) => (
-  <GridTile key={ idx } className="grid-tile" title="" titleBackground="none" cols={1} rows={1}>
+  <Col key={ idx } xs={12} sm={6} md={4}>
     <ListItem primaryText={ user.displayName } secondaryText={ user.homeUniversity.name } leftAvatar={ getAvatar(user, 40) } />
-  </GridTile>
+  </Col>
 );
 
 const MemberList = ({ groupUsers, isMobile }) => (
-  <GridList
-    className="member-list"
-    cols={ isMobile ? 1 : 3 }
-    cellHeight={100}
-    padding={40}
-    style={ styles.gridList }>
+  <Grid>
+    <Row>
 
-    { groupUsers.map((user, idx) => <MemberTile idx={ idx } user={ user } />) }
+      { groupUsers.map((user, idx) => <MemberTile idx={ idx } user={ user } />) }
 
-  </GridList>
+    </Row>
+  </Grid>
 )
 
 export default MemberList;
