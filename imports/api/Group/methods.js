@@ -32,8 +32,8 @@ if (Meteor.isServer) {
       check(countryId, String);
       check(uniCBDLatLng, Array);
 
-      const countryMapping = require('../../../data/topuniversities/countryMapping.json');
-      const countryLatLngMapping = require('../../../data/countrytolatlng/countryLatLngMapping.json');
+      const countryMapping = Assets.getText('data/topuniversities/countryMapping.json');
+      const countryLatLngMapping = Assets.getText('data/countrytolatlng/countryLatLngMapping.json');
       const latLng = countryLatLngMapping[countryMapping[countryId].toLowerCase()];
 
       // Search by latLng of country center & CBD of city of uni
