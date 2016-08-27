@@ -38,3 +38,6 @@ export const propExistsDeep = function(parent, arrayOfChildProps) {
 export const convertToSlug = (Text) => {
   return Text.toLowerCase().replace(/[^\w ]+/g,'').split(' ').filter(s => s.length).join('-');
 };
+
+// Pluralizer
+export const pluralizer = (number, singular, plural) => number === 1 ? singular : plural;

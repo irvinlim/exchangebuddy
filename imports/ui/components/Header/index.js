@@ -22,9 +22,6 @@ const composer = (props, onData) => {
     return;
 
   Meteor.call('Group.get', groupId, (err, group) => {
-    groupMemberCount = 10;
-    group.size = groupMemberCount;
-
     onData(null, {
       user,
       uni: group.university,

@@ -14,7 +14,7 @@ if (Meteor.isServer) {
     'Group.get'(id) {
       check(id, Number);
 
-      return Group.findOne({ where: { id }, include: [ University ] }).then(function(result) {
+      return Group.findOne({ where: { id }, include: [ University, User ] }).then(function(result) {
         const group = result && result.get({ plain: true });
         return group;
       });

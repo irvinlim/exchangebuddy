@@ -1,12 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { handleLogout } from '../../../util/session';
-import * as ImagesHelper from '../../../util/images';
-import * as IconsHelper from '../../../util/icons';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 import HeaderProfile from './HeaderProfile';
+
+import * as ImagesHelper from '../../../util/images';
+import * as IconsHelper from '../../../util/icons';
+import { pluralizer } from '../../../util/helper';
 
 const gotourl = (groupId, tab) => () => {
   const queryParams = ['group', groupId];
@@ -84,7 +86,7 @@ export default class Header extends React.Component {
 
             <Col xs={12} md={8} id="header-title">
               <h2 id="uni-name">{ uni.name }</h2>
-              <p id="uni-description">{ `${ group.term } ${ group.year } - ${ group.size } Members` }</p>
+              <p id="uni-description">{ `${ group.term } ${ group.year } - ${ group.users.length } ${ pluralizer(group.users.length, 'Member', 'Members') }` }</p>
             </Col>
 
             <Col xs={6} md={2}>
