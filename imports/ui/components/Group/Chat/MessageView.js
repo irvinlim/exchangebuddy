@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import MessageList from './MessageList'
+import MessageList from './MessageList';
 
 export default class MessageView extends React.Component {
   constructor(props) {

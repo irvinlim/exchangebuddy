@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 
 import * as UserHelper from '../../../../../util/user';
 
@@ -45,7 +45,7 @@ class SubmitForm extends Component {
             ref="msg"
             withRef />
 
-          <FlatButton className="message-send-button" type="submit" disabled={pristine || submitting} label="Send" />
+          <IconButton iconClassName="material-icons" className="message-send-button" type="submit" disabled={pristine || submitting}>send</IconButton>
         </div>
       </form>
     )
