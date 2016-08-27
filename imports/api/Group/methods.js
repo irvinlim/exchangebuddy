@@ -126,9 +126,11 @@ if (Meteor.isServer) {
           if (university.countryCode == 'US') {
             // If this university has no latLng or city,
             // Check if have state, otherwise the city defaults to Washington D.C.
-            // Set default state to WA.
+            // Washington D.C. does not belong in a state so it breaks Meetup API's query
+            // We have no choice. Use a default of New York, NY.
             if (!university.lat && !university.lng && !university.city && !university.state) {
-              options.state = 'WA';
+              options.state = 'NY';
+              options.city = 'New York';
             }
           }
 
