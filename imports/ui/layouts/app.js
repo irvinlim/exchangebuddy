@@ -5,6 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import MessageSnackbar from '../components/MessageSnackbar';
 
+import { makeRouteSlug } from '../../util/helper';
+
 // Component
 
 class App extends React.Component {
@@ -24,10 +26,12 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.routes);
+
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
-          <div id="main">
+          <div id="main" className={`page-${ makeRouteSlug(this.props.routes) }`}>
             { this.props.children }
           </div>
 

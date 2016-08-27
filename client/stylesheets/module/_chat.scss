@@ -1,4 +1,18 @@
-.chat-container { display: flex; flex-direction: column; }
+.page-group-chat {
+  > div { height: 100vh; display: flex; flex-direction: column; }
+
+  #group-container {
+    height: calc(100% - 250px);
+    .container { height: 100%; padding: 0; }
+  }
+
+  @include media-xs-only {
+    #header #header-row { display: none; }
+    #group-container { height: calc(100% - 72px); }
+  }
+}
+
+.chat-container { display: flex; flex-direction: column; background-color: #fff; height: 100%; }
 
 .messages-container { height: 100%; overflow-x: hidden; overflow-y: auto; max-height: 800px; }
 
@@ -15,7 +29,8 @@
 }
 
 .message-send-row {
-  display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 10px 20px;
+  width: calc(100% - 40px); padding: 10px 20px; background-color: #fff; border-top: 1px solid #eee;
+  display: flex; flex-direction: row; justify-content: space-between; align-items: center;
 
   .message-user-avatar {
     margin-right: 10px;

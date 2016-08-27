@@ -3,6 +3,11 @@
 export const formatDate = (date) => moment(date).format('"D MMM YYYY');
 export const formatTime = (date) => moment(date).format('h:mm A');
 
+// Routes
+export const makeRouteSlug = (routes) => {
+  return routes.map(route => route.path).filter(route => route && route != '/' && route.substr(0, 1) != ':').join('-');
+};
+
 // Objects
 
 /**

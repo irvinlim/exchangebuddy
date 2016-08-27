@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 
 import SubmitForm from '../../components/Group/Chat/SubmitForm'
-import MessageView from '../../components/Group/Chat/MessageView'
+import MessageList from '../../components/Group/Chat/MessageList'
 
 const showResults = values =>
   new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ const showResults = values =>
 const GroupChat = ({ messages, params }) => (
   <Grid>
     <div className="chat-container">
-      <MessageView groupId={ params.id } />
+      <MessageList groupId={ params.id } />
       <SubmitForm onSubmit={ showResults }/>
     </div>
   </Grid>

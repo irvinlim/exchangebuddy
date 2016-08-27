@@ -37,7 +37,7 @@ export default class MessageList extends React.Component {
     const { messages, user } = this.props;
 
     return (
-      <div>
+      <div className="messages-container">
         { messages.length > 0 && messages.map((message, idx) => <Message message={ message } currentUser={ user } idx={ idx } />) }
       </div>
     )
