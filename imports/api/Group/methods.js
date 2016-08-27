@@ -8,6 +8,8 @@ import Country from '../Country';
 import EventSearch from "facebook-events-by-location-core";
 import meetup from "meetup-api";
 
+const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
+
 if (Meteor.isServer) {
   Meteor.methods({
 
@@ -90,31 +92,48 @@ if (Meteor.isServer) {
       });
     },
 
-    'Group.getMeetupEvents'(latLng, cityName, pageNumber) {
-      check(latLng, Array);
-      check(cityName, String);
-      check(pageNumber, Number);
+    'Group.getMeetupEvents'(university) {
+      check(university, Object);
 
-      // Search events by latLng and city name of uni
-      const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
-      const eventsPromise = new Promise(function(resolve, reject){
-        Meetup.getOpenEvents({
-          "text": cityName,
-          "order": "trending",
-          "page": 20,
-          "offset": pageNumber,
-          "desc": true
-        }, (error, events)=>{
-          if(error)
-            console.log(error);
-          else
-            resolve(events);
+      // Should show localised events first, before showing general ones, in the following order:
+      // 1. Use university's latlng
+      // 2. Use university's city + countryCode
+      // 3. Use countryCode + capital city
+      // Don't use country's latlng
+
+      return Country.findById(university.countryCode).then(function(result) {
+        const country = result && result.get();
+
+        return new Promise(function(resolve, reject) {
+          const options = {
+            order: "trending",
+            page: 20,
+            offset: 0,
+            desc: true,
+          };
+
+          if (university.lat && university.lng) {
+            options.lat = university.lat;
+            options.lon = university.lng;
+          } else if (university.city) {
+            options.city = university.city;
+            options.country = university.countryCode;
+          } else {
+            options.city = country.capital;
+            options.country = country.alpha2Code;
+          }
+
+          Meetup.getOpenEvents(options, (error, events) => {
+            if (error)
+              throw new Meteor.Error('Group.getMeetupEvents.MeetupError', error);
+            else
+              resolve(events);
+          });
+
         });
-
-      })
-      return eventsPromise.then(function(events) {
+      }).then(function(events) {
         return events;
-      })
+      });
     },
 
   });

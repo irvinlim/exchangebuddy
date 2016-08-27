@@ -17,21 +17,16 @@ const composer = (props, onData) => {
       if (!group)
         return;
 
-      const uni = group.university;
+      const { university } = group;
 
       if (source == 'Facebook') {
         // Temp: Don't pass in uniLatLng
-        Meteor.call('Group.getFbEvents', uni.countryCode, (err, groupEvents) => {
+        Meteor.call('Group.getFbEvents', university.countryCode, (err, groupEvents) => {
           onData(null, { groupEvents });
         });
       } else if (source == 'Meetup') {
-        Meteor.call('Country.get', uni.countryCode, (err, country) => {
-          // Temp: Set pageNumber = 0, use country's latlng
-          const city = uni.city ? uni.city : country.name;
-
-          Meteor.call('Group.getMeetupEvents', [country.lat, country.lng], city, 0, (err, res) => {
-            onData(null, { groupEvents: res.results });
-          });
+        Meteor.call('Group.getMeetupEvents', university, (err, res) => {
+          onData(null, { groupEvents: res.results });
         });
       }
 
