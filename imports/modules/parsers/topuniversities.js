@@ -6,6 +6,8 @@ const parseJSON = (json, callback) => {
     if (err)
       return callback(err);
 
+    countryMapping = JSON.parse(countryMapping);
+
     const mapped = json.map(uni => {
       let logoUrl = "",
           linkUrl = "";
@@ -35,9 +37,11 @@ const parseJSON = (json, callback) => {
   });
 };
 
-export const updateUniversities = () => Meteor.bindEnvironment(() => {
+export const updateUniversities = Meteor.bindEnvironment(() => {
   // Read input file
-  Assets.getText('data/topuniversities/299926.json', (err, inputJSON) => {
+  Assets.getText('data/topuniversities/299926.json', (err, input) => {
+    const inputJSON = JSON.parse(input);
+
     // Update parsed JSON to database
     parseJSON(inputJSON, (err, parsed) => {
       if (!parsed)

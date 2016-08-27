@@ -68,8 +68,6 @@ if (Meteor.isServer) {
           if (res2)
             combinedEvents = combinedEvents.concat(res2.events);
 
-          console.log(combinedEvents && combinedEvents.length);
-
           return combinedEvents.sort((a, b) => {
             const aNum = a.stats.attending;
             const bNum = b.stats.attending;
