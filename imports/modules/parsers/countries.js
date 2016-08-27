@@ -10,13 +10,15 @@ export const updateCountries = Meteor.bindEnvironment(() => {
       return console.log("Error: Could not retrive countries from restcountries.eu.");
 
     const toInsert = result.data.map(country => {
-      const { name, region, alpha2Code, alpha3Code, altSpellings, timezones, callingCodes, currencies, languages } = country;
+      const { name, region, alpha2Code, alpha3Code, altSpellings, timezones, callingCodes, currencies, languages, latlng } = country;
 
       return {
         name,
         alpha2Code,
         alpha3Code,
         region,
+        lat: latlng[0],
+        lng: latlng[1],
         altSpellings: stringify(altSpellings),
         timezones: stringify(timezones),
         callingCodes: stringify(callingCodes),

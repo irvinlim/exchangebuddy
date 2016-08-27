@@ -3,6 +3,8 @@ import { HTTP } from 'meteor/http';
 import Group from '.';
 import University from '../University';
 import User from '../User';
+import Country from '../Country';
+
 import EventSearch from "facebook-events-by-location-core";
 import meetup from "meetup-api";
 
@@ -28,44 +30,66 @@ if (Meteor.isServer) {
       });
     },
 
-    'Group.getFbEvents'(countryId, uniCBDLatLng) {
-      check(countryId, String);
-      check(uniCBDLatLng, Array);
+    'Group.getFbEvents'(countryCode, uniLatLng) {
+      check(countryCode, String);
+      check(uniLatLng, Match.Optional(Array));
 
-      const countryMapping = Assets.getText('data/topuniversities/countryMapping.json');
-      const countryLatLngMapping = Assets.getText('data/countrytolatlng/countryLatLngMapping.json');
-      const latLng = countryLatLngMapping[countryMapping[countryId].toLowerCase()];
+      let esCountry, esUni;
 
-      // Search by latLng of country center & CBD of city of uni
-      const esCountry = new EventSearch({
-        "lat": latLng[0],
-        "lng": latLng[1],
-        "accessToken": Meteor.settings.public.Facebook.appAccessToken,
-        // distance in metres
-        "distance": 50000
-      });
+      return Country.findById(countryCode).then(function(result) {
+        const country = result && result.get();
 
-      const esUni = new EventSearch({
-        "lat": uniCBDLatLng[0],
-        "lng": uniCBDLatLng[1],
-        "accessToken": Meteor.settings.public.Facebook.appAccessToken,
-        // distance in metres
-        "distance": 50000
-      })
+        if (!country)
+          throw new Meteor.Error('Group.getFbEvents.undefinedCountry', 'A valid country code must be provided.');
 
-      return esCountry.search().then(function (res) {
-        return esUni.search().then(function(res2) {
-          return res2.events.concat(res.events).sort( (a,b) => {
-            if(a.stats.attending < b.stats.attending){
-              return 1;
-            } else if(a.stats.attending > b.stats.attending){
-              return -1;
-            } else {
-              return 0;
-            }
+        // Search by latLng of country center & CBD of city of uni
+        esCountry = new EventSearch({
+          lat: country.lat,
+          lng: country.lng,
+          accessToken: Meteor.settings.public.Facebook.appAccessToken,
+          // distance in metres
+          distance: 50000
+        });
+
+        if (uniLatLng)
+          esUni = new EventSearch({
+            lat: uniLatLng[0],
+            lng: uniLatLng[1],
+            accessToken: Meteor.settings.public.Facebook.appAccessToken,
+            // distance in metres
+            distance: 50000
           });
-        }).catch(error => console.error(JSON.stringify(error)));
-      }).catch(error => console.error(JSON.stringify(error)));
+
+        return esCountry.search();
+      }).then(function(res) {
+        const combineEvents = (res2) => {
+          let combinedEvents = res.events;
+
+          if (res2)
+            combinedEvents = combinedEvents.concat(res2.events);
+
+          console.log(combinedEvents && combinedEvents.length);
+
+          return combinedEvents.sort((a, b) => {
+            const aNum = a.stats.attending;
+            const bNum = b.stats.attending;
+
+            if (aNum < bNum)
+              return 1;
+            else if (aNum > bNum)
+              return -1;
+            else
+              return 0;
+          });
+        };
+
+        if (!esUni)
+          return combineEvents(null);
+
+        return esUni.search().then(combineEvents).catch(function(error) {
+          throw new Meteor.Error("Group.getFbEvents.EventSearchError", JSON.stringify(error))
+        });
+      });
     },
 
     'Group.getMeetupEvents'(latLng, cityName, pageNumber) {
