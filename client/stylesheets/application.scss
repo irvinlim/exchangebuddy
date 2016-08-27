@@ -7,13 +7,14 @@
 @import "base/forms";
 
 @import "module/chat";
-@import "module/info";
 @import "module/events";
+@import "module/group";
+@import "module/header";
+@import "module/info";
 @import "module/loading";
 @import "module/login";
-@import "module/signup";
-@import "module/header";
-@import "module/group";
+@import "module/misc";
 @import "module/quill";
+@import "module/signup";
 
 @import "state/navbar";
