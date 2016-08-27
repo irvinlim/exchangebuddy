@@ -5,17 +5,16 @@ import IconButton from 'material-ui/IconButton';
 
 import * as UserHelper from '../../../../../util/user';
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = [ 'message' ];
-  requiredFields.forEach(field => {
-    if (!values[ field ]) {
-      errors[ field ] = ''
-    }
-  });
+const submitForm = (callback) => (values) => {
+  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: 1, content: values.message };
 
-  return errors;
-}
+  Meteor.call('GroupChatMessage.sendToGroup', params, (err, success) => {
+    if (err)
+      console.log("Error in invoking GroupChatMessage.sendToGroup: " + err);
+    else
+      callback();
+  });
+};
 
 class SubmitForm extends Component {
   componentDidMount() {
@@ -27,10 +26,11 @@ class SubmitForm extends Component {
 
   render() {
     const { handleSubmit, pristine, reset, submitting, user } = this.props;
+
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ handleSubmit(submitForm(reset)) }>
         <div className="message-send-row">
-          <div className="message-user-avatar">{ UserHelper.getAvatar(user, 60) }</div>
+          <div className="message-user-avatar">{ UserHelper.getAvatar(user, 48) }</div>
 
           <Field
             className="message-send-field"
@@ -54,6 +54,5 @@ class SubmitForm extends Component {
 
 // Decorate with redux-form
 export default reduxForm({
-  form: 'submitForm',
-  validate
+  form: 'submitForm'
 })(SubmitForm);

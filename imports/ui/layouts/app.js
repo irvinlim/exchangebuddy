@@ -26,8 +26,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props.routes);
-
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
