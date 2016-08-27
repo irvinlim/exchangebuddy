@@ -17,8 +17,8 @@ const styles = {
   },
 };
 
-const MemberTile = ({ idx, user }) => (
-  <Col key={ idx } xs={12} sm={6} md={4}>
+const MemberTile = ({ user }) => (
+  <Col xs={12} sm={6} md={4}>
     <ListItem primaryText={ user.displayName } secondaryText={ user.homeUniversity.name } leftAvatar={ getAvatar(user, 40) } />
   </Col>
 );
@@ -27,7 +27,7 @@ const MemberList = ({ groupUsers, isMobile }) => (
   <Grid>
     <Row>
 
-      { groupUsers.map((user, idx) => <MemberTile idx={ idx } user={ user } />) }
+      { groupUsers.map((user, idx) => <MemberTile key={ idx } user={ user } />) }
 
     </Row>
   </Grid>

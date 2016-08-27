@@ -38,7 +38,7 @@ class SubmitForm extends Component {
             component={TextField}
             floatingLabelText="Say something..."
             floatingLabelFixed={true}
-            autocomplete="off"
+            autoComplete="off"
             fullWidth={true}
             multiLine={true}
             rows={2}

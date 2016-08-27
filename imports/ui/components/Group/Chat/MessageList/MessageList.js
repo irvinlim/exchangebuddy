@@ -3,10 +3,10 @@ import React from 'react';
 import { formatTime } from '../../../../../util/helper';
 import * as UserHelper from '../../../../../util/user';
 
-const Message = ({ message, currentUser, idx }) => {
+const Message = ({ message, currentUser }) => {
   const { content, user, createdAt } = message;
   return (
-    <div key={ idx } className="message-row">
+    <div className="message-row">
       <div className="message-avatar">{ UserHelper.getAvatar(user, 40) }</div>
       <div className="message-body">
         <h5 className="message-username">{ user.displayName } <span className="message-timestamp">{ formatTime(createdAt) }</span></h5>
@@ -38,7 +38,7 @@ export default class MessageList extends React.Component {
 
     return (
       <div className="messages-container">
-        { messages.length > 0 && messages.map((message, idx) => <Message message={ message } currentUser={ user } idx={ idx } />) }
+        { messages.length > 0 && messages.map((message, idx) => <Message message={ message } currentUser={ user } key={ idx } />) }
       </div>
     )
   }
