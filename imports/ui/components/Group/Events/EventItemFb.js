@@ -2,7 +2,6 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
-import moment from 'moment';
 import truncate from 'truncate';
 
 const EventItemFb = ({ groupEvent }) => (

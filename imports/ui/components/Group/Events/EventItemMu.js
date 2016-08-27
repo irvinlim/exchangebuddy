@@ -3,7 +3,6 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
 import truncate from 'truncate';
 
 const EventItemMu = ({ groupEvent }) => (
