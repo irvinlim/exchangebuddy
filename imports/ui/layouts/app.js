@@ -5,16 +5,31 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import MessageSnackbar from '../components/MessageSnackbar';
 
-const App = React.createClass({
-  propTypes: {
-    children: React.PropTypes.element.isRequired,
-  },
+import { makeRouteSlug } from '../../util/helper';
+
+// Component
+
+class App extends React.Component {
+  componentDidMount() {
+    // Declare window resize handlers
+    this.windowResizeHandlers = [
+      (e) => {
+        this.props.actions.resizeBrowserWindow($(window).width());
+      },
+    ];
+
+    this.windowResizeHandlers.forEach(handler => $(window).on('resize', handler).trigger('resize'));
+  }
+
+  componentWillUnmount() {
+    this.windowResizeHandlers.forEach(handler => $(window).off('resize', handler));
+  }
 
   render() {
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
-          <div id="main">
+          <div id="main" className={`page-${ makeRouteSlug(this.props.routes) }`}>
             { this.props.children }
           </div>
 
@@ -22,7 +37,23 @@ const App = React.createClass({
         </div>
       </MuiThemeProvider>
     );
-  },
-});
+  }
+}
 
-export default App;
+App.propTypes = {
+  children: React.PropTypes.element.isRequired,
+};
+
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { resizeBrowserWindow } from '../../client/actions/browser';
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ resizeBrowserWindow }, dispatch),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);

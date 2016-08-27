@@ -1,39 +1,54 @@
 import { bulkCreateOrUpdate } from '../../api/University/methods';
+import { convertToSlug } from '../../util/helper';
 
-export const parseJSON = (json) => {
-  const countryMapping = require('../../../data/topuniversities/countryMapping.json');
+const parseJSON = (json, callback) => {
+  Assets.getText('data/topuniversities/countryMapping.json', (err, countryMapping) => {
+    if (err)
+      return callback(err);
 
-  return json.map(uni => {
-    let logoUrl = "",
-        linkUrl = "";
+    countryMapping = JSON.parse(countryMapping);
 
-    if (uni.logo) {
-      logoUrl = uni.logo.substr(10);
-      logoUrl = logoUrl.substr(0, logoUrl.indexOf("\""));
-    }
+    const mapped = json.map(uni => {
+      let logoUrl = "",
+          linkUrl = "";
 
-    if (uni.link) {
-      linkUrl = uni.link.substr(9);
-      linkUrl = 'http://www.topuniversities.com' + linkUrl.substr(0, linkUrl.indexOf("\""));
-    }
+      if (uni.logo) {
+        logoUrl = uni.logo.substr(10);
+        logoUrl = logoUrl.substr(0, logoUrl.indexOf("\""));
+      }
 
-    return {
-      name: uni.title.trim(),
-      countryCode: countryMapping[uni.country_tid],
-      topUnisId: uni.cid,
-      logoUrl,
-      linkUrl,
-    };
+      if (uni.link) {
+        linkUrl = uni.link.substr(9);
+        linkUrl = 'http://www.topuniversities.com' + linkUrl.substr(0, linkUrl.indexOf("\""));
+      }
+
+      return {
+        name: uni.title.trim(),
+        countryCode: countryMapping[uni.country_tid],
+        topUnisId: uni.cid,
+        linkUrl,
+
+        // Pre-upload all logos to Cloudinary, set logoImageId only if JSON data contains it
+        logoImageId: uni.logo ? 'university-logos/' + convertToSlug(uni.title) : null
+      };
+    });
+
+    return callback(null, mapped);
   });
 };
 
-export const updateUniversities = () => {
+export const updateUniversities = Meteor.bindEnvironment(() => {
   // Read input file
-  const inputJSON = require('../../../data/topuniversities/299926.json');
+  Assets.getText('data/topuniversities/299926.json', (err, input) => {
+    const inputJSON = JSON.parse(input);
 
-  // Update parsed JSON to database
-  const parsed = parseJSON(inputJSON);
+    // Update parsed JSON to database
+    parseJSON(inputJSON, (err, parsed) => {
+      if (!parsed)
+        return;
 
-  // Add to database
-  bulkCreateOrUpdate(parsed);
-};
+      // Add to database
+      bulkCreateOrUpdate(parsed);
+    });
+  });
+});

@@ -22,9 +22,15 @@ import Signup from '../../ui/pages/signup';
 import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
 
+// Info
+import ViewInfo from '../../ui/pages/info/view-info';
+import EditInfo from '../../ui/pages/info/edit-info';
+
 // Group
 import Group from '../../ui/pages/group/group';
+import GroupHome from '../../ui/pages/group/home';
 import GroupInfo from '../../ui/pages/group/info';
+import GroupInfoPage from '../../ui/pages/group/info'; // temp
 import GroupChat from '../../ui/pages/group/chat';
 import GroupEvents from '../../ui/pages/group/events';
 
@@ -50,7 +56,7 @@ const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
     if (Meteor.user().homeUniEmailVerified) {
-      path = '/group/info';
+      path = `/group`;
     } else {
       path = '/signup';
     }
@@ -64,14 +70,37 @@ const authenticatedRedirect = (nextState, replace) => {
 };
 
 const verifiedRedirect = (nextState, replace) => {
-  if (Meteor.user() && Meteor.user().homeUniEmailVerified)
+  if (Meteor.user() && Meteor.user().homeUniEmailVerified) {
     replace({
-      pathname: '/group',
+      pathname: `/group`,
       state: { nextPathname: nextState.location.pathname }
     });
+  }
 };
 
-const goToGroupInfo = () => browserHistory.push('/group/info');
+const goToDefaultGroup = (nextState, replace) => {
+  if (Meteor.user() && Meteor.user().defaultGroupId) {
+    // If have default group, redirect there.
+    replace({
+      pathname: `/group/${Meteor.user().defaultGroupId}`,
+      state: { nextPathname: nextState.location.pathname }
+    });
+  } else {
+    // Check if have any other group; else just go to home.
+    Meteor.call('User.getGroups', Meteor.userId(), (err, groups) => {
+      let path;
+      if (groups.length)
+        path = `/group/${ groups[0].id }`;
+      else
+        path = '/';
+
+      replace({
+        pathname: path,
+        state: { nextPathname: nextState.location.pathname }
+      });
+    });
+  }
+};
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, Store);
@@ -86,16 +115,26 @@ Meteor.startup(() => {
         <Router history={ history } onUpdate={ logPageView }>
           <Route path="/" component={ App }>
 
-            <IndexRoute name="home" component={ Home } onEnter={ authenticatedRedirect } />
+            <IndexRoute name="home" component={ Home } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
-            <Route path="group" component={ Group }>
-              <IndexRoute component={ GroupInfo } onEnter={ goToGroupInfo } />
-              <Route path="info" component={ GroupInfo } />
-              <Route path="chat" component={ GroupChat } />
-              <Route path="events" component={ GroupEvents } />
-              <Redirect from="*" to="info" />
+            <Route path="group">
+              <IndexRoute onEnter={ goToDefaultGroup } />
+              <Route path=":id" component={ Group }>
+                <IndexRoute name="home" component={ GroupHome } />
+                <Route name="info" path="info">
+                  <IndexRoute name="info-home" component={ GroupInfo } />
+                  <Route path=":sectionId">
+                    <IndexRoute name= "info-page" component={ ViewInfo } />
+                    <Route name="info-page-edit" path="edit" component={ EditInfo } />
+                  </Route>
+                </Route>
+                <Route name="chat" path="chat" component={ GroupChat } />
+                <Route name="events" path="events" component={ GroupEvents } />
+                <Redirect from="*" to="/group" />
+              </Route>
             </Route>
+            <Route path="404" component={ NotFound } />
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>

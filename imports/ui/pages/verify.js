@@ -15,20 +15,14 @@ import { showSnackbar } from '../../client/actions/snackbar';
 import * as SessionHelper from '../../util/session';
 
 class Verify extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      verifyFail: false
-    };
-  }
-
   componentDidMount() {
     const self = this;
 
-    Meteor.call('verifyEmailToken', this.props.params.token, (err, result) => {
+    Meteor.call('User.verifyEmailToken', this.props.params.token, (err, result) => {
       if (err || !result) {
-        self.setState({ verifyFail: true });
+        // Redirect to group
+        browserHistory.push('/signup');
+        this.props.actions.showSnackbar("Email verification failed. Please resend verification email.");
       } else {
         // Required so that Meteor.user() will reflect the new user information
         SessionHelper.setCurrentUser(() => {
@@ -41,15 +35,7 @@ class Verify extends React.Component {
   }
 
   render() {
-    if (!this.state.verifyFail)
-      return <Loading />;
-    else
-      return (
-        <Grid>
-          <h1>Email verification failed</h1>
-          <p>Click <Link to="/signup">here</Link> to resend your verification email.</p>
-        </Grid>
-      );
+    return <Loading />;
   }
 }
 

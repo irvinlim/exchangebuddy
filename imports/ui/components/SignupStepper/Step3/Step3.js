@@ -17,6 +17,10 @@ const validUniEmail = (value) => {
 
   const domain = value.substr(value.indexOf('@') + 1);
 
+  // TEMP: If no emailDomains, then just allow any domain.
+  if (!uniEmailDomains)
+    return true;
+
   // Checks for valid email domains.
   // Subdomains of valid domains are considered valid.
   // e.g. valid domains = ['u.nus.edu', 'nus.edu.sg']
@@ -55,9 +59,9 @@ const validate = (values) => {
 const submitForm = (self) => (values) => {
   const { homeUniEmail } = values;
 
-  Meteor.call('sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
+  Meteor.call('User.sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
     if (err) {
-      return console.log("Error in invoking sendVerificationEmail: " + err);
+      return console.log("Error in invoking User.sendVerificationEmail: " + err);
     } else {
       SessionHelper.setCurrentUser(); // Required so that Meteor.user() will reflect the new user information
       self.setState({ emailSent: true });
@@ -86,7 +90,10 @@ class Step3 extends React.Component {
         <p>To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
         <p>We will be sending a verification email to confirm your place at the university.</p>
 
-        <p className="small-text">Email domains allowed: { emailDomains.map(x => `@${x}`).join(', ') }</p>
+        { emailDomains ?
+          <p className="small-text">Email domains allowed: { emailDomains.map(x => `@${x}`).join(', ') }</p> :
+          null
+        }
 
         <EmailFormField
           name="homeUniEmail"

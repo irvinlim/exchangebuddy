@@ -8,10 +8,10 @@ const responseFacebook = (actions) => (response) => {
   if (!response || !response.userID)
     return;
 
-  Meteor.call('loginFacebook', response, (error, { user, token }) => {
+  Meteor.call('User.loginFacebook', response, (error, { user, token }) => {
     if (error || !user || !token) {
       if (error)
-        console.log("Error in invoking loginFacebook: " + error);
+        console.log("Error in invoking User.loginFacebook: " + error);
 
       actions.showSnackbar("Could not login to Facebook.");
     } else {

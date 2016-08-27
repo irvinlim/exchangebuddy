@@ -8,7 +8,8 @@ import { List, ListItem } from 'material-ui/List';
 
 import * as ImagesHelper from '../../../util/images';
 import * as IconsHelper from '../../../util/icons';
-import * as AvatarHelper from '../../../util/avatar';
+import * as UniversityHelper from '../../../util/university';
+import { FullWidthAvatar } from '../../../util/avatar';
 import { handleLogout } from '../../../util/session';
 
 export default class HeaderProfile extends React.Component {
@@ -41,14 +42,17 @@ export default class HeaderProfile extends React.Component {
 
   showProfileButton(user) {
     const gotourl = (url) => () => browserHistory.push(url);
-    const handle = () => handleLogout( () => this.props.showSnackbar());
+    const handle = () => handleLogout( () => this.props.actions.showSnackbar("Logged out."));
+
+    const { uni } = this.props;
+
+    const bSize = 60;
 
     return (
       <div id="header-profile">
-        <IconButton id="header-uni-logo" onTouchTap={ this.openPopover.bind(this) }>
-          <Avatar size={90} />
+        <IconButton id="header-uni-logo" onTouchTap={ this.openPopover.bind(this) } style={{ width: bSize, height: bSize, padding: 0 }}>
+          <Avatar size={bSize} src={ UniversityHelper.getImageUrl(uni, bSize) } />
         </IconButton>
-        { AvatarHelper.makeFullWidthAvatar(this.props.uni.logoImageId, 90) }
 
         <Popover
           open={ this.state.open }
@@ -57,6 +61,7 @@ export default class HeaderProfile extends React.Component {
           anchorOrigin={{"horizontal":"right","vertical":"top"}}
           targetOrigin={{"horizontal":"right","vertical":"top"}}
           style={{ padding: '4px 0' }}>
+
           <List id="header-profile-popover">
             <ListItem leftIcon={ IconsHelper.icon("group") } primaryText="Members" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/members') } />
             <ListItem leftIcon={ IconsHelper.icon("person_add") } primaryText="Invite friends" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/invite') } />
@@ -65,6 +70,7 @@ export default class HeaderProfile extends React.Component {
             <ListItem leftIcon={ IconsHelper.icon("settings") } primaryText="Profile & Account" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/settings') } />
             <ListItem leftIcon={ IconsHelper.icon("exit_to_app") } primaryText="Log Out" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handle } />
           </List>
+
         </Popover>
       </div>
     );

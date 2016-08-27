@@ -1,12 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
 import { Grid } from 'meteor/lifefilm:react-flexbox-grid';
 
 import InfoList from '../../components/Group/Info/InfoList';
 
-// TODO:
 export class GroupInfo extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -17,13 +15,15 @@ export class GroupInfo extends React.Component {
 	}
 
   render(){
+    const { group, university, countrySectionItems, uniSectionItems } = this.props;
+
     return (
       <Grid>
         <InfoList
-          group={this.props.groups}
-          university={this.props.university}
-          countrySectionItems={this.props.countrySectionItems}
-          uniSectionItems={this.props.uniSectionItems} />
+          group={ group }
+          university={ university }
+          countrySectionItems={ countrySectionItems }
+          uniSectionItems={ uniSectionItems } />
       </Grid>
     )
   }
@@ -35,21 +35,14 @@ GroupInfo.contextTypes = {
 
 function generateSecItems(type) {
   let res = [];
-  switch(type){
-    case 'country':
-      for(let i =0; i<5; i++) {
-          const secItem = {countrySectionId: i, countryId: type + i, content: type, createdAt: i, updatedAt: i, userId: i};
-          res.push(secItem);
-      }
-    break;
-    case 'uni':
-      for(let i =0; i<5; i++) {
-          const secItem = {uniSectionId: i, universities_id: type + i, content: i, createdAt: i, updatedAt: i, editUserId: i};
-          res.push(secItem);
-      }
-    break;
-    default:
-    break;
+  for(let i =1; i<6; i++) {
+    const x = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
+    const y = Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;
+    const secItem = { id: Math.floor(Math.random()*i), countryId: Math.floor(Math.random()*i), createdAt: new Date(), updatedAt: new Date(), userId: Math.floor(Math.random()*i) };
+    secItem.sectionLabel= Math.ceil(Math.ceil(Math.random()*i*10)*10)*3;;
+    secItem.img = 'http://lorempixel.com/'+x+'/'+y+'/city';
+    secItem.type=type;
+    res.push(secItem);
   }
   return res;
 }
@@ -57,9 +50,10 @@ function generateSecItems(type) {
 function mapStateToProps(state, ownProps) {
 
   let group = { id: '1', universityId: '1', year: '2', term: '3' };
-  let university = { id: '10', name: '10', city: '10', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
+  let university = { id: '10', name: 'SUTD', city: 'Singapore', logoImageId: '10', emailDomains: '10', countryId: '10', terms: '10' };
+  university.country = "Singapore"; // after map or from method
   let countrySectionItems = generateSecItems('country');
-  let uniSectionItems = generateSecItems('uni');
+  let uniSectionItems = generateSecItems('university');
 
   return {
     group,

@@ -14,7 +14,7 @@ const saveForm = (callback) => {
   return (values) => {
     const { displayName, gender, homeUniName } = values;
 
-    Meteor.call('updateProfile', { id: Meteor.userId(), displayName, gender, homeUniName }, (err, result) => {
+    Meteor.call('User.updateProfile', { id: Meteor.userId(), displayName, gender, homeUniName }, (err, result) => {
       if (!err)
         SessionHelper.setCurrentUser(callback); // Required so that Meteor.user() will reflect the new user information
     });

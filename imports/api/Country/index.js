@@ -22,6 +22,15 @@ const Country = sequelize.define(tableName, {
   region: {
     type: DataType.ENUM('Africa', 'Americas', 'Asia', 'Europe', 'Oceania'),
   },
+  capital: {
+    type: DataType.TEXT(),
+  },
+  lat: {
+    type: DataType.DOUBLE(),
+  },
+  lng: {
+    type: DataType.DOUBLE(),
+  },
 
   // Stored as JSON stringified arrays
   altSpellings: {

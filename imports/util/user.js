@@ -1,5 +1,9 @@
+import React from 'react';
 import { propExistsDeep } from './helper';
 import Avatar from 'material-ui/Avatar';
+
+import * as Colors from 'material-ui/styles/colors';
+import * as IconsHelper from './icons';
 
 export const resolveGender = (gender) => {
   gender = gender.toLowerCase();
@@ -17,12 +21,15 @@ export const getAvatarUrl = (user, size=64) => {
   if (!user)
     return "";
 
+  const cloudinaryId = user.profilePictureId;
+  const fbUserId = user.fbUserId;
+
   // Using native Cloudinary
-  if (propExistsDeep(user, ['profile', 'avatarId']))
-    return AvatarHelper.getUrl(user.profile.avatarId, size);
+  if (cloudinaryId)
+    return AvatarHelper.getUrl(cloudinaryId, size);
   // Using Facebook Graph
-  else if (propExistsDeep(user, ['services', 'facebook', 'id']))
-    return `https://graph.facebook.com/${user.services.facebook.id}/picture/?width=${size*2}&height=${size*2}`;
+  else if (fbUserId)
+    return `https://graph.facebook.com/${fbUserId}/picture/?width=${size*2}&height=${size*2}`;
   else
     return null;
 };

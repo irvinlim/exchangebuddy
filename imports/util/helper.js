@@ -1,4 +1,13 @@
 
+// Dates
+export const formatDate = (date) => moment(date).format('"D MMM YYYY');
+export const formatTime = (date) => moment(date).format('h:mm A');
+
+// Routes
+export const makeRouteSlug = (routes) => {
+  return routes.map(route => route.path).filter(route => route && route != '/' && route.substr(0, 1) != ':').join('-');
+};
+
 // Objects
 
 /**
@@ -25,3 +34,10 @@ export const propExistsDeep = function(parent, arrayOfChildProps) {
     return true;
   });
 };
+
+export const convertToSlug = (Text) => {
+  return Text.toLowerCase().replace(/[^\w ]+/g,'').split(' ').filter(s => s.length).join('-');
+};
+
+// Pluralizer
+export const pluralizer = (number, singular, plural) => number === 1 ? singular : plural;

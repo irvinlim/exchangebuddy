@@ -7,9 +7,10 @@ export const TextFormField = ({ name, ...rest }) =>
     component={ TextField }
     name={name}
     fullWidth={true}
+    autoComplete="off"
     {...rest} />;
 
-export const EmailFormField = (props) => <TextFormField type="email" {...props} />;
+export const EmailFormField = TextFormField;
 
 export const SelectFormField = ({ name, ...rest }) =>
   <Field

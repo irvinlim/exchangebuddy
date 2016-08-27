@@ -1,0 +1,6 @@
+// Loading
+.loading-container { display: flex; width: 100%; justify-content: center; padding: 20px 0; }
+.floating-loading {
+  position: absolute; top: calc(50% - 55px); left: 0; width: 100%;
+  > div { margin: 10px auto !important; }
+}

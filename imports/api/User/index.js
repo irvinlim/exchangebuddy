@@ -35,8 +35,10 @@ const User = sequelize.define(tableName, {
     type: DataType.DATEONLY(),
   },
 
+  // Don't use BIGINT because there's some serious bug in Sequelize or something...
+  // A BIGINT has at most 20 digits (if unsigned)
   fbUserId: {
-    type: DataType.BIGINT(64),
+    type: DataType.STRING(20),
     unique: true,
   },
 
@@ -60,6 +62,10 @@ const User = sequelize.define(tableName, {
   // 2-letter country code
   homeCountryCode: {
     type: DataType.CHAR(2),
+  },
+
+  defaultGroupId: {
+    type: DataType.INTEGER(),
   }
 
 }, {

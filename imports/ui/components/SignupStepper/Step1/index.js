@@ -16,18 +16,23 @@ import ChildComponent from './Step1';
 const composer = (props, onData) => {
   const user = Meteor.user();
 
+  const initialValues = {
+    displayName: user.displayName,
+    gender: user.gender,
+  };
+
   // Get homeUni
-  Meteor.call('getUniById', user.homeUniId, (err, homeUni) => {
+  if (user.homeUniId)
+    Meteor.call('University.get', user.homeUniId, (err, homeUni) =>
+      onData(null, {
+        initialValues: {
+          ...initialValues,
+          homeUniName: homeUni ? homeUni.name : ""
+        }
+      }));
+  else
+    onData(null, { initialValues });
 
-    onData(null, {
-      initialValues: {
-        displayName: user.displayName,
-        gender: user.gender,
-        homeUniName: homeUni ? homeUni.name : "",
-      },
-    });
-
-  });
 };
 
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);

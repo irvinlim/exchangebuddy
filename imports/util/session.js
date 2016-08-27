@@ -17,6 +17,7 @@ export const setCurrentUser = (callback = () => {}) => {
   // Let Meteor.user get from session variable
   Meteor.user = () => Session.get("currentUser");
   Meteor.userId = () => Session.get("currentUser") && Session.get("currentUser").id;
+  Meteor.userToken = () => Session.get("currentUserToken");
 
   verifyCurrentUser((error, user) => {
     // Clear session variable if we cannot verify the user.
@@ -41,13 +42,13 @@ export const verifyCurrentUser = (callback) => {
   if (!sessionUser || !sessionUserToken)
     return callback(null, null);
 
-  Meteor.call('getUser', sessionUser.id, (error, user) => {
+  Meteor.call('User.get', sessionUser.id, (error, user) => {
     if (error)
       return callback(error, null);
     else if (!user)
       return callback(null, null);
 
-    Meteor.call('verifyToken', sessionUserToken, (error, verified) => {
+    Meteor.call('User.verifyToken', sessionUserToken, (error, verified) => {
       if (error)
         return callback(error, null);
       else if (!verified)

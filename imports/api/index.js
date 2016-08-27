@@ -5,14 +5,24 @@ import User from './User';
 import University from './University';
 import Country from './Country';
 import Group from './Group';
-import GroupChatMessage from './GroupChatMessage';
+import DataStore from './DataStore';
+import CountryInfoSection from './CountryInfoSection';
+import CountryInfoItem from './CountryInfoItem';
+import UniversityInfoSection from './UniversityInfoSection';
+import UniversityInfoItem from './UniversityInfoItem';
 
 // Relational tables
 import UserGroup from './UserGroup';
 
 // Methods
 import './User/methods';
+import './University/methods';
+import './Country/methods';
 import './Group/methods';
+import './UserGroup/methods';
+import './DataStore/methods';
+import './CountryInfoItem/methods';
+import './UniversityInfoItem/methods';
 
 // Publications
 import './University/publications';
@@ -20,7 +30,7 @@ import './University/publications';
 // Declare foreign keys
 User.belongsTo(University, {
   foreignKey: 'homeUniId',
-  as: 'homeUni',
+  as: 'homeUniversity',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
@@ -28,6 +38,19 @@ User.belongsTo(University, {
 User.belongsTo(Country, {
   foreignKey: 'homeCountryCode',
   as: 'homeCountry',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+Country.hasMany(User, {
+  foreignKey: 'homeCountryCode',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+User.belongsTo(Group, {
+  foreignKey: 'defaultGroupId',
+  as: 'defaultGroup',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
@@ -44,19 +67,52 @@ Group.belongsToMany(User, {
 
 Group.belongsTo(University, {
   foreignKey: 'universityId',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+University.hasMany(Group, {
+  foreignKey: 'universityId',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+CountryInfoItem.belongsTo(Country, {
+  foreignKey: 'countryCode',
+  as: 'country',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+CountryInfoItem.belongsTo(CountryInfoSection, {
+  foreignKey: 'sectionId',
+  as: 'section',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+CountryInfoItem.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'user',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+UniversityInfoItem.belongsTo(University, {
+  foreignKey: 'universityId',
   as: 'university',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
 
-GroupChatMessage.belongsTo(Group, {
-  foreignKey: 'groupId',
-  as: 'group',
+UniversityInfoItem.belongsTo(UniversityInfoSection, {
+  foreignKey: 'sectionId',
+  as: 'section',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
 
-GroupChatMessage.belongsTo(User, {
+UniversityInfoItem.belongsTo(User, {
   foreignKey: 'userId',
   as: 'user',
   onUpdate: 'cascade',
@@ -68,4 +124,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, University, Country, Group, GroupChatMessage };
+export { User, University, Country, Group, DataStore, CountryInfoItem, CountryInfoSection, UniversityInfoItem, UniversityInfoSection };
