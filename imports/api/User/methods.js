@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Models
 import User from '.';
-import University from '../University'
+import University from '../University';
 
 // Helpers
 import UserHelper from '../../util/user';
@@ -15,6 +15,14 @@ if (Meteor.isServer) {
 
       return User.findById(id).then(function(result) {
         return result && result.get();
+      });
+    },
+
+    'User.getUsers'(ids) {
+      check(ids, Array);
+
+      return User.findAll({ where: { id: { in: ids } } }).then(function(result) {
+        return result && result.map(res => res.get({ plain: true }));
       });
     },
 

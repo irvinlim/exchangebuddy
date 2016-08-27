@@ -9,7 +9,6 @@ const sequelize = new Sequelize(Meteor.settings.private.MySQL.connectionString, 
     charset: 'utf8',
     collate: 'utf8_general_ci',
   },
-  forec: true
 });
 
 export default sequelize;
