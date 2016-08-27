@@ -5,6 +5,7 @@ import Country from '../../api/Country';
 import University from '../../api/University';
 import UniversityInfoSection from '../../api/UniversityInfoSection';
 import CountryInfoSection from '../../api/CountryInfoSection';
+import DataStore from '../../api/DataStore';
 
 // Methods
 import { updateCountries } from '../../modules/parsers/countries';
@@ -75,7 +76,7 @@ setTimeout(() => {
 // Add university info sections
 const uniInfoSections = [
   { label: 'General Tips', subtitle: "Must-know tips for every student!" },
-  { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items' ]) },
+  { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]) },
   { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]) },
   { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'From the airport', 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]) },
   { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]) },
@@ -110,3 +111,25 @@ CountryInfoSection.count({}).then(function(count) {
       CountryInfoSection.create(section);
     });
 });
+
+// Add suggested packing list
+const packingListDataKey = 'university-pre-departure-suggested-packing-list';
+DataStore.findById(packingListDataKey).then(Meteor.bindEnvironment(function(result) {
+  if (!result) {
+    Assets.getText('data/university/pre-departure-suggested-packing-list.md', (err, data) => {
+      if (err)
+        return console.log(err);
+
+      if (!data)
+        return;
+
+      DataStore.create({
+        dataKey: packingListDataKey,
+        dataValue: JSON.stringify({
+          universityId: -1, // Indicates all universities
+          data
+        }),
+      });
+    });
+  }
+}));
