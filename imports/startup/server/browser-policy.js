@@ -36,3 +36,12 @@ BrowserPolicy.content.allowImageOrigin( 'lorempixel.com')
 BrowserPolicy.content.allowImageOrigin( 'graph.facebook.com' );
 BrowserPolicy.content.allowImageOrigin( '*.fbcdn.net' );
 BrowserPolicy.content.allowImageOrigin( '*.akamaihd.net' );
+
+// Fonts
+BrowserPolicy.content.allowStyleOrigin( 'fonts.googleapis.com' );
+BrowserPolicy.content.allowFontOrigin( 'fonts.gstatic.com' );
+BrowserPolicy.content.allowFontDataUrl();
+
+// Google Analytics
+BrowserPolicy.content.allowOriginForAll( 'https://www.google-analytics.com' );
+BrowserPolicy.content.allowImageOrigin( 'https://stats.g.doubleclick.net' );
