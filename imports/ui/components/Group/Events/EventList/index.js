@@ -9,17 +9,32 @@ import ChildComponent from './EventList';
 // react-komposer
 const composer = (props, onData) => {
   const { source, uni } = props;
+  const groupId = parseInt(props.groupId);
 
-  if (source == 'Facebook') {
-    Meteor.call('Group.getFbEvents', uni.countryCode, uni.latLng, (err, groupEvents) => {
-      console.log(groupEvents);
+  if (groupId) {
+    Meteor.call('Group.get', groupId, (err, group) => {
 
-      onData(null, { groupEvents });
-    });
-  } else if (source == 'Meetup') {
-    // Temp: Set pageNumber = 0
-    Meteor.call('Group.getMeetupEvents', uni.latLng, uni.city, 0, (err, res) => {
-      onData(null, { groupEvents: res.results });
+      if (!group)
+        return;
+
+      const uni = group.university;
+
+      if (source == 'Facebook') {
+        // Temp: Don't pass in uniLatLng
+        Meteor.call('Group.getFbEvents', uni.countryCode, (err, groupEvents) => {
+          onData(null, { groupEvents });
+        });
+      } else if (source == 'Meetup') {
+        Meteor.call('Country.get', uni.countryCode, (err, country) => {
+          // Temp: Set pageNumber = 0, use country's latlng
+          const city = uni.city ? uni.city : country.name;
+
+          Meteor.call('Group.getMeetupEvents', [country.lat, country.lng], city, 0, (err, res) => {
+            onData(null, { groupEvents: res.results });
+          });
+        });
+      }
+
     });
   }
 };
