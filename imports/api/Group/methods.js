@@ -120,7 +120,16 @@ if (Meteor.isServer) {
             options.country = university.countryCode;
           } else {
             options.city = country.capital;
-            options.country = country.alpha2Code;
+            options.country = university.countryCode;
+          }
+
+          if (university.countryCode == 'US') {
+            // If this university has no latLng or city,
+            // Check if have state, otherwise the city defaults to Washington D.C.
+            // Set default state to WA.
+            if (!university.lat && !university.lng && !university.city && !university.state) {
+              options.state = 'WA';
+            }
           }
 
           Meetup.getOpenEvents(options, (error, events) => {
