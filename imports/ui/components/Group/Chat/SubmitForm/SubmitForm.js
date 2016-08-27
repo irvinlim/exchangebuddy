@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
-const submitFormStyle = {
-  height: $(window).height() / 5,
-  padding: "0 2% 0"
-};
+import * as UserHelper from '../../../../../util/user';
 
 const validate = values => {
   const errors = {};
   const requiredFields = [ 'message' ];
   requiredFields.forEach(field => {
     if (!values[ field ]) {
-      errors[ field ] = 'Required'
+      errors[ field ] = ''
     }
   });
 
@@ -29,25 +26,26 @@ class SubmitForm extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, reset, submitting, user } = this.props;
     return (
-      <form style ={submitFormStyle} onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit}>
+        <div className="message-send-row">
+          <div className="message-user-avatar">{ UserHelper.getAvatar(user, 60) }</div>
+
           <Field
+            className="message-send-field"
             name="message"
             component={TextField}
-            hintText="Message"
-            floatingLabelText="Message"
+            floatingLabelText="Say something..."
+            floatingLabelFixed={true}
+            autocomplete="off"
             fullWidth={true}
-            rowsMax={3}
-            rows={3}
+            multiLine={true}
+            rows={2}
             ref="msg"
-            withRef
-          />
-        </div>
-        <div>
-          <button type="submit" disabled={pristine || submitting}>Submit</button>
-          <button type="button" disabled={pristine || submitting} onClick={reset}>Clear</button>
+            withRef />
+
+          <FlatButton className="message-send-button" type="submit" disabled={pristine || submitting} label="Send" />
         </div>
       </form>
     )

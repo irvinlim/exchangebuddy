@@ -36,6 +36,9 @@ const eventHandleScroll = (event) => {
   if ($(window).width() < 768)
     return;
 
+  // Disable sticky header
+  return;
+
   // This JavaScript to make the header collapse into small sticky header when scroll
   if ($(this).scrollTop() > 100) {
     $('#header').addClass("sticky");

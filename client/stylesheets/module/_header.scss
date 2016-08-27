@@ -4,7 +4,7 @@ $headerHeight: 250px;
 $headerStickyHeight: 95px;
 
 #header {
-  position: fixed;
+  // position: fixed;
   height: $headerHeight;
   width: 100%;
   top: 0%;
@@ -22,7 +22,7 @@ $headerStickyHeight: 95px;
   }
 
   + #group-container {
-    margin-top: $headerHeight;
+    // margin-top: $headerHeight;
     @include transition-standard(margin-top 450ms)
   }
 

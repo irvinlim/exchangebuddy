@@ -1,0 +1,17 @@
+.chat-container { display: flex; flex-direction: column; }
+
+.messages-container { height: 100%; padding: 20px; }
+
+.message-row {
+  display: flex; flex-direction: row; align-items: flex-start; margin: 0 0 20px;
+
+  .message-avatar { margin-right: 10px; }
+  h5.message-username { margin: 0; font-weight: 500; color: #444; font-size: 15px; }
+  p.message-content { color: #666; font-size: 13px; word-break: break-all; }
+  span.message-timestamp { font-size: 12px; color: #999; font-weight: 400; }
+}
+
+.message-send-row {
+  display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+  .message-user-avatar, .message-send-field { margin-right: 10px; }
+}

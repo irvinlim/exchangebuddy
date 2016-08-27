@@ -4,22 +4,13 @@ import { composeWithTracker } from 'react-komposer';
 import Loading from '../../../Loading';
 
 // Component
-import ChildComponent from './MemberList';
+import ChildComponent from './SubmitForm';
 
 // react-komposer
 const composer = (props, onData) => {
+  const user = Meteor.user();
 
-  const groupId = parseInt(props.groupId);
-
-  // Get groupUsers
-  if (groupId) {
-    Meteor.call('Group.getUsers', groupId, (err, groupUsers) => {
-      onData(null, {
-        groupUsers
-      })
-    });
-  }
-
+  onData(null, { user });
 };
 
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
@@ -37,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
 
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComposedComponent);

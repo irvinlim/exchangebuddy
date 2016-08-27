@@ -2,6 +2,9 @@ import React from 'react';
 import { propExistsDeep } from './helper';
 import Avatar from 'material-ui/Avatar';
 
+import * as Colors from 'material-ui/styles/colors';
+import * as IconsHelper from './icons';
+
 export const resolveGender = (gender) => {
   gender = gender.toLowerCase();
 

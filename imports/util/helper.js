@@ -1,4 +1,8 @@
 
+// Dates
+export const formatDate = (date) => moment(date).format('"D MMM YYYY');
+export const formatTime = (date) => moment(date).format('h:mm A');
+
 // Objects
 
 /**

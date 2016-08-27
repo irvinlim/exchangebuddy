@@ -19,18 +19,18 @@ Meteor.publish('messages-for-group', function(groupId) {
       isRemoved: { $ne: true },
     };
 
+    // Initiate observeChanges
+    self.ready();
+
     // https://docs.meteor.com/api/pubsub.html#Meteor-publish
     const handle = GroupChatMessage.find(selector).observeChanges({
-      added: function (id) {
-        self.added("GroupChatMessage", id);
+      added: function (id, fields) {
+        self.added("GroupChatMessage", id, fields);
       },
       removed: function (id) {
         self.removed("GroupChatMessage", id);
       }
     });
-
-    // Initiate observeChanges
-    self.ready();
 
     // Stop observing the cursor when client unsubs.
     // Stopping a subscription automatically takes
