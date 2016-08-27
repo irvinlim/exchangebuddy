@@ -130,7 +130,7 @@ class InfoViewEdit extends Component {
             </Row>
             </div>
 
-            <ReactMarkdownMediumEditor markdown={ this.state.value } options={options} onChange={console.log.bind(this)} />
+            <ReactMarkdownMediumEditor markdown={ this.state.value } options={options} />
           </Paper>
           </Col>
           <Col xs={12} style={{marginTop: "18px"}}>
