@@ -19,6 +19,7 @@ $headerStickyHeight: 95px;
 
   #logo-image {
     display: flex; align-items: center;
+    img { width: 100%; }
   }
 
   + #group-container {
