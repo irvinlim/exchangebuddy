@@ -119,7 +119,7 @@ class InfoViewEdit extends Component {
 
         <Row>
           <Col xs={12}>
-          <Paper className="mdEditorPaper" zDepth={2}>
+          <Paper className="md-editor-paper" zDepth={2}>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             <Row>
             <Col xs={1} />

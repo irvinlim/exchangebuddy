@@ -26,9 +26,6 @@ export default class InfoView extends Component {
     return (
       <Paper className="md-info" zDepth={2}>
 
-    <Row center="xs">
-      <Col xs={6}>testin</Col>
-    </Row>
           <CardMedia
             mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
             overlay={<CardTitle title={infoTitle} subtitle={`Updated at: ${lastUpdated}`} />}
