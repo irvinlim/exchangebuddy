@@ -36,6 +36,14 @@ const options = {
     relativeContainer: null,
     buttonLabels: true
   },
+  paste: {
+    cleanAttrs: ['class', 'style', 'dir'],
+    cleanTags: ['meta', 'span']
+  },
+  placeholder: {
+      text: 'Information Content'
+  }
+
 };
 
 class InfoViewEdit extends Component {
@@ -117,11 +125,11 @@ class InfoViewEdit extends Component {
             <Col xs={1} />
             <Col xs={10}>
             { this.state.tile &&
-              <GridList cellHeight={300} cols={1} style={{ width: '100%', height: 'auto', overflowY: 'auto', marginBottom: 24, paddingLeft:"15px", paddingRight:"15px"}} >
+              <GridList cellHeight={300} cols={2} style={{ width: '100%', height: 'auto', overflowY: 'auto', marginBottom: 24, paddingLeft:"15px", paddingRight:"15px"}} >
                 <GridTile
                   key={this.state.tile.res.secure_url}
                   title={this.state.title || this.state.tile.files[0].name}
-                  cols={1} >
+                  cols={2} >
                   <img src={this.state.tile.res.secure_url} />
                 </GridTile>
               </GridList>
@@ -130,7 +138,7 @@ class InfoViewEdit extends Component {
             </Row>
             </div>
 
-            <ReactMarkdownMediumEditor markdown={ this.state.value } options={options} />
+            <ReactMarkdownMediumEditor markdown={ this.state.value } options={options} onChange={console.log.bind(this)} />
           </Paper>
           </Col>
           <Col xs={12} style={{marginTop: "18px"}}>
