@@ -1,3 +1,5 @@
+@import "../common/mixins";
+
 .grid-list {
   margin-top: 12px !important;
   > div {
@@ -17,11 +19,17 @@
   }
 }
 
-.mdEditorPaper {
+.md-editor-paper {
   min-height: 300px;
   padding: 24px;
 }
 
 .medium-editor-toolbar-form-active {
   display: block;
+}
+
+.md-info {
+  @include media-sm-up {
+    padding: 0 10% 10%;
+  }
 }
