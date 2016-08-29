@@ -5,8 +5,8 @@ import IconButton from 'material-ui/IconButton';
 
 import * as UserHelper from '../../../../../util/user';
 
-const submitForm = (callback) => (values) => {
-  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: 1, content: values.message };
+const submitForm = (groupId, callback) => (values) => {
+  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: groupId, content: values.message };
 
   Meteor.call('GroupChatMessage.sendToGroup', params, (err, success) => {
     if (err)
@@ -25,10 +25,10 @@ class SubmitForm extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, user } = this.props;
+    const { handleSubmit, pristine, reset, submitting, user, groupId } = this.props;
 
     return (
-      <form onSubmit={ handleSubmit(submitForm(reset)) }>
+      <form onSubmit={ handleSubmit(submitForm(groupId, reset)) }>
         <div className="message-send-row">
           <div className="message-user-avatar">{ UserHelper.getAvatar(user, 48) }</div>
 

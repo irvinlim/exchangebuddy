@@ -7,8 +7,8 @@ import MessageList from '../../components/Group/Chat/MessageList';
 const GroupChat = ({ params }) => (
   <Grid>
     <div className="chat-container">
-      <MessageList groupId={ params.id } />
-      <SubmitForm />
+      <MessageList groupId={ parseInt(params.id) } />
+      <SubmitForm groupId={ parseInt(params.id) } />
     </div>
   </Grid>
 );
