@@ -42,11 +42,22 @@
 .info-title-container {
   overflow: hidden;
   text-align: center;
-  > div > img {
-    @include media-xs-only { min-height: 300px; object-fit: cover; }
+  > div > div {
+    > img { width: 100%; object-fit: cover; min-height: 300px; }
+    > div { padding-top: 0 !important; }
   }
 }
 
 .info-container-col {
   margin-bottom: 21px;
+}
+
+.form-title-field {
+  z-index: 2;
+  padding: 15px 0;
+  > input {
+    font-size: 2rem !important;
+    color: white !important;
+    text-align: center;
+  }
 }

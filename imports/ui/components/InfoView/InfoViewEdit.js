@@ -4,15 +4,21 @@ import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import * as IconsHelper from '../../../util/icons';
+import * as ImagesHelper from '../../../util/images';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import { GridList, GridTile } from 'material-ui/GridList';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
+const infoDisplayUrlProp = ImagesHelper.getUrlScale("ikkzaet6oqkqykrarkyg",500),
+          infoTitleProp = "Sample Title",
+          infoInputProp = "# This is a header\n\nAnd this is a paragraph";
 
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [ 'title' ];
+  const requiredFields = [ 'title', 'md-pristine' ];
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -61,6 +67,10 @@ class InfoViewEdit extends Component {
     this.refs.title.getRenderedComponent().getRenderedComponent().focus();
   }
 
+  handleMarkdownChange(markdown) {
+    console.log(markdown);
+  }
+
   handleUpload(e) {
     const self = this;
     const files = e.currentTarget.files;
@@ -81,73 +91,72 @@ class InfoViewEdit extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
 
     return (
-      <Grid>
-      <form >
-
-        <Row>
-          <Col xs={12} md={6}>
-            <h1>Title</h1>
-            <Field
+        <Paper className="info-text-container" zDepth={2}>
+        <form >
+        { this.state.tile ?
+          <CardMedia className="info-title-container"
+            mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
+            overlay={<Field
+              className="form-title-field"
               component={TextField}
               fullWidth={true}
               hintText="Title of article"
               name="title"
               ref="title"
-              style={{marginBottom: "21px"}}
-              value={this.state.value}
+              underlineShow={false}
+              defaultValue={infoTitleProp || ""}
               onBlur={ e => this.setState({title: e.target.value}) }
-              withRef
-            />
-          </Col>
-
-          <Col xs={12} md={6}>
-            <h1>Upload Image</h1>
-            <RaisedButton className="raised-btn" rippleStyle={{minHeight: "52px"}} secondary={true} icon={ IconsHelper.materialIcon("backup") } label="Choose an Image">
-            <input type="file" accept="image/*"
-              style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
-              onChange={this.handleUpload.bind(this)} />
-            </RaisedButton>
-          </Col>
-        </Row>
-      </form>
-
-        <Row style={{ paddingBottom: 21 }}>
-          <Col xs={12}>
-            { this.state.loadingFile && <LinearProgress mode="indeterminate" id="LinearProgressEdit"/> }
-          </Col>
-        </Row>
-
-        <Row>
-          <Col xs={12}>
-          <Paper className="medium-editor-paper " zDepth={2}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-            <Row>
-            <Col xs={1} />
-            <Col xs={10}>
-            { this.state.tile &&
-              <GridList cellHeight={300} cols={2} style={{ width: '100%', height: 'auto', overflowY: 'auto', marginBottom: 24, paddingLeft:"15px", paddingRight:"15px"}} >
-                <GridTile
-                  key={this.state.tile.res.secure_url}
-                  title={this.state.title || this.state.tile.files[0].name}
-                  cols={2} >
-                  <img src={this.state.tile.res.secure_url} />
-                </GridTile>
-              </GridList>
-            }
-            </Col>
-            </Row>
+              withRef /> }
+          >
+            <div>
+              <input type="file"
+                accept="image/*"
+                style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
+                onChange={this.handleUpload.bind(this)} />
+              <img src={ this.state.tile.res.secure_url } />
             </div>
+          </CardMedia>
+          :
+          <CardMedia className="info-title-container"
+            mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
+            overlay={<Field
+              className="form-title-field"
+              component={TextField}
+              fullWidth={true}
+              hintText="Title of article"
+              name="title"
+              ref="title"
+              underlineShow={false}
+              defaultValue={infoTitleProp || ""}
+              onBlur={ e => this.setState({title: e.target.value}) }
+              withRef /> }
+          >
+            <div>
+              <input type="file"
+                accept="image/*"
+                style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
+                onChange={this.handleUpload.bind(this)} />
+              <img src={ infoDisplayUrlProp } />
+            </div>
+          </CardMedia>
+        }
 
-            <ReactMarkdownMediumEditor markdown={ this.state.value } options={options} onChange={console.log.bind(this)} />
-          </Paper>
-          </Col>
-          <Col xs={12} style={{marginTop: "18px"}}>
-            <RaisedButton label="Submit" primary={true} type="submit" disabled={pristine || submitting} />
-            <RaisedButton label="Cancel" primary={true} disabled={pristine || submitting} onClick={reset} />
-          </Col>
-        </Row>
+        { this.state.loadingFile && <LinearProgress mode="indeterminate" id="LinearProgressEdit"/> }
 
-      </Grid>
+        <Col xs={12}>
+          <Field name="md-pristine" component={TextField} style={{display: "none"}}/>
+          <ReactMarkdownMediumEditor className="md-info" markdown={ this.state.value } options={options} onChange={this.handleMarkdownChange.bind(this)} />
+        </Col>
+        <div className="row center-md center-xs" style={{marginTop: "18px"}}>
+          <Col xs={8} md={3} className="info-container-col">
+            <RaisedButton className="raised-btn" fullWidth={true} label="Submit" primary={true} type="submit" disabled={pristine || submitting} />
+          </Col>
+          <Col xs={8} md={3} className="info-container-col">
+            <RaisedButton className="raised-btn" fullWidth={true} label="Cancel" primary={true} disabled={pristine || submitting} onClick={reset} />
+          </Col>
+        </div>
+      </form>
+      </Paper>
     )
   }
 }
