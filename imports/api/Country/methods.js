@@ -29,8 +29,16 @@ if (Meteor.isServer) {
     if (!countries)
       return;
 
-    countries.forEach(ctry => {
-      Country.upsert(ctry);
+    return new Promise((resolve, reject) => {
+
+      const promises = countries.map(ctry => {
+        return Country.upsert(ctry);
+      });
+
+      Promise.all(promises).then(function() {
+        resolve();
+      });
+
     });
   };
 

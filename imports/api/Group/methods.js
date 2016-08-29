@@ -5,8 +5,13 @@ import University from '../University';
 import User from '../User';
 import Country from '../Country';
 
+import CountryInfoItem from '../CountryInfoItem';
+import CountryInfoSection from '../CountryInfoSection';
+
 import EventSearch from "facebook-events-by-location-core";
 import meetup from "meetup-api";
+
+const languages = JSON.parse(Assets.getText('data/languages.json'));
 
 const Meetup = meetup({ "key": Meteor.settings.private.Meetup.apiKey });
 
@@ -148,4 +153,33 @@ if (Meteor.isServer) {
     },
 
   });
+
+  export const onGroupCreate = (group) => {
+    University.findOne({ where: { id: group.universityId }, include: [ Country ] }).then(function(result) {
+      const university = result && result.get({ plain: true });
+
+      if (!university)
+        throw new Meteor.Error("onGroupCreate.undefinedUniversity", "No such university.");
+
+      const country = university.country;
+
+      // 1. Add items for country national languages
+      CountryInfoSection.findOne({ where: { label: 'National Languages' } }).then(function(result) {
+        const section = result && result.get();
+
+        return CountryInfoItem.findOrCreate({
+          where: {
+            sectionId: section.id,
+            countryCode: country.alpha2Code
+          },
+          defaults: {
+            userId: 1, // Admin user
+            content: JSON.parse(country.languages).map(iso2 => languages[iso2].name).join(', ')
+          },
+        });
+      });
+
+
+    });
+  };
 }

@@ -38,17 +38,24 @@ const parseJSON = (json, callback) => {
 };
 
 export const updateUniversities = Meteor.bindEnvironment(() => {
-  // Read input file
-  Assets.getText('data/topuniversities/299926.json', (err, input) => {
-    const inputJSON = JSON.parse(input);
+  return new Promise(function(resolve, reject) {
 
-    // Update parsed JSON to database
-    parseJSON(inputJSON, (err, parsed) => {
-      if (!parsed)
-        return;
+    // Read input file
+    Assets.getText('data/topuniversities/299926.json', (err, input) => {
+      const inputJSON = JSON.parse(input);
 
-      // Add to database
-      bulkCreateOrUpdate(parsed);
+      // Update parsed JSON to database
+      parseJSON(inputJSON, (err, parsed) => {
+        if (!parsed)
+          return;
+
+        // Add to database
+        bulkCreateOrUpdate(parsed).then(function() {
+          // Resolve after complete
+          resolve();
+        });
+      });
     });
+
   });
 });

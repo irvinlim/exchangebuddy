@@ -28,6 +28,12 @@ import './UniversityInfoItem/methods';
 import './University/publications';
 
 // Declare foreign keys
+University.belongsTo(Country, {
+  foreignKey: 'countryCode',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 User.belongsTo(University, {
   foreignKey: 'homeUniId',
   as: 'homeUniversity',
@@ -91,6 +97,13 @@ CountryInfoItem.belongsTo(CountryInfoSection, {
   onDelete: 'cascade',
 });
 
+CountryInfoSection.hasMany(CountryInfoItem, {
+  foreignKey: 'sectionId',
+  as: 'item',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 CountryInfoItem.belongsTo(User, {
   foreignKey: 'userId',
   as: 'user',
@@ -108,6 +121,13 @@ UniversityInfoItem.belongsTo(University, {
 UniversityInfoItem.belongsTo(UniversityInfoSection, {
   foreignKey: 'sectionId',
   as: 'section',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+UniversityInfoSection.hasMany(UniversityInfoItem, {
+  foreignKey: 'sectionId',
+  as: 'item',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
