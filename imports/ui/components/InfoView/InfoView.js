@@ -24,16 +24,17 @@ export default class InfoView extends Component {
   render() {
 
     return (
-      <Paper className="md-info" zDepth={2}>
+      <Paper zDepth={2}>
 
-          <CardMedia
+          <CardMedia className="info-title-container"
             mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
-            overlay={<CardTitle title={infoTitle} subtitle={`Updated at: ${lastUpdated}`} />}
+            overlay={<CardTitle titleStyle={{lineHeight: "3rem",fontWeight: "400", fontSize:"250%"}} title={infoTitle}
+              subtitleStyle={{fontWeight: "100"}} subtitle={`Updated at: ${lastUpdated}`} />}
           >
             <img src={infoDisplayUrl} />
           </CardMedia>
 
-          <Markdown source={infoInput} />
+          <Markdown className="md-info" source={infoInput} />
 
       </Paper>
     )
