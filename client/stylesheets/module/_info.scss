@@ -24,11 +24,16 @@
 }
 
 .md-info {
-  @include media-sm-up {
-    padding: 0 10% 10%;
-  }
+  line-height: 2rem;
+  @include media-sm-up { padding: 3%;}
+  @include media-xs-only { padding: 6%;}
 }
 
 .pluginConnectTextDark a {
   color: #000000;
+}
+
+.info-title-container {
+  overflow: hidden;
+  text-align: center;
 }
