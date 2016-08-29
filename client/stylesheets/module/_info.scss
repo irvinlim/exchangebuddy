@@ -19,15 +19,6 @@
   }
 }
 
-.md-editor-paper {
-  min-height: 300px;
-  padding: 24px;
-}
-
-.medium-editor-toolbar-form-active {
-  display: block;
-}
-
 .md-info {
   line-height: 2rem;
   @include media-sm-up { padding: 3%;}
@@ -38,9 +29,22 @@
   color: #000000;
 }
 
+.info-container > .container {
+  @include media-xs-only { padding: 0 }
+}
+
+.info-text-container {
+  padding-bottom: 21px;
+  margin-bottom: 21px;
+  @include media-xs-only { margin: 0 }
+}
+
 .info-title-container {
   overflow: hidden;
   text-align: center;
+  > div > img {
+    @include media-xs-only { min-height: 300px; object-fit: cover; }
+  }
 }
 
 .info-container-col {
