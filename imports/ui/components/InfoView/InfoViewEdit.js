@@ -102,7 +102,7 @@ class InfoViewEdit extends Component {
 
           <Col xs={12} md={6}>
             <h1>Upload Image</h1>
-            <RaisedButton className="formBtn" rippleStyle={{minHeight: "52px"}} secondary={true} icon={ IconsHelper.materialIcon("backup") } label="Choose an Image">
+            <RaisedButton className="raised-btn" rippleStyle={{minHeight: "52px"}} secondary={true} icon={ IconsHelper.materialIcon("backup") } label="Choose an Image">
             <input type="file" accept="image/*"
               style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
               onChange={this.handleUpload.bind(this)} />

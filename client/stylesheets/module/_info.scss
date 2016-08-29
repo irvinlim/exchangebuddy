@@ -7,7 +7,12 @@
   }
 }
 
-.formBtn > button {
+.grid-img {
+  max-height: 250px;
+  transform: translateY(0) !important;
+}
+
+.raised-btn > button {
   height: 42px !important;
   > div > div {
     height: 42px !important;
