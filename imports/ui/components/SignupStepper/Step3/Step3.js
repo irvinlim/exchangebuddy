@@ -59,6 +59,9 @@ const validate = (values) => {
 const submitForm = (self) => (values) => {
   const { homeUniEmail } = values;
 
+  if (!Meteor.userId())
+    return console.log("Error: Not logged in.");
+
   Meteor.call('User.sendVerificationEmail', { userId: Meteor.userId(), homeUniEmail }, (err, result) => {
     if (err) {
       return console.log("Error in invoking User.sendVerificationEmail: " + err);
