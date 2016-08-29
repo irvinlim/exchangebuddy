@@ -1,4 +1,6 @@
 import University from '.';
+import UniversityInfoItem from '../UniversityInfoItem';
+import UniversityInfoSection from '../UniversityInfoSection';
 
 if (Meteor.isServer) {
 
@@ -23,6 +25,14 @@ if (Meteor.isServer) {
 
       return University.findOne({ where: { name } }).then(function(result) {
         return result && result.get();
+      });
+    },
+
+    'University.getInfoItems'(universityId) {
+      check(universityId, Number);
+
+      return UniversityInfoItem.findAll({ where: { universityId }, include: [ { model: UniversityInfoSection, as: 'section' } ] }).then(function(result) {
+        return result && result.map(item => item.get({ plain: true }));
       });
     },
 
