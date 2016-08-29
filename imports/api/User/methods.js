@@ -100,13 +100,18 @@ if (Meteor.isServer) {
         throw new Meteor.Error("User.verifyEmailToken.jwtVerifyException", exc);
       }
 
-      return User.findOne({ id: decoded.userId }).then(function(result) {
+      if (!decoded.userId || !decoded.homeUniEmail)
+        throw new Meteor.Error("User.verifyEmailToken.emailTokenSignatureMismatch", "Encrypted email token has the wrong signature.");
+
+      return User.findById(decoded.userId).then(function(result) {
         const user = result.get();
 
         if (!user)
           throw new Meteor.Error("User.verifyEmailToken.undefinedUser", "No such user.");
-        else if (user.homeUniEmail != decoded.homeUniEmail)
+        else if (user.homeUniEmail != decoded.homeUniEmail) {
+          console.log(user.homeUniEmail, decoded.homeUniEmail);
           throw new Meteor.Error("User.verifyEmailToken.emailMismatch", "Email mismatch.");
+        }
         else if (user.homeUniEmailVerified)
           return true;
         else

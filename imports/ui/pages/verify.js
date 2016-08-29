@@ -20,6 +20,9 @@ class Verify extends React.Component {
 
     Meteor.call('User.verifyEmailToken', this.props.params.token, (err, result) => {
       if (err || !result) {
+        if (err)
+          console.log(err);
+
         // Redirect to group
         browserHistory.push('/signup');
         this.props.actions.showSnackbar("Email verification failed. Please resend verification email.");
