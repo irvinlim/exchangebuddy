@@ -31,11 +31,11 @@ export default class InfoView extends Component {
   render() {
 
     return (
-      <Paper zDepth={2} style={{paddingBottom:"21px", marginBottom: "21px"}}>
+      <Paper className="info-text-container" zDepth={2}>
 
         <CardMedia className="info-title-container"
           mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
-          overlay={<CardTitle titleStyle={{lineHeight: "3rem",fontWeight: "400", fontSize:"250%"}} title={infoTitle}
+          overlay={<CardTitle className="info-title" titleStyle={{lineHeight: "3rem",fontWeight: "400", fontSize:"250%"}} title={infoTitle}
             subtitleStyle={{fontWeight: "100"}} subtitle={`Updated at: ${lastUpdated}`} />}
         >
           <img src={infoDisplayUrl} />
