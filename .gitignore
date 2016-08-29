@@ -7,3 +7,4 @@ node_modules
 
 mup.json
 settings.json
+.deploy

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import IconButton from 'material-ui/IconButton';
+import { TextFormField } from '../../../Field';
 
 import * as UserHelper from '../../../../../util/user';
 
@@ -16,34 +17,36 @@ const submitForm = (groupId, callback) => (values) => {
   });
 };
 
+const handleKeyPress = (submitHandler) => (event) => {
+  if (event.key == "Enter" && !event.shiftKey && !event.ctrlKey && !event.altKey)
+    submitHandler();
+};
+
 class SubmitForm extends Component {
   componentDidMount() {
-    this.refs.msg           // Selects the Text Field
-    .getRenderedComponent() // on Field, returns ReduxFormMaterialUITextField
-    .getRenderedComponent() // on ReduxFormMaterialUITextField, returns TextField
-    .focus()                // on TextField
+    $(".message-send-field").focus();
   }
 
   render() {
     const { handleSubmit, pristine, reset, submitting, user, groupId } = this.props;
 
+    const submitHandler = handleSubmit(submitForm(groupId, reset));
+
     return (
-      <form onSubmit={ handleSubmit(submitForm(groupId, reset)) }>
+      <form onSubmit={ submitHandler }>
         <div className="message-send-row">
           <div className="message-user-avatar">{ UserHelper.getAvatar(user, 48) }</div>
 
-          <Field
+          <TextFormField
             className="message-send-field"
             name="message"
             component={TextField}
             floatingLabelText="Say something..."
             floatingLabelFixed={true}
             autoComplete="off"
-            fullWidth={true}
             multiLine={true}
-            rows={2}
-            ref="msg"
-            withRef />
+            onKeyPress={ handleKeyPress(submitHandler) }
+            rows={2} />
 
           <IconButton iconClassName="material-icons" className="message-send-button" type="submit" disabled={pristine || submitting}>send</IconButton>
         </div>
