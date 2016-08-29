@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
+import { onGroupCreate } from '../Group/methods';
+
 import Group from '../Group';
 import University from '../University';
 import User from '../User';
@@ -26,13 +28,25 @@ if (Meteor.isServer) {
         return Group.findOrCreate({ where: values, defaults: values });
       }).then(function(result) {
         const group = result[0];
+        const isNewGroup = result[1];
 
+        // Run hooks if was an insertion
+        if (isNewGroup) {
+          try {
+            onGroupCreate(group.get({ plain: true }));
+          } catch (exception) {
+            throw new exception;
+          }
+        }
+
+        // Add user to group
         if (group) {
           group.addUser(userId);
           return group;
         } else {
           throw new Meteor.Error("UserGroup.addUserToGroup.undefinedGroup", "No such Group found.");
         }
+
       }).then(function(group) {
         return User.update({ defaultGroupId: group.id }, { where: { id: userId } });
       });

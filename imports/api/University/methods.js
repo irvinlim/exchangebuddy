@@ -1,4 +1,5 @@
 import University from '.';
+import Country from '../Country';
 import UniversityInfoItem from '../UniversityInfoItem';
 import UniversityInfoSection from '../UniversityInfoSection';
 
@@ -42,8 +43,19 @@ if (Meteor.isServer) {
     if (!unis)
       return;
 
-    unis.forEach(uni => {
-      University.upsert(uni);
+    return new Promise((resolve, reject) => {
+
+      const promises = unis.map(uni => {
+        return Country.findById(uni.countryCode).then(function(country) {
+          if (country)
+            return University.create(uni);
+        });
+      });
+
+      Promise.all(promises).then(function() {
+        resolve();
+      });
+
     });
   };
 
