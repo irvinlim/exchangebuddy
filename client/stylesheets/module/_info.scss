@@ -1,15 +1,10 @@
 @import "../common/mixins";
 
 .grid-list {
-  margin-top: 12px !important;
-  > div {
-    margin-bottom: 60px !important;
+  .grid-tile {
+    cursor: pointer; @include transition-standard(all 150ms); background-size: cover; background-position: center center; min-height: 220px;
+    &:hover { opacity: 0.9; }
   }
-}
-
-.grid-img {
-  max-height: 250px;
-  transform: translateY(0) !important;
 }
 
 .formBtn > button {

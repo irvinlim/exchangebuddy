@@ -1,3 +1,3 @@
-import { getUrl } from './images';
+import { getUrlScale } from './images';
 
-export const getImageUrl = (item) => item.imageId ? getUrl(item.imageId) : item.section && item.section.defaultImageId ? getUrl(item.section.defaultImageId) : null;
+export const getImageUrl = (item, size=64) => item.imageId ? getUrlScale(item.imageId, size) : item.section && item.section.defaultImageId ? getUrlScale(item.section.defaultImageId, size) : null;

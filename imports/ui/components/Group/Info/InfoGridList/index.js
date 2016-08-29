@@ -25,8 +25,6 @@ const composer = (props, onData) => {
       Meteor.call('Country.get', group.university.countryCode, (err, country) => {
         Meteor.call('Country.getInfoItems', group.university.countryCode, (err, items) => {
 
-          console.log(items);
-
           onData(null, {
             group, items, title: country.name
           });
