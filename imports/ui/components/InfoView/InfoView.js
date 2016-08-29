@@ -31,7 +31,7 @@ export default class InfoView extends Component {
   render() {
 
     return (
-      <Paper zDepth={2} style={{margin: "21px 0"}}>
+      <Paper zDepth={2} style={{paddingBottom:"21px", marginBottom: "21px"}}>
 
         <CardMedia className="info-title-container"
           mediaStyle={{maxHeight: "500px", overflow:"hidden"}}
@@ -43,14 +43,14 @@ export default class InfoView extends Component {
 
         <Markdown className="md-info" source={infoInput} />
 
-        <div className="row center-xs" >
-          <Col xs={3} >
+        <div className="row center-md center-xs">
+          <Col xs={8} md={3} className="info-container-col">
             <RaisedButton label="Edit" className="raised-btn" fullWidth={true} primary={true} icon={IconsHelper.materialIcon('mode_edit')} onTouchTap={ () => browserHistory.push(`${window.location.pathname}/edit`) }/>
           </Col>
-          <Col xs={3}>
+          <Col xs={8} md={3} className="info-container-col">
             <RaisedButton label="Share" className="raised-btn" fullWidth={true} primary={true} icon={IconsHelper.icon('fa fa-facebook-f', {color: "#FFFFFF"})} onTouchTap={ () => FacebookDialog.open() }/>
           </Col>
-          <Col xs={3} style={{margin: "21px 0"}}>
+          <Col xs={8} md={3} className="info-container-col">
             <FacebookProvider appID={Meteor.settings.public.Facebook.appId} >
               <Like href="http://www.exchangebuddy.com" colorScheme="dark" showFaces />
             </FacebookProvider>

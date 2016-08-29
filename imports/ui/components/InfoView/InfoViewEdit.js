@@ -26,13 +26,13 @@ const options = {
     /* These are the default options for the toolbar,
     if nothing is passed this is what is used */
     allowMultiParagraphSelection: true,
-    buttons: ['bold', 'italic', 'underline', 'image', 'anchor', 'h1', 'h2', 'h3', 'h4', 'orderedlist', 'unorderedlist', 'indent', 'outdent', 'quote', 'pre'],
+    buttons: ['bold', 'italic', 'underline', 'image', 'anchor', 'h1', 'h2', 'orderedlist', 'unorderedlist', 'quote'],
     diffLeft: 0,
     diffTop: -10,
     firstButtonClass: 'medium-editor-button-first',
     lastButtonClass: 'medium-editor-button-last',
     standardizeSelectionStart: false,
-    static: false,
+    sticky: true,
     relativeContainer: null,
     buttonLabels: true
   },
