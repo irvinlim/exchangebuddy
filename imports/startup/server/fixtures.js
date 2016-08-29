@@ -75,6 +75,7 @@ setTimeout(() => {
 
 // Add university info sections
 const uniInfoSections = [
+  { label: 'About', subtitle: "" },
   { label: 'General Tips', subtitle: "Must-know tips for every student!" },
   { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]) },
   { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]) },
@@ -95,6 +96,8 @@ UniversityInfoSection.count({}).then(function(count) {
 
 // Add country info sections
 const countryInfoSections = [
+  { label: 'Visa/Consular Regulations' },
+  { label: 'Medical Insurance' },
   { label: 'National Languages' },
   { label: 'National Holidays' },
   { label: 'Tourist Attractions' },
