@@ -61,3 +61,19 @@
 
 .medium-editor-placeholder:after {
   color: #b3b3b1; }
+
+// Custom
+
+.medium-editor-paper {
+  min-height: 300px;
+  padding: 24px;
+}
+
+.medium-editor-toolbar-form-active {
+  display: block;
+}
+
+.medium-editor-element {
+  min-height: 300px
+}
+
