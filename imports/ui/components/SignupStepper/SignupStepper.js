@@ -61,7 +61,8 @@ export default class SignupStepper extends React.Component {
         <Step>
           <StepLabel>Verify your email</StepLabel>
           <StepContent>
-            <Step3 />
+            <Step3
+              handlePrev={ this.handlePrev.bind(this) } />
           </StepContent>
         </Step>
       </Stepper>

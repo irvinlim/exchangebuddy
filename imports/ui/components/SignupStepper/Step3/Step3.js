@@ -4,6 +4,7 @@ import validator from 'validator';
 
 import { EmailFormField } from '../../Field';
 import NextButton from '../NextButton';
+import PrevButton from '../PrevButton';
 
 export const fields = [ 'homeUniEmail' ];
 
@@ -84,7 +85,7 @@ class Step3 extends React.Component {
   render() {
     uniEmailDomains = this.props.emailDomains;
 
-    const { handleSubmit, submitting } = this.props;
+    const { handlePrev, handleSubmit, submitting } = this.props;
     const { user, university, emailDomains } = this.props;
 
     return (
@@ -105,6 +106,7 @@ class Step3 extends React.Component {
         { this.state.emailSent ? <p>Verification email sent!</p> : null }
 
         <div style={{ marginTop: 12 }}>
+          <PrevButton onTouchTap={ handlePrev } label="Back" disabled={submitting} />
           <NextButton label="Send verification email" disabled={submitting} />
         </div>
       </form>
