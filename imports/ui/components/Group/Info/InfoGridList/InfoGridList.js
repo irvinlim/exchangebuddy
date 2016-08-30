@@ -20,8 +20,8 @@ const styles = {
   },
 };
 
-const GridItem = ({ group, item }) => {
-  const goToInfoPg = () => { browserHistory.push(`/group/${group.id}/info/${item.id}`) };
+const GridItem = ({ about, group, item }) => {
+  const goToInfoPg = () => { browserHistory.push(`/group/${group.id}/info/${about}/${item.section.id}`) };
 
   return (
     <Paper zDepth={2}>
@@ -52,7 +52,7 @@ const InfoGridList = ({ about, group, title, items, isMobile }) => (
       padding={10}
       style={styles.gridList}>
 
-      { items.map((item, idx) => <GridItem key={idx} group={group} item={item} />) }
+      { items.map((item, idx) => <GridItem key={idx} about={about} group={group} item={item} />) }
 
     </GridList>
   </div>
