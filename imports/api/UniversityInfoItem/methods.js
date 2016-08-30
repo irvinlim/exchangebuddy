@@ -13,8 +13,12 @@ if (Meteor.isServer) {
       check(universityId, Number);
       check(sectionId, Number);
 
-      return UniversityInfoItem.findOne({ where: { universityId, sectionId }, order: [[ 'createdAt', 'DESC' ]] }).then(function(result) {
-        return result && result.get();
+      return UniversityInfoItem.findOne({
+        where: { universityId, sectionId },
+        order: [[ 'createdAt', 'DESC' ]],
+        include: [{ model: UniversityInfoSection, as: 'section' }],
+      }).then(function(result) {
+        return result && result.get({ plain: true });
       });
     },
 

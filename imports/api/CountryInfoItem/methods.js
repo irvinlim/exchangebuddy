@@ -13,8 +13,12 @@ if (Meteor.isServer) {
       check(countryCode, String);
       check(sectionId, Number);
 
-      return CountryInfoItem.findOne({ where: { countryCode, sectionId }, order: [[ 'createdAt', 'DESC' ]] }).then(function(result) {
-        return result && result.get();
+      return CountryInfoItem.findOne({
+        where: { countryCode, sectionId },
+        order: [[ 'createdAt', 'DESC' ]],
+        include: [{ model: CountryInfoSection, as: 'section' }],
+      }).then(function(result) {
+        return result && result.get({ plain: true });
       });
     },
 
