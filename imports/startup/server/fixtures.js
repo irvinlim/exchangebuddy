@@ -119,6 +119,10 @@ CountryInfoSection.count({}).then(function(count) {
     });
 });
 
+
+
+// DataStore
+
 // Add suggested packing list
 const packingListDataKey = 'university-pre-departure-suggested-packing-list';
 DataStore.findById(packingListDataKey).then(Meteor.bindEnvironment(function(result) {
