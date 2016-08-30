@@ -79,16 +79,16 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
 
 // Add university info sections
 const uniInfoSections = [
-  { label: 'About', subtitle: "" },
-  { label: 'General Tips', subtitle: "Must-know tips for every student!" },
-  { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]) },
-  { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]) },
-  { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'From the airport', 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]) },
-  { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]) },
-  { label: 'Administrative', defaultContentHeadings: JSON.stringify([ 'Important phone numbers', 'How to receive help' ]) },
-  { label: 'Campus Life', subtitle: "All work and no play makes $USERNAME a dull person!", defaultContentHeadings: JSON.stringify([ 'Orientation activities', 'Clubs & societies', 'University events' ]) },
-  { label: 'School Amenities', subtitle: "Find out more about the facilities around campus.", defaultContentHeadings: JSON.stringify([ 'Healthcare', 'Sports facilities', 'Getting daily necessities', 'Banks & ATMs', 'Post offices', 'Internet connectivity' ]) },
-  { label: 'Activities Outside School', subtitle: "Going on exchange isn't all about just staying in school!", defaultContentHeadings: JSON.stringify([ 'Places of interest', 'Shopping malls', 'Food', 'Night life' ]) },
+  { label: 'About' },
+  { label: 'General Tips', subtitle: "Must-know tips for every student!", defaultImageId: "exchangebuddy/section-images/General_Tips" },
+  { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]), defaultImageId: "exchangebuddy/section-images/Checklist" },
+  { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]), defaultImageId: "exchangebuddy/section-images/Expenses" },
+  { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'From the airport', 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]), defaultImageId: "exchangebuddy/section-images/Transport" },
+  { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]), defaultImageId: "exchangebuddy/section-images/Academics" },
+  { label: 'Administrative', defaultContentHeadings: JSON.stringify([ 'Important phone numbers', 'How to receive help' ]), defaultImageId: "exchangebuddy/section-images/Administrative" },
+  { label: 'Campus Life', subtitle: "All work and no play makes $USERNAME a dull person!", defaultContentHeadings: JSON.stringify([ 'Orientation activities', 'Clubs & societies', 'University events' ]), defaultImageId: "exchangebuddy/section-images/campus_life" },
+  { label: 'School Amenities', subtitle: "Find out more about the facilities around campus.", defaultContentHeadings: JSON.stringify([ 'Healthcare', 'Sports facilities', 'Getting daily necessities', 'Banks & ATMs', 'Post offices', 'Internet connectivity' ]), defaultImageId: "exchangebuddy/section-images/Amenities" },
+  { label: 'Activities Outside School', subtitle: "Going on exchange isn't all about just staying in school!", defaultContentHeadings: JSON.stringify([ 'Places of interest', 'Shopping malls', 'Food', 'Night life' ]), defaultImageId: "exchangebuddy/section-images/Activities_outside_school" },
 ];
 
 UniversityInfoSection.count({}).then(function(count) {
@@ -100,16 +100,16 @@ UniversityInfoSection.count({}).then(function(count) {
 
 // Add country info sections
 const countryInfoSections = [
-  { label: 'Visa/Consular Regulations' },
-  { label: 'Medical Insurance' },
-  { label: 'National Languages' },
-  { label: 'National Holidays' },
-  { label: 'Tourist Attractions' },
-  { label: 'Festivals & Culture' },
-  { label: 'Food' },
-  { label: 'Emergencies', subtitle: "Important phone numbers in case of emergency." },
-  { label: 'Telecommunications' },
-  { label: 'Banking' },
+  { label: 'Visa/Consular Regulations', defaultImageId: "exchangebuddy/section-images/Visa" },
+  { label: 'Medical Insurance', defaultImageId: "exchangebuddy/section-images/Healthcare_Insurance" },
+  { label: 'National Languages', defaultImageId: "exchangebuddy/section-images/Languages" },
+  { label: 'National Holidays', defaultImageId: "exchangebuddy/section-images/Holidays" },
+  { label: 'Tourist Attractions', defaultImageId: "exchangebuddy/section-images/popular_tourist_attractions" },
+  { label: 'Festivals & Culture', defaultImageId: "exchangebuddy/section-images/Festivals" },
+  { label: 'Food', defaultImageId: "exchangebuddy/section-images/Food" },
+  { label: 'Emergencies', subtitle: "Important phone numbers in case of emergency.", defaultImageId: "exchangebuddy/section-images/emergency" },
+  { label: 'Telecommunications', defaultImageId: "exchangebuddy/section-images/Telecom" },
+  { label: 'Banking', defaultImageId: "exchangebuddy/section-images/Bank" },
 ];
 
 CountryInfoSection.count({}).then(function(count) {
