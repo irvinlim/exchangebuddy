@@ -4,6 +4,16 @@ import {bindActionCreators} from 'redux';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import InfoViewEdit from '../../components/InfoView/InfoViewEdit';
 
+
+const showResults = values => new Promise(resolve => {
+  console.log(values)
+  setTimeout(() => {  // simulate server latency
+    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+    resolve()
+  }, 500)
+})
+
+
 const EditInfo = () => (
   <div className="info-container" >
   <Grid>
@@ -13,8 +23,8 @@ const EditInfo = () => (
       </Col>
     </Row>
     <Row>
-      <Col xs={12}>
-        <InfoViewEdit />
+      <Col xs={12} style={{marginBottom: "21px"}}>
+        <InfoViewEdit onSubmit={showResults}/>
       </Col>
     </Row>
   </Grid>
