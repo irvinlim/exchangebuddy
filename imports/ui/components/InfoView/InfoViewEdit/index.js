@@ -23,8 +23,6 @@ const composer = (props, onData) => {
 
     if (about == 'country') {
       Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
-        console.log(item);
-
         if (!item)
           return;
 

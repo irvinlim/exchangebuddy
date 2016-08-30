@@ -25,14 +25,15 @@ const validate = values => {
   return errors;
 };
 
-const submitForm = (about, aboutId, sectionId, callback) => (values) => {
+const submitForm = (self, about, aboutId, sectionId, callback) => (values) => {
   let method;
 
   const params = {
-    content: values.markdown,
     userToken: Meteor.userToken(),
     userId: Meteor.userId(),
-    sectionId
+    sectionId,
+    imageId: self.state.tile && self.state.tile.public_id,
+    content: values.markdown,
   };
 
   if (about == 'country') {
@@ -96,10 +97,10 @@ class InfoViewEdit extends React.Component {
         subtitle="Help ExchangeBuddy by contributing to the information below!"
         style={{ zIndex: 10 }}
         titleStyle={{ lineHeight: "3rem", fontWeight: 400, fontSize:"250%", color: Colors.grey50 }}
-        subtitleStyle={{ fontWeight: 300, color: Colors.grey300, fontSize: "16px" }} />
+        subtitleStyle={{ color: Colors.grey200, fontSize: "16px" }} />
     );
 
-    const submitHandler = handleSubmit(submitForm(about, aboutId, sectionId));
+    const submitHandler = handleSubmit(submitForm(this, about, aboutId, sectionId));
 
     return (
         <Paper className="info-text-container" zDepth={2}>
