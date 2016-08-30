@@ -7,7 +7,7 @@ import truncate from 'truncate';
 const EventItemFb = ({ groupEvent }) => (
   <Row>
     <Col xs={12}>
-      <Card className="event-item-card">
+      <Card className="event-item-card" initiallyExpanded={true}>
         <CardHeader
           title={ groupEvent.name }
           subtitle={ `${ moment(groupEvent.startTime).format("D MMM, ddd, hA") } - ${groupEvent.stats.attending} attending` }
