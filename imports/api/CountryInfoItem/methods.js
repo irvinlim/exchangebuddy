@@ -44,7 +44,7 @@ if (Meteor.isServer) {
 
         if (!section)
           throw new Meteor.Error('CountryInfoItem.pushRevision.undefinedSection', 'No such section.');
-        else if (!section.isEditable)
+        else if (!section.editable)
           throw new Meteor.Error('CountryInfoItem.pushRevision.notEditable', 'Section is not editable.');
 
         return section;
@@ -54,7 +54,7 @@ if (Meteor.isServer) {
         if (!user || user.id != userId)
           throw new Meteor.Error("CountryInfoItem.pushRevision.notAuthenticated", "User token is not authenticated.");
       }).then(function(result) {
-        return CountryInfoItem.insert({ sectionId, countryCode, content, userId });
+        return CountryInfoItem.create({ sectionId, countryCode, content, userId });
       });
     },
 
