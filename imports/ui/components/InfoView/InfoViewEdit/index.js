@@ -11,7 +11,7 @@ import ChildComponent from './InfoViewEdit';
 
 // react-komposer
 const composer = (props, onData) => {
-  const { about, groupId } = props;
+  const { about, groupId, sectionId } = props;
 
   if (!groupId || !about)
     return;
@@ -21,10 +21,29 @@ const composer = (props, onData) => {
     if (!group)
       return;
 
-    if (about == 'country')
-      onData(null, { aboutId: group.university.countryCode });
-    else if (about == 'university')
-      onData(null, { aboutId: group.universityId });
+    if (about == 'country') {
+      Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
+        console.log(item);
+
+        if (!item)
+          return;
+
+        onData(null, {
+          item,
+          aboutId: group.university.countryCode
+        });
+      });
+    } else if (about == 'university') {
+      Meteor.call('UniversityInfoItem.getLatestRevision', group.universityId, sectionId, (err, item) => {
+        if (!item)
+          return;
+
+        onData(null, {
+          item,
+          aboutId: group.universityId
+        });
+      });
+    }
 
   });
 };

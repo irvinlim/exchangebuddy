@@ -11,12 +11,8 @@ import MarkdownTextField from './MarkdownTextField';
 
 import * as IconsHelper from '../../../../util/icons';
 import * as ImagesHelper from '../../../../util/images';
+import * as InfoHelper from '../../../../util/info';
 import * as Colors from 'material-ui/styles/colors';
-
-const infoDisplayUrlProp = ImagesHelper.getUrlScale("ikkzaet6oqkqykrarkyg",500),
-          infoTitleProp = "Sample Title",
-          infoInputProp = "# This is a header\n\nAnd this is a paragraph",
-          lastUpdated = moment().format("MMM Do YYYY");
 
 const validate = values => {
   const errors = {};
@@ -91,16 +87,16 @@ class InfoViewEdit extends React.Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, about, aboutId, sectionId } = this.props;
+    const { handleSubmit, pristine, reset, submitting, about, aboutId, sectionId, item } = this.props;
 
     const Overlay = () => (
       <CardTitle
         className="info-title"
-        title={ infoTitleProp }
+        title={ item.section.label }
         subtitle="Help ExchangeBuddy by contributing to the information below!"
         style={{ zIndex: 10 }}
         titleStyle={{ lineHeight: "3rem", fontWeight: 400, fontSize:"250%", color: Colors.grey50 }}
-        subtitleStyle={{ fontWeight: 100, color: Colors.grey300, fontSize: "16px" }} />
+        subtitleStyle={{ fontWeight: 300, color: Colors.grey300, fontSize: "16px" }} />
     );
 
     const submitHandler = handleSubmit(submitForm(about, aboutId, sectionId));
@@ -118,7 +114,7 @@ class InfoViewEdit extends React.Component {
                 accept="image/*"
                 style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
                 onChange={this.handleUpload.bind(this)} />
-              <img src={ this.state.tile ? this.state.tile.res.secure_url : infoDisplayUrlProp } />
+              <img src={ this.state.tile ? this.state.tile.res.secure_url : InfoHelper.getImageUrl(item, 500) } />
             </div>
 
           </CardMedia>
@@ -127,7 +123,7 @@ class InfoViewEdit extends React.Component {
 
         <form onSubmit={ submitHandler }>
           <Col xs={12}>
-            <Field name="markdown" component={ MarkdownTextField } markdown={ infoInputProp } />
+            <Field name="markdown" component={ MarkdownTextField } markdown={ item.content } />
           </Col>
           <div className="row center-md center-xs" style={{marginTop: "18px"}}>
             <Col xs={8} md={3} className="info-container-col">
