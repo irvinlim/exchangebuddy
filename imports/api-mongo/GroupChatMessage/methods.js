@@ -12,13 +12,14 @@ if (Meteor.isServer) {
     'GroupChatMessage.sendToGroup': function(values) {
       check(values, Object);
 
-      const { userId, userToken, groupId, content } = values;
+      const { userId, userToken, groupId, content, type } = values;
       check(userId, Number);
       check(userToken, String);
       check(groupId, Number);
       check(content, String);
+      check(type, String);
 
-      const mongoAction = Meteor.bindEnvironment(() => GroupChatMessage.insert({ groupId, userId, content }));
+      const mongoAction = Meteor.bindEnvironment(() => GroupChatMessage.insert({ groupId, userId, content, type }));
 
       return Group.findById(groupId).then(function(result) {
         const group = result.get();

@@ -4,14 +4,18 @@ import { formatTime } from '../../../../../util/helper';
 import * as UserHelper from '../../../../../util/user';
 
 const Message = ({ message, currentUser }) => {
-  const { content, user, createdAt } = message;
+  const { content, user, createdAt, type } = message;
   return (
-    <div className="message-row">
-      <div className="message-avatar">{ UserHelper.getAvatar(user, 40) }</div>
-      <div className="message-body">
-        <h5 className="message-username">{ user.displayName } <span className="message-timestamp">{ formatTime(createdAt) }</span></h5>
-        <p className="message-content">{ content }</p>
+    <div>
+      { type === "user" &&
+      <div className="message-row">
+        <div className="message-avatar">{ UserHelper.getAvatar(user, 40) }</div>
+        <div className="message-body">
+          <h5 className="message-username">{ user.displayName } <span className="message-timestamp">{ formatTime(createdAt) }</span></h5>
+          <p className="message-content">{ content }</p>
+        </div>
       </div>
+      }
     </div>
   );
 };
