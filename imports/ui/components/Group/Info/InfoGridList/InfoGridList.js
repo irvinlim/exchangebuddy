@@ -40,6 +40,15 @@ const GridItem = ({ about, group, item }) => {
   );
 };
 
+const GridItemAdd= () => (
+  <div id="grid-item-add">
+    <div id="grid-item-add-overlay">
+      <span id="grid-item-add-icon">+</span>
+      <p>ADD A SECTION</p>
+    </div>
+  </div>
+)
+
 const InfoGridList = ({ about, group, title, items, isMobile }) => (
   <div className="grid-list-container">
     <h3 className="pinline"><span>About { title }</span></h3>
@@ -53,6 +62,8 @@ const InfoGridList = ({ about, group, title, items, isMobile }) => (
       style={styles.gridList}>
 
       { items.map((item, idx) => <GridItem key={idx} about={about} group={group} item={item} />) }
+
+      <GridItemAdd />
 
     </GridList>
   </div>
