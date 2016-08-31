@@ -10,9 +10,9 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import MarkdownTextField from './MarkdownTextField';
 
-import * as IconsHelper from '../../../../util/icons';
-import * as ImagesHelper from '../../../../util/images';
-import * as InfoHelper from '../../../../util/info';
+import * as IconsHelper from '../../../../../util/icons';
+import * as ImagesHelper from '../../../../../util/images';
+import * as InfoHelper from '../../../../../util/info';
 import * as Colors from 'material-ui/styles/colors';
 
 const validate = values => {
@@ -103,7 +103,6 @@ class InfoViewEdit extends React.Component {
     const backUrl = `/group/${groupId}/info/${about}/${sectionId}`;
 
     const onSubmit = () => {
-      console.log('success');
       this.props.actions.showSnackbar("Your edit has been saved.");
       browserHistory.push(backUrl);
     };
