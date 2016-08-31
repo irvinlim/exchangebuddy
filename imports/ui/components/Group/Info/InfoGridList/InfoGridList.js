@@ -28,7 +28,7 @@ const GridItem = ({ about, group, item }) => {
       <GridTile
         className="grid-tile"
         title={ item.section.label }
-        subtitle="132 likes, 55 shares"
+        subtitle={ InfoHelper.getSectionSubtitle(item, group) }
         cols={ item.isFeatured ? 2 : 1 }
         rows={ item.isFeatured ? 2 : 1 }
         onClick={ goToInfoPg }
