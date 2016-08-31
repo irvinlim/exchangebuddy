@@ -33,7 +33,7 @@ const submitForm = (self, about, aboutId, sectionId, callback) => (values) => {
     userToken: Meteor.userToken(),
     userId: Meteor.userId(),
     sectionId,
-    imageId: self.state.tile && self.state.tile.public_id,
+    imageId: self.state.tile && self.state.tile.res.public_id,
     content: values.markdown,
   };
 
@@ -64,11 +64,6 @@ class InfoViewEdit extends React.Component {
       tile: null,
       title: ""
     };
-  }
-
-  handleMarkdownChange(markdown) {
-    this.setState({value: markdown})
-    return markdown;
   }
 
   handleUpload(e) {
@@ -135,7 +130,7 @@ class InfoViewEdit extends React.Component {
           </Col>
           <div className="row center-md center-xs" style={{marginTop: "18px"}}>
             <Col xs={8} md={3} className="info-container-col">
-              <RaisedButton className="raised-btn" fullWidth={true} label="Submit" primary={true} disabled={ submitting } type="submit"  />
+              <RaisedButton className="raised-btn" fullWidth={true} label="Submit" primary={true} disabled={ pristine || submitting } type="submit" />
             </Col>
             <Col xs={8} md={3} className="info-container-col">
               <RaisedButton className="raised-btn" fullWidth={true} label="Cancel" primary={true} onTouchTap={ () => browserHistory.push(backUrl) } />

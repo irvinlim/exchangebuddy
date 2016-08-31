@@ -3,10 +3,52 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 const GroupChatMessage = new Mongo.Collection('GroupChatMessage');
 
+EventPostingMessageSchema = new SimpleSchema({
+  id: {
+    type: String,
+    label: 'Facebook Event id',
+    optional: true,
+  },
+  url: {
+    type: String,
+    label: 'Meetup Event url',
+    optional: true,
+  },
+  yes_rsvp_count: {
+    type: Number,
+    label: 'Meetup Event yes count',
+    optional: true,
+  },
+  name: {
+    type: String,
+    label: 'Event title',
+    optional: true,
+  },
+  profilePicture: {
+    type: String,
+    label: 'Event profile picture',
+    optional: true,
+  },
+  coverPicture: {
+    type: String,
+    label: 'Event cover picture',
+    optional: true,
+  },
+  startTime: {
+    type: Date,
+    label: 'Event start Date Time',
+    optional: true,
+  }
+})
+
 GroupChatMessage.schema = new SimpleSchema({
   groupId: {
     type: Number,
     label: 'Group ID in MySQL table'
+  },
+  type: {
+    type: String,
+    label: 'Message type - user or event'
   },
   userId: {
     type: Number,
@@ -16,7 +58,6 @@ GroupChatMessage.schema = new SimpleSchema({
     type: String,
     label: 'Message content'
   },
-
   createdAt: {
     type: Date,
     label: 'Date that message was created',
@@ -55,6 +96,12 @@ GroupChatMessage.schema = new SimpleSchema({
     type: Date,
     label: 'Date when message was removed',
     optional: true
+  },
+
+  eventPosting:{
+    type: EventPostingMessageSchema,
+    label: 'Event posting',
+    optional: true,
   }
 });
 
