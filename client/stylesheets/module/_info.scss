@@ -1,6 +1,8 @@
 @import "../common/mixins";
 
 .grid-list {
+  > div { padding: 0 5px; margin: 0 0 10px; }
+
   .grid-tile {
     cursor: pointer; @include transition-standard(all 150ms); background-size: cover; background-position: center center; min-height: 220px;
     &:hover { opacity: 0.9; }

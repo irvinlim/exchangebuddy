@@ -13,7 +13,7 @@ html body {
   label { font-weight: inherit; }
 }
 
-#main { overflow-x: hidden; min-height: 100vh; }
+#main { overflow: hidden; min-height: 100vh; }
 
 // Layout
 body .container { padding: 0 1rem; } // Make all containers fluid
