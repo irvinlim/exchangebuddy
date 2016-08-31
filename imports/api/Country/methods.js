@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     'Country.getInfoItems'(countryCode) {
       check(countryCode, String);
 
-      return CountryInfoItem.findAll({ where: { countryCode }, include: [ { model: CountryInfoSection, as: 'section' } ] }).then(function(result) {
+      return CountryInfoItem.findAll({ where: { countryCode }, group: ['sectionId'], include: [ { model: CountryInfoSection, as: 'section' } ] }).then(function(result) {
         return result && result.map(item => item.get({ plain: true }));
       });
     },
