@@ -6,6 +6,9 @@ import Loading from '../../Loading';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+// Action creators
+import { showSnackbar } from '../../../../client/actions/snackbar';
+
 // Component
 import ChildComponent from './InfoViewEdit';
 
@@ -50,7 +53,7 @@ const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({  }, dispatch),
+    actions: bindActionCreators({ showSnackbar }, dispatch),
   };
 };
 

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { browserHistory } from 'react-router';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 
 import Paper from 'material-ui/Paper';
@@ -66,7 +67,6 @@ class InfoViewEdit extends React.Component {
   }
 
   handleMarkdownChange(markdown) {
-    console.log(markdown);
     this.setState({value: markdown})
     return markdown;
   }
@@ -88,7 +88,7 @@ class InfoViewEdit extends React.Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, about, aboutId, sectionId, item } = this.props;
+    const { handleSubmit, pristine, reset, submitting, about, aboutId, sectionId, groupId, item } = this.props;
 
     const Overlay = () => (
       <CardTitle
@@ -100,7 +100,15 @@ class InfoViewEdit extends React.Component {
         subtitleStyle={{ color: Colors.grey200, fontSize: "16px" }} />
     );
 
-    const submitHandler = handleSubmit(submitForm(this, about, aboutId, sectionId));
+    const backUrl = `/group/${groupId}/info/${about}/${sectionId}`;
+
+    const onSubmit = () => {
+      console.log('success');
+      this.props.actions.showSnackbar("Your edit has been saved.");
+      browserHistory.push(backUrl);
+    };
+
+    const submitHandler = handleSubmit(submitForm(this, about, aboutId, sectionId, onSubmit));
 
     return (
         <Paper className="info-text-container" zDepth={2}>
@@ -128,10 +136,10 @@ class InfoViewEdit extends React.Component {
           </Col>
           <div className="row center-md center-xs" style={{marginTop: "18px"}}>
             <Col xs={8} md={3} className="info-container-col">
-              <RaisedButton className="raised-btn" fullWidth={true} label="Submit" primary={true} disabled={ pristine || submitting } type="submit"  />
+              <RaisedButton className="raised-btn" fullWidth={true} label="Submit" primary={true} disabled={ submitting } type="submit"  />
             </Col>
             <Col xs={8} md={3} className="info-container-col">
-              <RaisedButton className="raised-btn" fullWidth={true} label="Cancel" primary={true} disabled={ pristine || submitting } onClick={reset} />
+              <RaisedButton className="raised-btn" fullWidth={true} label="Cancel" primary={true} onTouchTap={ () => browserHistory.push(backUrl) } />
             </Col>
           </div>
         </form>
