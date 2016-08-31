@@ -4,7 +4,21 @@ import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import RaisedButton from 'material-ui/RaisedButton';
 import truncate from 'truncate';
 
-const EventItemFb = ({ groupEvent }) => (
+const postToChat = (groupEvent, groupId, cardText) => {
+  const {name, coverPicture, startTime, id } = groupEvent;
+  const profilePicture = groupEvent.venue.profilePicture || groupEvent.profilePicture;
+  const eventPosting = { name, profilePicture, coverPicture, startTime, id };
+  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId, eventPosting, content: cardText, type: "eventFB" };
+
+  Meteor.call('GroupChatMessage.sendToGroup', params, (err, success) => {
+    if(err)
+      console.log(err)
+  })
+}
+
+const EventItemFb = ({ groupEvent, groupId }) => {
+  const cardText = truncate(groupEvent.description, 300);
+  return (
   <Row>
     <Col xs={12}>
       <Card className="event-item-card" initiallyExpanded={true}>
@@ -19,22 +33,22 @@ const EventItemFb = ({ groupEvent }) => (
           <img src={ groupEvent.coverPicture } />
         </CardMedia>
         <CardText expandable={true}>
-        	{ truncate(groupEvent.description, 300) }
+        	{ cardText }
         </CardText>
         <CardActions expandable={true}>
-          <div style={{textAlign: "center"}}>
-          <RaisedButton
-            primary={true}
-            style={{display: "inline-block"}}
-            label="View on Facebook"
-            target="_blank"
-            href={`https://facebook.com/events/${groupEvent.id}`}
-          />
+          <div className="row center-xs">
+          <Col xs={12} md={5} >
+            <RaisedButton primary={true} style={{margin: "3px 6px"}} label="View on Facebook" target="_blank" href={`https://facebook.com/events/${groupEvent.id}`} />
+          </Col>
+          <Col xs={12} md={4} >
+            <RaisedButton primary={true} style={{margin: "3px 6px"}} label="Post to Chat" onTouchTap={ ()=> postToChat(groupEvent, parseInt(groupId), cardText) } />
+          </Col>
           </div>
         </CardActions>
       </Card>
     </Col>
   </Row>
-)
+  )
+}
 
 export default EventItemFb;
