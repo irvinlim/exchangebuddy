@@ -7,12 +7,9 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import { GridList, GridTile } from 'material-ui/GridList';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import MarkdownTextField from './MarkdownTextField';
+import ImageUploadField from './ImageUploadField';
 
-import * as IconsHelper from '../../../../../util/icons';
-import * as ImagesHelper from '../../../../../util/images';
-import * as InfoHelper from '../../../../../util/info';
 import * as Colors from 'material-ui/styles/colors';
 
 const validate = values => {
@@ -33,8 +30,8 @@ const submitForm = (self, about, aboutId, sectionId, callback) => (values) => {
     userToken: Meteor.userToken(),
     userId: Meteor.userId(),
     sectionId,
-    imageId: self.state.tile && self.state.tile.res.public_id,
-    content: values.markdown,
+    imageId: values.imageId || self.props.item.imageId,
+    content: values.markdown || self.props.item.content,
   };
 
   if (about == 'country') {
@@ -66,34 +63,26 @@ class InfoViewEdit extends React.Component {
     };
   }
 
-  handleUpload(e) {
+  handleUpload(input) {
     const self = this;
-    const files = e.currentTarget.files;
-    let tile = {};
-    tile.files = files;
+    return e => {
+      const files = e.currentTarget.files;
+      let tile = {};
+      tile.files = files;
+      this.setState({ loadingFile: true });
 
-    this.setState({ loadingFile: true });
-
-    // upload files to root cloudinary folder
-    Cloudinary.upload(files, {}, function(err, res) {
-      tile.res = res;
-      self.setState({ tile: tile });
-      self.setState({ loadingFile: false });
-    });
+      // upload files to root cloudinary folder
+      Cloudinary.upload(files, {}, function(err, res) {
+        tile.res = res;
+        self.setState({ tile: tile });
+        self.setState({ loadingFile: false });
+        input.onChange(tile.res.public_id);
+      });
+    }
   }
 
   render() {
     const { handleSubmit, pristine, reset, submitting, about, aboutId, sectionId, groupId, item } = this.props;
-
-    const Overlay = () => (
-      <CardTitle
-        className="info-title"
-        title={ item.section.label }
-        subtitle="Help ExchangeBuddy by contributing to the information below!"
-        style={{ zIndex: 10 }}
-        titleStyle={{ lineHeight: "3rem", fontWeight: 400, fontSize:"250%", color: Colors.grey50 }}
-        subtitleStyle={{ color: Colors.grey200, fontSize: "16px" }} />
-    );
 
     const backUrl = `/group/${groupId}/info/${about}/${sectionId}`;
 
@@ -106,25 +95,11 @@ class InfoViewEdit extends React.Component {
 
     return (
         <Paper className="info-text-container" zDepth={2}>
-          <CardMedia
-            className="info-title-container"
-            mediaStyle={{ maxHeight: 500, overflow:"hidden" }}
-            overlay={ <Overlay /> }>
-
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
-                onChange={this.handleUpload.bind(this)} />
-              <img src={ this.state.tile ? this.state.tile.res.secure_url : InfoHelper.getImageUrl(item, 500) } />
-            </div>
-
-          </CardMedia>
-
-        { this.state.loadingFile && <LinearProgress mode="indeterminate" id="LinearProgressEdit"/> }
-
         <form onSubmit={ submitHandler }>
+          <Field name="imageId" component={ImageUploadField} tile={this.state.tile} handler={this.handleUpload.bind(this)} item={item}/>
+
+          { this.state.loadingFile && <LinearProgress mode="indeterminate" id="LinearProgressEdit"/> }
+
           <Col xs={12}>
             <Field name="markdown" component={ MarkdownTextField } markdown={ item.content } />
           </Col>
@@ -144,5 +119,5 @@ class InfoViewEdit extends React.Component {
 }
 export default reduxForm({
   form: 'InfoEditForm',
-  validate
+  // validate
 })(InfoViewEdit);
