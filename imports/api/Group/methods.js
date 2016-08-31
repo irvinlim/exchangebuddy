@@ -160,197 +160,165 @@ if (Meteor.isServer) {
   });
 
   export const onGroupCreate = (group) => {
-    const universityId = group.universityId;
+    let country, countryCode, university, universityId;
+    universityId = group.universityId;
 
-    University.findOne({ where: { id: universityId }, include: [ Country ] }).then(function(result) {
-      const university = result && result.get({ plain: true });
+    return University.findOne({ where: { id: universityId }, include: [ Country ] }).then(function(result) {
+      university = result && result.get({ plain: true });
 
       if (!university)
         throw new Meteor.Error("onGroupCreate.undefinedUniversity", "No such university.");
 
-      const country = university.country;
-      const countryCode = country.alpha2Code;
+      country = university.country;
+      countryCode = country.alpha2Code;
+
+      return;
+
+    }).then(function() {
 
       ////////////////////////
       // National Languages //
       ////////////////////////
 
-      return CountryInfoSection.findOne({ where: { label: 'National Languages' } }).then(function(result) {
-        const section = result && result.get();
+      return CountryInfoSection.findOne({ where: { label: 'National Languages' } });
 
-        return CountryInfoItem.findOrCreate({
-          where: {
-            sectionId: section.id,
-            countryCode: country.alpha2Code
-          },
-          defaults: {
-            userId: 1, // Admin user
-            content: JSON.parse(country.languages).map(iso2 => languages[iso2].name).join(', ')
-          },
-        });
-      }).then(function(result) {
+    }).then(function(result) {
 
-        ///////////////////////
-        // Emergency Numbers //
-        ///////////////////////
+      const section = result && result.get();
 
-        return new Promise((resolve, reject) => {
-
-          HTTP.get(`http://emergencynumberapi.com/api/country/${countryCode}`, {}, function(err, emergencyData) {
-            return CountryInfoSection.findOne({ where: { label: 'Emergencies' } }).then(function(result) {
-              const section = result && result.get();
-
-              const content = emergencyData.data.filter((value, key) => {
-                return key == 'ambulance' || key == 'fire' || key == 'police' || key == 'dispatch';
-              }).map((value, key) => {
-                if (key == 'dispatch')
-                  key = 'Emergency Hotline';
-                else
-                  key = titleCase(key);
-
-                return `# ${key}\n\n${value.all.join(', ')}`;
-              });
-
-              return CountryInfoItem.findOrCreate({
-                where: {
-                  sectionId: section.id,
-                  countryCode: country.alpha2Code
-                },
-                defaults: {
-                  userId: 1, // Admin user
-                  content: content.join("\n\n"),
-                },
-              }).then(function() {
-                resolve();
-              });
-            });
-          });
-
-        });
-
-      }).then(function(result) {
-
-        //////////////////////////////
-        // Load data from DataStore //
-        //////////////////////////////
-
-        /**
-         * Go through all university and country info sections, and populate InfoItems with defaultContentHeadings,
-         * and check DataStore if there is default content for each heading.
-         */
-
-        // Find all sections
-        return CountryInfoSection.findAll({}).then(function(sections) {
-          const sectionPromises = sections.map(section => {
-            section = section.get({ plain: true });
-
-            // Content array (by headings)
-            const content = [];
-            let foundNewContent = false;
-
-            if (!section.defaultContentHeadings)
-              return;
-
-            const defaultContentHeadings = JSON.parse(section.defaultContentHeadings);
-
-            // Find content for each heading in each section
-            const contentPromises = defaultContentHeadings.map(heading => {
-              return DataStore.findById(`country-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
-                if (result)
-                  foundNewContent = true;
-
-                const dataForHeading = result && JSON.parse(result.get().dataValue);
-                const defaultData = dataForHeading ? "\n\n" + dataForHeading[countryCode] : "";
-                content.push(`# ${heading}${defaultData}`);
-              });
-            });
-
-            // Once all headings have been populated, perform findOrCreate for the InfoItem.
-            return Promise.all(contentPromises).then(function() {
-
-              // Don't make an InfoItem if we don't have any data to add.
-              if (!foundNewContent)
-                return;
-
-              // Make the InfoItem.
-              return CountryInfoItem.findOrCreate({
-                where: {
-                  countryCode,
-                  sectionId: section.id,
-                },
-                defaults: {
-                  userId: 1, // Admin user
-                  content: content.join("\n\n"),
-                },
-              });
-            });
-          });
-
-          return Promise.all(sectionPromises);
-        });
-
-      }).then(function() {
-
-        //////////////////////////////
-        // Load data from DataStore //
-        //////////////////////////////
-
-        /**
-         * Go through all university and country info sections, and populate InfoItems with defaultContentHeadings,
-         * and check DataStore if there is default content for each heading.
-         */
-
-        // Find all sections
-        return UniversityInfoSection.findAll({}).then(function(sections) {
-          const sectionPromises = sections.map(section => {
-            section = section.get({ plain: true });
-
-            // Content array (by headings)
-            const content = [];
-            let foundNewContent = false;
-
-            if (!section.defaultContentHeadings)
-              return;
-
-            const defaultContentHeadings = JSON.parse(section.defaultContentHeadings);
-
-            // Find content for each heading in each section
-            const contentPromises = defaultContentHeadings.map(heading => {
-              return DataStore.findById(`university-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
-                if (result)
-                  foundNewContent = true;
-
-                const dataForHeading = result && JSON.parse(result.get().dataValue);
-                const defaultData = dataForHeading ? "\n\n" + dataForHeading[universityId] : "";
-                content.push(`# ${heading}${defaultData}`);
-              });
-            });
-
-            // Once all headings have been populated, perform findOrCreate for the InfoItem.
-            return Promise.all(contentPromises).then(function() {
-
-              // Don't make an InfoItem if we don't have any data to add.
-              if (!foundNewContent)
-                return;
-
-              // Make the InfoItem.
-              return UniversityInfoItem.findOrCreate({
-                where: {
-                  universityId,
-                  sectionId: section.id,
-                },
-                defaults: {
-                  userId: 1, // Admin user
-                  content: content.join("\n\n"),
-                },
-              });
-            });
-          });
-
-          return Promise.all(sectionPromises);
-        });
-
+      return CountryInfoItem.findOrCreate({
+        where: {
+          sectionId: section.id,
+          countryCode: country.alpha2Code
+        },
+        defaults: {
+          userId: 1, // Admin user
+          content: JSON.parse(country.languages).map(iso2 => languages[iso2].name).join(', ')
+        },
       });
+
+    }).then(function(result) {
+
+      //////////////////////////////
+      // Load data from DataStore //
+      //////////////////////////////
+
+      /**
+       * Go through all university and country info sections, and populate InfoItems with defaultContentHeadings,
+       * and check DataStore if there is default content for each heading.
+       */
+
+      // Find all sections
+      return CountryInfoSection.findAll({}).then(function(sections) {
+        const sectionPromises = sections.map(section => {
+          section = section.get({ plain: true });
+
+          // Content array (by headings)
+          const content = [];
+          let foundNewContent = false;
+
+          if (!section.defaultContentHeadings)
+            return;
+
+          const defaultContentHeadings = JSON.parse(section.defaultContentHeadings);
+
+          // Find content for each heading in each section
+          const contentPromises = defaultContentHeadings.map(heading => {
+            return DataStore.findById(`country-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
+              if (result)
+                foundNewContent = true;
+
+              const dataForHeading = result && JSON.parse(result.get().dataValue);
+              const defaultData = dataForHeading ? "\n\n" + dataForHeading[countryCode] : "";
+              content.push(`# ${heading}${defaultData}`);
+            });
+          });
+
+          // Once all headings have been populated, perform findOrCreate for the InfoItem.
+          return Promise.all(contentPromises).then(function() {
+
+            // Don't make an InfoItem if we don't have any data to add.
+            if (!foundNewContent)
+              return;
+
+            // Make the InfoItem.
+            return CountryInfoItem.findOrCreate({
+              where: {
+                countryCode,
+                sectionId: section.id,
+              },
+              defaults: {
+                userId: 1, // Admin user
+                content: content.join("\n\n"),
+              },
+            });
+          });
+        });
+
+        return Promise.all(sectionPromises);
+      });
+
+    }).then(function() {
+
+      //////////////////////////////
+      // Load data from DataStore //
+      //////////////////////////////
+
+      /**
+       * Go through all university and country info sections, and populate InfoItems with defaultContentHeadings,
+       * and check DataStore if there is default content for each heading.
+       */
+
+      // Find all sections
+      return UniversityInfoSection.findAll({}).then(function(sections) {
+        const sectionPromises = sections.map(section => {
+          section = section.get({ plain: true });
+
+          // Content array (by headings)
+          const content = [];
+          let foundNewContent = false;
+
+          if (!section.defaultContentHeadings)
+            return;
+
+          const defaultContentHeadings = JSON.parse(section.defaultContentHeadings);
+
+          // Find content for each heading in each section
+          const contentPromises = defaultContentHeadings.map(heading => {
+            return DataStore.findById(`university-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
+              if (result)
+                foundNewContent = true;
+
+              const dataForHeading = result && JSON.parse(result.get().dataValue);
+              const defaultData = dataForHeading ? "\n\n" + dataForHeading[universityId] : "";
+              content.push(`# ${heading}${defaultData}`);
+            });
+          });
+
+          // Once all headings have been populated, perform findOrCreate for the InfoItem.
+          return Promise.all(contentPromises).then(function() {
+
+            // Don't make an InfoItem if we don't have any data to add.
+            if (!foundNewContent)
+              return;
+
+            // Make the InfoItem.
+            return UniversityInfoItem.findOrCreate({
+              where: {
+                universityId,
+                sectionId: section.id,
+              },
+              defaults: {
+                userId: 1, // Admin user
+                content: content.join("\n\n"),
+              },
+            });
+          });
+        });
+
+        return Promise.all(sectionPromises);
+      });
+
     });
   };
 }
