@@ -105,7 +105,7 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
 
       let accom, costOfLiving;
 
-      DataStore.findById('version_exchange_uni_data_nus').then(function(result) {
+      DataStore.findById('version_exchangeUniDataNus').then(function(result) {
         const existingVersion = result && result.get();
 
         // Don't insert data when version is the same
@@ -141,7 +141,7 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
       }).then(function(result) {
         // Finally, update data version
         return DataStore.upsert({
-          dataKey: 'version_exchange_uni_data_nus',
+          dataKey: 'version_exchangeUniDataNus',
           dataValue: json.dataVersion
         });
       });
