@@ -47,14 +47,14 @@ if (Meteor.isServer) {
         else if (!section.editable)
           throw new Meteor.Error('UniversityInfoItem.pushRevision.notEditable', 'Section is not editable.');
 
-        return section;
-      }).then(function(result) {
         const user = verifyToken(userToken);
 
         if (!user || user.id != userId)
           throw new Meteor.Error("UniversityInfoItem.pushRevision.notAuthenticated", "User token is not authenticated.");
-      }).then(function(result) {
+
         return UniversityInfoItem.create({ sectionId, universityId, content, userId });
+      }).then(function(result) {
+        return true;
       });
     },
 
