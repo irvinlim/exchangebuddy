@@ -60,5 +60,9 @@ export const convertToSlug = (Text) => {
   return Text.toLowerCase().replace(/[^\w ]+/g,' ').split(' ').filter(s => s.length).join('-');
 };
 
+export const titleCase = (str) => {
+  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 // Pluralizer
 export const pluralizer = (number, singular, plural) => number === 1 ? singular : plural;
