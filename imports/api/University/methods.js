@@ -32,7 +32,7 @@ if (Meteor.isServer) {
     'University.getInfoItems'(universityId) {
       check(universityId, Number);
 
-      return UniversityInfoItem.findAll({ where: { universityId }, include: [ { model: UniversityInfoSection, as: 'section' } ] }).then(function(result) {
+      return UniversityInfoItem.findAll({ where: { universityId }, group: ['sectionId'], include: [ { model: UniversityInfoSection, as: 'section' } ] }).then(function(result) {
         return result && result.map(item => item.get({ plain: true }));
       });
     },
