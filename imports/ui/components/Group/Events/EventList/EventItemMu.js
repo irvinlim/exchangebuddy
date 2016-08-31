@@ -8,7 +8,7 @@ import truncate from 'truncate';
 const EventItemMu = ({ groupEvent }) => (
   <Row>
     <Col xs={12}>
-      <Card className="event-item-card">
+      <Card className="event-item-card" initiallyExpanded={true}>
         <CardHeader
           title={ groupEvent.name }
           subtitle={ `${ moment(groupEvent.time).format("D MMM, ddd, hA") } - ${groupEvent.yes_rsvp_count} RSVPs` }

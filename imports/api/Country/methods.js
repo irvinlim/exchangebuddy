@@ -31,8 +31,10 @@ if (Meteor.isServer) {
 
     return new Promise((resolve, reject) => {
 
+      // Resolve upsert rejects so that Promise.all resolves
+
       const promises = countries.map(ctry => {
-        return Country.upsert(ctry);
+        return new Promise((res,rej) => Country.upsert(ctry).then(()=>res(), ()=>res()))
       });
 
       Promise.all(promises).then(function() {
