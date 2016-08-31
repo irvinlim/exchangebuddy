@@ -16,13 +16,13 @@ export default class EventsList extends React.Component {
   }
 
 	render() {
-    const { groupEvents, source } = this.props;
+    const { groupEvents, source, groupId } = this.props;
 
     const EventItem = ({ source, groupEvent }) => {
       if (source == 'Facebook')
-        return <EventItemFb groupEvent={ groupEvent } />;
+        return <EventItemFb groupEvent={ groupEvent } groupId={ groupId } />;
       else if (source == 'Meetup')
-        return <EventItemMu groupEvent={ groupEvent } />;
+        return <EventItemMu groupEvent={ groupEvent } groupId={ groupId } />;
       else
         return null;
     };

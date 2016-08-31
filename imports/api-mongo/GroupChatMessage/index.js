@@ -20,7 +20,6 @@ GroupChatMessage.schema = new SimpleSchema({
     type: String,
     label: 'Message content'
   },
-
   createdAt: {
     type: Date,
     label: 'Date that message was created',
@@ -59,6 +58,37 @@ GroupChatMessage.schema = new SimpleSchema({
     type: Date,
     label: 'Date when message was removed',
     optional: true
+  },
+
+  eventPosting:{
+    type: Object,
+    label: 'Event posting',
+    optional: true,
+  },
+  'eventPosting.id': {
+    type: String,
+    label: 'Event Facebook id',
+    optional: true,
+  },
+  'eventPosting.name': {
+    type: String,
+    label: 'Event title',
+    optional: true,
+  },
+  'eventPosting.profilePicture': {
+    type: String,
+    label: 'Event profile picture',
+    optional: true,
+  },
+  'eventPosting.coverPicture': {
+    type: String,
+    label: 'Event cover picture',
+    optional: true,
+  },
+  'eventPosting.startTime': {
+    type: Date,
+    label: 'Event start Date Time',
+    optional: true,
   }
 });
 
