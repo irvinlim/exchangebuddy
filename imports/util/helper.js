@@ -19,6 +19,9 @@ export const makeRouteSlug = (routes) => {
  * @return {Object}         Newly constructed object with mapped properties. Original object is not modified.
  */
 export const mapObjPropsToObject = function(obj, fn) {
+  if (!fn)
+    fn = (x) => x;
+
   return Object.keys(obj).reduce(function(accum, curr) {
     accum[curr] = fn(obj[curr], curr);
     return accum;
@@ -26,6 +29,9 @@ export const mapObjPropsToObject = function(obj, fn) {
 };
 
 export const mapObjPropsToArray = function(obj, fn) {
+  if (!fn)
+    fn = (x) => x;
+
   return Object.keys(obj).map((key) => {
     return fn(obj[key], key);
   });
