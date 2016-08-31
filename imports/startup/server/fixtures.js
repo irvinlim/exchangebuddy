@@ -11,6 +11,8 @@ import DataStore from '../../api/DataStore';
 import { updateCountries } from '../../modules/parsers/countries';
 import { updateUniversities } from '../../modules/parsers/topuniversities';
 
+// Helpers
+import { mapObjPropsToObject } from '../../util/helper';
 
 
 // Add countries data
@@ -82,7 +84,7 @@ const uniInfoSections = [
   { label: 'About' },
   { label: 'General Tips', subtitle: "Must-know tips for every student!", defaultImageId: "exchangebuddy/section-images/General_Tips" },
   { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]), defaultImageId: "exchangebuddy/section-images/Checklist" },
-  { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'On-campus accommodation', 'Transport', 'Living costs' ]), defaultImageId: "exchangebuddy/section-images/Expenses" },
+  { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'Accommodation', 'Transport', 'Living costs' ]), defaultImageId: "exchangebuddy/section-images/Expenses" },
   { label: 'Getting Around', defaultContentHeadings: JSON.stringify([ 'From the airport', 'By train/subway', 'By bus', 'By taxi', 'Cycling', 'Walking' ]), defaultImageId: "exchangebuddy/section-images/Transport" },
   { label: 'Academic', defaultContentHeadings: JSON.stringify([ 'Language of instruction', 'Courses & modules', 'Academic rigor', 'School terms' ]), defaultImageId: "exchangebuddy/section-images/Academics" },
   { label: 'Administrative', defaultContentHeadings: JSON.stringify([ 'Important phone numbers', 'How to receive help' ]), defaultImageId: "exchangebuddy/section-images/Administrative" },
@@ -137,10 +139,53 @@ DataStore.findById(packingListDataKey).then(Meteor.bindEnvironment(function(resu
       DataStore.create({
         dataKey: packingListDataKey,
         dataValue: JSON.stringify({
-          universityId: -1, // Indicates all universities
-          data
+          "-1": data // Indicates all universities
         }),
       });
     });
   }
 }));
+
+// Add data from exchangeUniDataNus.json
+Assets.getText('data/exchangeUniDataNus.json', (err, json) => {
+  if (err)
+    return;
+
+  json = JSON.parse(json);
+
+  if (!json.dataVersion)
+    return;
+
+  let accom, costOfLiving;
+
+  DataStore.findById('version_exchange_uni_data_nus').then(function(result) {
+    const existingVersion = result && result.get();
+
+    // Don't insert data when version is the same
+    if (existingVersion && existingVersion.dataValue && parseInt(existingVersion.dataValue) <= json.dataVersion)
+      return;
+
+    // Store in arrays
+
+    accom = mapObjPropsToObject(json.data, (data, universityId) => data['accommodation']);
+    costOfLiving = mapObjPropsToObject(json.data, (data, universityId) => data['cost_of_living']);
+
+    // Update existing accommodation
+    return DataStore.upsert({
+      dataKey: 'university-expenses-accommodation',
+      dataValue: JSON.stringify(accom)
+    });
+  }).then(function(result) {
+    // Update existing cost of living
+    return DataStore.upsert({
+      dataKey: 'university-expenses-cost-of-living',
+      dataValue: JSON.stringify(costOfLiving)
+    });
+  }).then(function(result) {
+    // Finally, update data version
+    return DataStore.upsert({
+      dataKey: 'version_exchange_uni_data_nus',
+      dataValue: json.dataVersion
+    });
+  });
+});

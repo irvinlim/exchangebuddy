@@ -11,6 +11,12 @@ const University = sequelize.define(tableName, {
   city: {
     type: DataType.TEXT(),
   },
+  website: {
+    type: DataType.TEXT(),
+  },
+  fbPageId: {
+    type: DataType.STRING(20),
+  },
 
   // Retrievable from topuniversities.com
   countryCode: {
