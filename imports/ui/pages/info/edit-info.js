@@ -1,8 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
-import InfoViewEdit from '../../components/InfoView/InfoViewEdit';
+import InfoViewEdit from '../../components/Group/Info/InfoViewEdit';
 
 const EditInfo = ({ params }) => (
   <div className="info-container">
