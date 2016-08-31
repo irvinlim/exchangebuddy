@@ -1,14 +1,28 @@
 {
-  "1": {
-    "name": "The College of William and Mary",
-    "city": "Williamsburg, Virginia",
-    "countryCode": "US",
-    "logoUrl": "",
-    "linkUrl": "",
-    "logoImageId": "",
-    "bgImageId": "",
-    "emailDomains": "",
-    "terms": "",
-    "topUnisId": "",
-  }
+  "newUniversities": [
+    {
+      "name": "The College of William and Mary",
+      "city": "Williamsburg, Virginia",
+      "countryCode": "US",
+      "logoUrl": "",
+      "linkUrl": "",
+      "logoImageId": "",
+      "bgImageId": "",
+      "emailDomains": "",
+      "terms": "",
+      "topUnisId": ""
+    },
+    {
+      "name": "Clarkson University",
+      "city": "",
+      "countryCode": "US",
+      "logoUrl": "",
+      "linkUrl": "",
+      "logoImageId": "",
+      "bgImageId": "",
+      "emailDomains": "",
+      "terms": "",
+      "topUnisId": ""
+    }
+  ]
 }
