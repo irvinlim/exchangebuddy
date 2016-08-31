@@ -3,6 +3,44 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 const GroupChatMessage = new Mongo.Collection('GroupChatMessage');
 
+EventPostingMessageSchema = new SimpleSchema({
+  id: {
+    type: String,
+    label: 'Facebook Event id',
+    optional: true,
+  },
+  url: {
+    type: String,
+    label: 'Meetup Event url',
+    optional: true,
+  },
+  yes_rsvp_count: {
+    type: Number,
+    label: 'Meetup Event yes count',
+    optional: true,
+  },
+  name: {
+    type: String,
+    label: 'Event title',
+    optional: true,
+  },
+  profilePicture: {
+    type: String,
+    label: 'Event profile picture',
+    optional: true,
+  },
+  coverPicture: {
+    type: String,
+    label: 'Event cover picture',
+    optional: true,
+  },
+  startTime: {
+    type: Date,
+    label: 'Event start Date Time',
+    optional: true,
+  }
+})
+
 GroupChatMessage.schema = new SimpleSchema({
   groupId: {
     type: Number,
@@ -61,43 +99,8 @@ GroupChatMessage.schema = new SimpleSchema({
   },
 
   eventPosting:{
-    type: Object,
+    type: EventPostingMessageSchema,
     label: 'Event posting',
-    optional: true,
-  },
-  'eventPosting.id': {
-    type: String,
-    label: 'Facebook Event id',
-    optional: true,
-  },
-  'eventPosting.url': {
-    type: String,
-    label: 'Meetup Event url',
-    optional: true,
-  },
-  'eventPosting.yes_rsvp_count': {
-    type: Number,
-    label: 'Meetup Event yes count',
-    optional: true,
-  },
-  'eventPosting.name': {
-    type: String,
-    label: 'Event title',
-    optional: true,
-  },
-  'eventPosting.profilePicture': {
-    type: String,
-    label: 'Event profile picture',
-    optional: true,
-  },
-  'eventPosting.coverPicture': {
-    type: String,
-    label: 'Event cover picture',
-    optional: true,
-  },
-  'eventPosting.startTime': {
-    type: Date,
-    label: 'Event start Date Time',
     optional: true,
   }
 });
