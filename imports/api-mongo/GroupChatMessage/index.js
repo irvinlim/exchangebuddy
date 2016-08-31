@@ -67,7 +67,17 @@ GroupChatMessage.schema = new SimpleSchema({
   },
   'eventPosting.id': {
     type: String,
-    label: 'Event Facebook id',
+    label: 'Facebook Event id',
+    optional: true,
+  },
+  'eventPosting.url': {
+    type: String,
+    label: 'Meetup Event url',
+    optional: true,
+  },
+  'eventPosting.yes_rsvp_count': {
+    type: Number,
+    label: 'Meetup Event yes count',
     optional: true,
   },
   'eventPosting.name': {
