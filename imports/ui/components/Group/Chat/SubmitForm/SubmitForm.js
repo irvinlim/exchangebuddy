@@ -7,7 +7,7 @@ import { TextFormField } from '../../../Field';
 import * as UserHelper from '../../../../../util/user';
 
 const submitForm = (groupId, callback) => (values) => {
-  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: groupId, content: values.message };
+  const params = { userToken: Meteor.userToken(), userId: Meteor.userId(), groupId: groupId, content: values.message, type: "user" };
 
   Meteor.call('GroupChatMessage.sendToGroup', params, (err, success) => {
     if (err)

@@ -8,6 +8,10 @@ GroupChatMessage.schema = new SimpleSchema({
     type: Number,
     label: 'Group ID in MySQL table'
   },
+  type: {
+    type: String,
+    label: 'Message type - user or event'
+  },
   userId: {
     type: Number,
     label: 'Message author userId in MySQL table'
