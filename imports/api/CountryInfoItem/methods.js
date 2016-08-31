@@ -25,7 +25,7 @@ if (Meteor.isServer) {
     'CountryInfoItem.pushRevision': (values) => {
       check(values, Object);
 
-      const { countryCode, userToken, userId, content, sectionId } = values;
+      const { countryCode, userToken, userId, content, sectionId, imageId } = values;
       check(countryCode, String);
       check(userToken, String);
       check(userId, Number);
@@ -52,7 +52,10 @@ if (Meteor.isServer) {
         if (!user || user.id != userId)
           throw new Meteor.Error("CountryInfoItem.pushRevision.notAuthenticated", "User token is not authenticated.");
 
-        return CountryInfoItem.create({ sectionId, countryCode, content, userId });
+        if(imageId)
+          return CountryInfoItem.create({ sectionId, countryCode, content, userId, imageId });
+        else
+          return CountryInfoItem.create({ sectionId, countryCode, content, userId });
       }).then(function(result) {
         return true;
       });
