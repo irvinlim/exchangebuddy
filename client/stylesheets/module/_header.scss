@@ -62,17 +62,32 @@ $headerStickyHeight: 95px;
   @include transition(all 450ms);
 
   button > div {
-    height: 100%; width: 100%;
     img { object-fit: contain; background-color: #fff !important; }
   }
 }
 
-#header-uni-logo {
-  @include transition(all 0.5s);
-  > div > div {
-    opacity: 0;
+.header-profile-popover {
+  padding: 7px 0 0 12px !important;
+  line-height: 0 !important;
+  > button > div {
+    @include transition(all 450ms);
+    img { object-fit: contain; background-color: #fff !important; }
+  }
+  > p {
+    display: inline-block;
+    margin: 3px 20px;
+    width: 150px;
+    vertical-align: top;
+    line-height: 1;
   }
 }
+
+.header-logo {
+  @include transition(all 0.5s);
+  > div > div { opacity: 0; }
+}
+
+#header-profile-logo { margin-top: 12px; }
 
 #header-tab-row {
   position: absolute;
