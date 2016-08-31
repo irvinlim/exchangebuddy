@@ -1,6 +1,5 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
 import ReactMarkdownMediumEditor from 'meteor/universe:react-markdown-wysiwyg/ReactMarkdownMediumEditor';
 
 const options = {
@@ -27,13 +26,13 @@ const options = {
   }
 };
 
-// Note: 'input' is "curried" prop used by redux-form, 'custom' is props by passed in by you.
-const MarkdownTextField = ({ input, label, meta: { touched, error }, markdown, handler }) => (
+// Note: 'input' is "curried" prop used by redux-form for .onChange to set form dirty
+const MarkdownTextField = ({ input, markdown }) => (
   <ReactMarkdownMediumEditor
     className="md-info"
     markdown={ markdown }
     options={options}
-    onChange={(value) => {input.onChange(value)}}
+    onChange={ value => input.onChange(value) }
   />
 )
 
