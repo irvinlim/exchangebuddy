@@ -47,7 +47,6 @@ export default class HeaderProfile extends React.Component {
     const handle = () => handleLogout( () => this.props.actions.showSnackbar("Logged out."));
 
     const { uni } = this.props;
-    console.log(uni)
 
     const bSize = 60;
     const cSize = 40;
