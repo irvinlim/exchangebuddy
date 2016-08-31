@@ -18,6 +18,8 @@ if (Meteor.isServer) {
       check(exchangeUniYear, Number);
       check(exchangeTerm, String);
 
+      let group, isNewGroup;
+
       return University.findOne({ where: { name: exchangeUniName } }).then(function(result) {
         if (!result)
           throw new Meteor.Error("UserGroup.addUserToGroup.undefinedUniversity", "No such university found.");
@@ -27,17 +29,17 @@ if (Meteor.isServer) {
 
         return Group.findOrCreate({ where: values, defaults: values });
       }).then(function(result) {
-        const group = result[0];
-        const isNewGroup = result[1];
+
+        group = result[0];
+        isNewGroup = result[1];
 
         // Run hooks if was an insertion
-        if (isNewGroup) {
-          try {
-            onGroupCreate(group.get({ plain: true }));
-          } catch (exception) {
-            throw new exception;
-          }
-        }
+        if (isNewGroup)
+          return onGroupCreate(group.get({ plain: true }));
+        else
+          return;
+
+      }).then(function(result) {
 
         // Add user to group
         if (group) {
