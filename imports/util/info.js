@@ -8,6 +8,8 @@ export const getSectionSubtitle = (item, group=null) => {
 
   if (!subtitle)
     return "";
+  else if (!group)
+    return subtitle;
 
   return subtitle
     .replace("$COUNTRY", country && country.name)
