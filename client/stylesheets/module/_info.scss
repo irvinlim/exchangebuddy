@@ -91,7 +91,7 @@
   font-family: Helvetica;
   font-weight:900;
   font-size: 50px;
-  color: #FFFFFF;
+  color: #a6a6a6;
 }
 
 #info-edit-img {
@@ -102,6 +102,7 @@
     opacity: 0;
     margin-top: 18%;
     @include transition-standard(all 250ms);
-    > p { color: #FFFFFF; }
+    > p { color: #ffffff; }
+    span { font-family: Helvetica; font-weight:900; font-size: 50px; color: #ffffff; }
   }
 }

@@ -23,7 +23,7 @@ const ImageUploadField = ({ input, tile, handler, item }) => (
     <img src={ tile ? tile.res.secure_url : InfoHelper.getImageUrl(item, 500) } />
     <div id="info-edit-img">
       <div id="info-edit-img-overlay">
-        <span id="grid-item-add-icon">+</span>
+        <span>+</span>
         <p>ADD A PICTURE</p>
       </div>
     </div>
