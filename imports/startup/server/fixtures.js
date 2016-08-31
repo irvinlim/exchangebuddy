@@ -12,12 +12,14 @@ import { updateCountries } from '../../modules/parsers/countries';
 import { updateUniversities } from '../../modules/parsers/topuniversities';
 
 // Helpers
-import { mapObjPropsToObject } from '../../util/helper';
+import { mapObjPropsToObject, mapObjPropsToArray } from '../../util/helper';
 
 
-// Add countries data
+////////////////////////
+// Add countries data //
+////////////////////////
+
 // TODO: Set a cron job to update countries instead of being in fixtures.
-
 Country.count({}).then(Meteor.bindEnvironment(function(count) {
 
   if (count)
@@ -29,13 +31,21 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
 
   }).then(function(count) {
 
-    // Add universities only if empty set
+    //////////////////////////////////////////
+    // Add universities (only if empty set) //
+    //////////////////////////////////////////
+
     if (!count)
       return updateUniversities();
 
   }).then(function() {
 
-    // Add some universities
+    // ASSERT: All universities and countries have been added
+
+    ///////////////////////////
+    // Add some universities //
+    ///////////////////////////
+
     University.findOne({
       where: { name: "Singapore University of Technology and Design (SUTD)" }
     }).then(function(result) {
@@ -44,6 +54,7 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
           name: "Singapore University of Technology and Design (SUTD)",
           city: "Singapore",
           countryCode: "SG",
+          website: "http://www.sutd.edu.sg/",
           logoImageId: 'logo-sutd-main_hphs2p',
           bgImageId: 'sutd-slider-aeriel-view_uckqr6_cdfnan',
           emailDomains: JSON.stringify([ 'sutd.edu', 'sutd.edu.sg' ]),
@@ -51,17 +62,23 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
         });
     });
 
-    // Add data for some universities
+
+    ////////////////////////////////////
+    // Add data for some universities //
+    ////////////////////////////////////
+
     University.update({
       city: "Singapore",
       emailDomains: JSON.stringify([ 'nus.edu.sg', 'u.nus.edu' ]),
       terms: JSON.stringify([ "Semester 1", "Semester 2", "Special Term Part 1", "Special Term Part 2" ]),
+      website: "http://www.nus.edu.sg/",
     }, { where: { name: "National University of Singapore (NUS)" } });
 
     University.update({
       city: "Singapore",
       emailDomains: JSON.stringify([ 'ntu.edu', 'ntu.edu.sg' ]),
       terms: JSON.stringify([ "Semester 1", "Semester 2", "Special Term I", "Special Term II" ]),
+      website: "http://www.ntu.edu.sg/",
     }, { where: { name: "Nanyang Technological University, Singapore (NTU)" } })
 
     University.update({
@@ -69,17 +86,76 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
       city: "Singapore",
       emailDomains: JSON.stringify([ 'smu.edu', 'smu.edu.sg' ]),
       terms: JSON.stringify([ "Semester 1", "Semester 2" ]),
+      website: "http://www.smu.edu.sg/",
     }, { where: { name: "Singapore Management University" } });
-  });;
 
-}))
 
-// Add currency exchange rates data
-// TODO: Set a cron job to update exchange rates
-// $.getJSON("http://api.fixer.io/latest?base=SGD",
-//   result => jsonfile.writeFile('../../../data/exchangeRates.json', result, function(err) { }))
+    ///////////////////////////////////////////
+    // Add data from exchangeUniDataNus.json //
+    ///////////////////////////////////////////
 
-// Add university info sections
+    Assets.getText('data/exchangeUniDataNus.json', (err, json) => {
+      if (err)
+        return;
+
+      json = JSON.parse(json);
+
+      if (!json.dataVersion)
+        return;
+
+      let accom, costOfLiving;
+
+      DataStore.findById('version_exchange_uni_data_nus').then(function(result) {
+        const existingVersion = result && result.get();
+
+        // Don't insert data when version is the same
+        if (existingVersion && existingVersion.dataValue && parseInt(existingVersion.dataValue) <= json.dataVersion)
+          return;
+
+        // Store in arrays
+        accom = mapObjPropsToObject(json.data, (data, universityId) => data['accommodation']);
+        costOfLiving = mapObjPropsToObject(json.data, (data, universityId) => data['cost_of_living']);
+
+        // Update existing accommodation
+        return DataStore.upsert({
+          dataKey: 'university-expenses-accommodation',
+          dataValue: JSON.stringify(accom)
+        });
+      }).then(function(result) {
+        // Update existing cost of living
+        return DataStore.upsert({
+          dataKey: 'university-expenses-cost-of-living',
+          dataValue: JSON.stringify(costOfLiving)
+        });
+      }).then(function(result) {
+
+        /////////////////////////////////////
+        // Mass update university websites //
+        /////////////////////////////////////
+
+        const promises = mapObjPropsToArray(json.data, (data, universityId) => {
+          return University.update({ website: data['website'] }, { where: { id: parseInt(universityId) } });
+        });
+
+        return Promise.all(promises);
+      }).then(function(result) {
+        // Finally, update data version
+        return DataStore.upsert({
+          dataKey: 'version_exchange_uni_data_nus',
+          dataValue: json.dataVersion
+        });
+      });
+    });
+
+
+  });
+}));
+
+
+//////////////////////////////////
+// Add university info sections //
+//////////////////////////////////
+
 const uniInfoSections = [
   { label: 'About' },
   { label: 'General Tips', subtitle: "Must-know tips for every student!", defaultImageId: "exchangebuddy/section-images/General_Tips" },
@@ -100,7 +176,11 @@ UniversityInfoSection.count({}).then(function(count) {
     });
 });
 
-// Add country info sections
+
+///////////////////////////////
+// Add country info sections //
+///////////////////////////////
+
 const countryInfoSections = [
   { label: 'Visa/Consular Regulations', defaultImageId: "exchangebuddy/section-images/Visa" },
   { label: 'Medical Insurance', defaultImageId: "exchangebuddy/section-images/Healthcare_Insurance" },
@@ -121,11 +201,10 @@ CountryInfoSection.count({}).then(function(count) {
     });
 });
 
+/////////////////////////////////////////////
+// Add suggested packing list to DataStore //
+/////////////////////////////////////////////
 
-
-// DataStore
-
-// Add suggested packing list
 const packingListDataKey = 'university-pre-departure-suggested-packing-list';
 DataStore.findById(packingListDataKey).then(Meteor.bindEnvironment(function(result) {
   if (!result) {
@@ -145,47 +224,3 @@ DataStore.findById(packingListDataKey).then(Meteor.bindEnvironment(function(resu
     });
   }
 }));
-
-// Add data from exchangeUniDataNus.json
-Assets.getText('data/exchangeUniDataNus.json', (err, json) => {
-  if (err)
-    return;
-
-  json = JSON.parse(json);
-
-  if (!json.dataVersion)
-    return;
-
-  let accom, costOfLiving;
-
-  DataStore.findById('version_exchange_uni_data_nus').then(function(result) {
-    const existingVersion = result && result.get();
-
-    // Don't insert data when version is the same
-    if (existingVersion && existingVersion.dataValue && parseInt(existingVersion.dataValue) <= json.dataVersion)
-      return;
-
-    // Store in arrays
-
-    accom = mapObjPropsToObject(json.data, (data, universityId) => data['accommodation']);
-    costOfLiving = mapObjPropsToObject(json.data, (data, universityId) => data['cost_of_living']);
-
-    // Update existing accommodation
-    return DataStore.upsert({
-      dataKey: 'university-expenses-accommodation',
-      dataValue: JSON.stringify(accom)
-    });
-  }).then(function(result) {
-    // Update existing cost of living
-    return DataStore.upsert({
-      dataKey: 'university-expenses-cost-of-living',
-      dataValue: JSON.stringify(costOfLiving)
-    });
-  }).then(function(result) {
-    // Finally, update data version
-    return DataStore.upsert({
-      dataKey: 'version_exchange_uni_data_nus',
-      dataValue: json.dataVersion
-    });
-  });
-});
