@@ -12,7 +12,7 @@ import { updateCountries } from '../../modules/parsers/countries';
 import { updateUniversities } from '../../modules/parsers/topuniversities';
 
 // Helpers
-import { mapObjPropsToObject, mapObjPropsToArray } from '../../util/helper';
+import { propExistsDeep, mapObjPropsToObject, mapObjPropsToArray } from '../../util/helper';
 
 
 ////////////////////////
@@ -184,6 +184,53 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
         return DataStore.upsert({
           dataKey: 'version_exchangeUniDataNus',
           dataValue: json.dataVersion
+        });
+      });
+    });
+
+
+    ///////////////////////////
+    // Add Emergency Numbers //
+    ///////////////////////////
+
+    Assets.getText('data/country/emergencyNumberApi.json', (err, json) => {
+      if (err)
+        return;
+
+      const data = JSON.parse(json).data;
+      let ambulance = {}, police = {}, fire = {}, dispatch = {};
+
+      data.forEach(country => {
+        if (!country.Country.ISOCode)
+          return true;
+
+        if (propExistsDeep(country, ['Ambulance', 'All']) && country.Ambulance.All.filter(x => x).length)
+          ambulance[country.Country.ISOCode] = country.Ambulance.All.map(x => x.trim()).join(', ');
+        if (propExistsDeep(country, ['Police', 'All']) && country.Police.All.filter(x => x).length)
+          police[country.Country.ISOCode] = country.Police.All.map(x => x.trim()).join(', ');
+        if (propExistsDeep(country, ['Fire', 'All']) && country.Fire.All.filter(x => x).length)
+          fire[country.Country.ISOCode] = country.Fire.All.map(x => x.trim()).join(', ');
+        if (propExistsDeep(country, ['Dispatch', 'All']) && country.Dispatch.All.filter(x => x).length)
+          dispatch[country.Country.ISOCode] = country.Dispatch.All.map(x => x.trim()).join(', ');
+      });
+
+      return DataStore.upsert({
+        dataKey: 'country-emergencies-ambulance',
+        dataValue: JSON.stringify(ambulance)
+      }).then(function() {
+        return DataStore.upsert({
+          dataKey: 'country-emergencies-police',
+          dataValue: JSON.stringify(police)
+        });
+      }).then(function() {
+        return DataStore.upsert({
+          dataKey: 'country-emergencies-fire',
+          dataValue: JSON.stringify(fire)
+        });
+      }).then(function() {
+        return DataStore.upsert({
+          dataKey: 'country-emergencies-emergency-hotline',
+          dataValue: JSON.stringify(dispatch)
         });
       });
     });
