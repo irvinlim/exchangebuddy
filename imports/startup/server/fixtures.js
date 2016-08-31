@@ -230,7 +230,7 @@ const countryInfoSections = [
   { label: 'Tourist Attractions', defaultImageId: "exchangebuddy/section-images/popular_tourist_attractions", defaultContentHeadings: JSON.stringify([ 'Popular Tourist Attractions' ]) },
   { label: 'Festivals & Culture', defaultImageId: "exchangebuddy/section-images/Festivals", defaultContentHeadings: JSON.stringify([ 'Music & Art Festivals', 'Food & Drink Festivals' ]) },
   { label: 'Food', defaultImageId: "exchangebuddy/section-images/Food", defaultContentHeadings: JSON.stringify([ 'Recommended', 'National Food', 'Home Cooking' ]) },
-  { label: 'Emergencies', subtitle: "Important phone numbers in case of emergency.", defaultImageId: "exchangebuddy/section-images/emergency", defaultContentHeadings: JSON.stringify([ 'Police', 'Ambulance', 'Fire', 'Centralised Hotline' ]) },
+  { label: 'Emergencies', subtitle: "Important phone numbers in case of emergency.", defaultImageId: "exchangebuddy/section-images/emergency", defaultContentHeadings: JSON.stringify([ 'Police', 'Ambulance', 'Fire', 'Emergency Hotline' ]) },
   { label: 'Telecommunications', defaultImageId: "exchangebuddy/section-images/Telecom", defaultContentHeadings: JSON.stringify([ 'Telcos' ]) },
   { label: 'Banking', defaultImageId: "exchangebuddy/section-images/Bank", defaultContentHeadings: JSON.stringify([ 'Local Banks', 'Foreign Banks' ]) },
 ];

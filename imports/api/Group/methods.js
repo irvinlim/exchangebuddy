@@ -14,7 +14,7 @@ import DataStore from '../DataStore';
 import EventSearch from "facebook-events-by-location-core";
 import meetup from "meetup-api";
 
-import { convertToSlug } from '../../util/helper';
+import { convertToSlug, titleCase } from '../../util/helper';
 
 const languages = JSON.parse(Assets.getText('data/languages.json'));
 
@@ -188,6 +188,46 @@ if (Meteor.isServer) {
             content: JSON.parse(country.languages).map(iso2 => languages[iso2].name).join(', ')
           },
         });
+      }).then(function(result) {
+
+        ///////////////////////
+        // Emergency Numbers //
+        ///////////////////////
+
+        return new Promise((resolve, reject) => {
+
+          HTTP.get(`http://emergencynumberapi.com/api/country/${countryCode}`, {}, function(err, emergencyData) {
+            return CountryInfoSection.findOne({ where: { label: 'Emergencies' } }).then(function(result) {
+              const section = result && result.get();
+
+              const content = emergencyData.data.filter((value, key) => {
+                return key == 'ambulance' || key == 'fire' || key == 'police' || key == 'dispatch';
+              }).map((value, key) => {
+                if (key == 'dispatch')
+                  key = 'Emergency Hotline';
+                else
+                  key = titleCase(key);
+
+                return `# ${key}\n\n${value.all.join(', ')}`;
+              });
+
+              return CountryInfoItem.findOrCreate({
+                where: {
+                  sectionId: section.id,
+                  countryCode: country.alpha2Code
+                },
+                defaults: {
+                  userId: 1, // Admin user
+                  content: content.join("\n\n"),
+                },
+              }).then(function() {
+                resolve();
+              });
+            });
+          });
+
+        });
+
       }).then(function(result) {
 
         //////////////////////////////
