@@ -16,7 +16,7 @@ if (Meteor.isServer) {
       return CountryInfoItem.findOne({
         where: { countryCode, sectionId },
         order: [[ 'createdAt', 'DESC' ]],
-        include: [{ model: CountryInfoSection, as: 'section' }],
+        include: [{ model: CountryInfoSection, as: 'section' }, { model: Country, as: 'country' }],
       }).then(function(result) {
         return result && result.get({ plain: true });
       });
