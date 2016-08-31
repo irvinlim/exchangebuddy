@@ -1,5 +1,5 @@
 .page-group-chat {
-  > div { height: 100vh; display: flex; flex-direction: column; }
+  > div { height: 100vh; flex-direction: column; }
 
   #group-container {
     height: calc(100% - 250px);

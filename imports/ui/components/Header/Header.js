@@ -93,9 +93,10 @@ export default class Header extends React.Component {
               <HeaderProfile user={ user } uni={ uni } actions={ actions } />
             </Col>
           </Row>
-
-          <Row>
-            <Col xs={12} md={8} mdOffset={2} id="header-tab-row">
+        </Grid>
+        <Grid>
+          <div className="row center-xs center-md" id="header-tab-row">
+            <Col xs={12} md={8} id="header-tab-col">
             <Tabs inkBarStyle={{backgroundColor: "#fff"}} initialSelectedIndex={ tabToIdx(tab) } >
               <Tab icon={IconsHelper.materialIcon("home")} label="HOME" className="header-tab" onActive={ gotourl(params.id) } />
               <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl(params.id, "info") } />
@@ -103,7 +104,7 @@ export default class Header extends React.Component {
               <Tab icon={IconsHelper.materialIcon("event")} label="EVENTS" className="header-tab" onActive={ gotourl(params.id, "events") } />
             </Tabs>
             </Col>
-          </Row>
+          </div>
         </Grid>
       </div>
     );
