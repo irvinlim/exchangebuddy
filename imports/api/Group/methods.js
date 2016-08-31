@@ -225,12 +225,21 @@ if (Meteor.isServer) {
           // Find content for each heading in each section
           const contentPromises = defaultContentHeadings.map(heading => {
             return DataStore.findById(`country-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
-              if (result)
-                foundNewContent = true;
+              if (!result)
+                return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
 
               const dataForHeading = result && JSON.parse(result.get().dataValue);
-              const defaultData = dataForHeading ? "\n\n" + dataForHeading[countryCode] : "";
-              content.push(`# ${heading}${defaultData}`);
+              const dataForHeadingForCountry = dataForHeading[countryCode] || dataForHeading[-1];
+
+              if (!dataForHeadingForCountry)
+                return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
+
+              // Found new content for this section heading for this university
+              foundNewContent = true;
+
+              // Get data
+              const defaultData = dataForHeadingForCountry ? "\n\n" + dataForHeadingForCountry : "";
+              return content.push(`# ${heading}${defaultData}`);
             });
           });
 
@@ -286,12 +295,21 @@ if (Meteor.isServer) {
           // Find content for each heading in each section
           const contentPromises = defaultContentHeadings.map(heading => {
             return DataStore.findById(`university-${convertToSlug(section.label)}-${convertToSlug(heading)}`).then(function(result) {
-              if (result)
-                foundNewContent = true;
+              if (!result)
+                return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
 
               const dataForHeading = result && JSON.parse(result.get().dataValue);
-              const defaultData = dataForHeading ? "\n\n" + dataForHeading[universityId] : "";
-              content.push(`# ${heading}${defaultData}`);
+              const dataForHeadingForUniversity = dataForHeading[universityId] || dataForHeading[-1];
+
+              if (!dataForHeadingForUniversity)
+                return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
+
+              // Found new content for this section heading for this university
+              foundNewContent = true;
+
+              // Get data
+              const defaultData = dataForHeadingForUniversity ? "\n\n" + dataForHeadingForUniversity : "";
+              return content.push(`# ${heading}${defaultData}`);
             });
           });
 
