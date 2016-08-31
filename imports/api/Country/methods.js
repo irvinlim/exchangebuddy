@@ -2,6 +2,8 @@ import Country from '.';
 import CountryInfoItem from '../CountryInfoItem';
 import CountryInfoSection from '../CountryInfoSection';
 
+import { mapObjPropsToArray } from '../../util/helper';
+
 if (Meteor.isServer) {
 
   Meteor.methods({
@@ -18,8 +20,21 @@ if (Meteor.isServer) {
     'Country.getInfoItems'(countryCode) {
       check(countryCode, String);
 
-      return CountryInfoItem.findAll({ where: { countryCode }, group: ['sectionId'], include: [ { model: CountryInfoSection, as: 'section' } ] }).then(function(result) {
-        return result && result.map(item => item.get({ plain: true }));
+      return CountryInfoItem.findAll({ where: { countryCode }, include: [ { model: CountryInfoSection, as: 'section' } ] }).then(function(result) {
+        if (!result)
+          return [];
+
+        const items = result.map(item => item.get({ plain: true }));
+
+        const newestItems = {};
+        items.forEach(item => {
+          if (!newestItems[item.section.id])
+            newestItems[item.section.id] = item;
+          else if (item.createdAt > newestItems[item.section.id].createdAt)
+            newestItems[item.section.id] = item;
+        });
+
+        return mapObjPropsToArray(newestItems);
       });
     },
 
