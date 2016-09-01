@@ -1,3 +1,4 @@
+@import "../common/mixins";
 @import url(https://fonts.googleapis.com/css?family=Oswald:700|Quattrocento);
 @import url(https://fonts.googleapis.com/css?family=Josefin+Sans:700);
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
@@ -80,4 +81,9 @@
     bottom: -13px;
     color: #fff !important
   }
+}
+
+#stepper-img {
+  @include media-xs-only { width: 0;}
+  width: 102%;
 }
