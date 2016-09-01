@@ -1,21 +1,35 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:700|Quattrocento);
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:700);
+@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
 .signup + p {
   margin-top: 20px;
 }
 
 #welcome-header {
-  background-color: orange;
-  #logo-image {
-    position: absolute;
-    top: 6%;
-    left: 3%;
-  }
+  height: 100%;
+  #logo-image { position: absolute; top: 6%; left: 3%; }
 }
 
-#welcome-header-title {
-  text-align: center;
-  margin-top: 137px;
-  #app-name { line-height: 2.1rem; color: #fff; font-size: 2.5rem; font-style: italic }
-  #app-description { color: #fff; opacity: 0.75; font-size: 1.4rem }
+#welcome-header-title { text-align: center; margin: 0 auto; padding-top: 10rem; max-width: 750px;
+
+  #app-title {
+    color: #fff;
+    font-family:'Josefin Sans', sans-serif;
+    font-size: 3em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 1.125;
+    text-transform: uppercase;
+  }
+
+  .app-subtitle {
+    font-family:'Lato', sans-serif;
+    color: #fff;
+    opacity: 0.75;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
 }
 
 #welcome-body {
@@ -25,5 +39,10 @@
 }
 
 #login-button {
-  text-align: center  
+  margin-top: 30px;
+  text-align: center;
+}
+
+.kep-login-facebook.metro{
+  border-radius: 39px !important;
 }
