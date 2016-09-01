@@ -84,7 +84,7 @@ export default class Header extends React.Component {
           backgroundColor: "#000000",
         }}>
 
-        <Helmet title={ getTitle(tab) + ' - ' + uni.name }/>
+        <Helmet title={ getTitle(tab) } titleTemplate ={"%s - "+ uni.name} />
 
         <Grid>
           <Row id="header-row">
