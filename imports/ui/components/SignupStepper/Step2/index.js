@@ -14,8 +14,16 @@ import ChildComponent from './Step2';
 const composer = (props, onData) => {
   const user = Meteor.user();
 
-  onData(null, {
+  Meteor.call('User.getGroups', user.id, (err, groups) => {
+    const defaultGroup = groups.reduce((p, group) => group.id == user.defaultGroupId ? group : p);
 
+    onData(null, {
+      initialValues: {
+        exchangeUniName: defaultGroup && defaultGroup.university.name,
+        exchangeUniYear: defaultGroup && defaultGroup.year,
+        exchangeTerm: defaultGroup && defaultGroup.term,
+      }
+    });
   });
 
 };
