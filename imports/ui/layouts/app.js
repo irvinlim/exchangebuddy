@@ -1,11 +1,13 @@
 import React from 'react';
 import MuiTheme from './mui-theme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Helmet from "react-helmet";
 
 import Header from '../components/Header';
 import MessageSnackbar from '../components/MessageSnackbar';
 
 import { makeRouteSlug } from '../../util/helper';
+import * as ImagesHelper from '../../util/images';
 
 // Component
 
@@ -29,6 +31,28 @@ class App extends React.Component {
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
+      {/*<title>ExchangeBuddy: Find your exchange buddies!</title>
+          <meta name="description" content="A description for the application.">
+          <meta name="viewport" content="initial-scale=1, minimal-ui, maximum-scale=1, minimum-scale=1" />
+          <link rel="shortcut icon" type="image/png" href="favicon.png?v1" sizes="16x16 32x32 64x64">
+          <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-precomposed.png">*/}
+          <Helmet
+            defaultTitle="Exchangebuddy - Find your exchange buddies!"
+            meta={[
+                {"name": "description", "content": "Exchangebuddy - Find your exchange buddies!"},
+                {"name": "viewport", "content": "initial-scale=1, minimal-ui, maximum-scale=1, minimum-scale=1"},
+                {"property": "og:type", "content": "website"},
+                {"property": "og:url", "content": "http://app.exchangebuddy.com/"},
+                {"property": "og:description", "content": "Exchangebuddy - Find your exchange buddies!"},
+                {"property": "og:title", "content": "website"},
+                {"property": "og:image", "content": ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 200, "exchangebuddy-logo")},
+                {"property": "fb:app_id", "content": Meteor.settings.public.Facebook.appId }
+            ]}
+            link={[
+                {"rel": "canonical", "href": "http://app.exchangebuddy.com"},
+                {"rel": "shortcut icon", "href": "favicon.png?v1", "type": "image/png", "sizes": "16x16 32x32 64x64"},
+                {"rel": "apple-touch-icon", "sizes": "120x120", "href": "apple-touch-icon-precomposed.png"}
+            ]} />
           <div id="main" className={`page-${ makeRouteSlug(this.props.routes) }`}>
             { this.props.children }
           </div>
