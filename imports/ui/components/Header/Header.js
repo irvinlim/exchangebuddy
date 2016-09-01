@@ -9,6 +9,7 @@ import HeaderProfile from './HeaderProfile';
 
 import * as ImagesHelper from '../../../util/images';
 import * as IconsHelper from '../../../util/icons';
+import * as UniversityHelper from '../../../util/university';
 import { pluralizer } from '../../../util/helper';
 
 const gotourl = (groupId, tab) => () => {
@@ -87,7 +88,7 @@ export default class Header extends React.Component {
           backgroundRepeat: 'no-repeat',
         }}>
 
-        <Helmet title={ getTitle(tab) } titleTemplate ={"%s - "+ uni.name} />
+        <Helmet title={ getTitle(tab) } titleTemplate ={"%s - "+ uni.name} meta={[{"property": "og:image", "content": UniversityHelper.getImageUrl(uni,200) }]}/>
 
         <Grid>
           <Row id="header-row">

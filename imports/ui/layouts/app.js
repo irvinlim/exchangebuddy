@@ -28,6 +28,7 @@ class App extends React.Component {
   }
 
   render() {
+    const imageUrl = ImagesHelper.getUrlScale(Meteor.settings.public.logoImageId, 200, "exchangebuddy-logo");
     return (
       <MuiThemeProvider muiTheme={ MuiTheme }>
         <div id="root-container">
@@ -45,7 +46,7 @@ class App extends React.Component {
                 {"property": "og:url", "content": "http://app.exchangebuddy.com/"},
                 {"property": "og:description", "content": "Exchangebuddy - Find your exchange buddies!"},
                 {"property": "og:title", "content": "website"},
-                {"property": "og:image", "content": ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 200, "exchangebuddy-logo")},
+                {"property": "og:image", "content": imageUrl},
                 {"property": "fb:app_id", "content": Meteor.settings.public.Facebook.appId }
             ]}
             link={[
