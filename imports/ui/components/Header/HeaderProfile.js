@@ -68,7 +68,7 @@ export default class HeaderProfile extends React.Component {
 
           <List>
             <ListItem
-              innerDivStyle={{ lineHeight: "20px", height: 60, paddingLeft: 90, paddingTop: 16 }}
+              innerDivStyle={{ lineHeight: "18px", height: 60, paddingLeft: 90, paddingTop: 12 }}
               leftAvatar={ UniversityHelper.getImage(uni, cSize) }
               primaryText={ <strong>{ uni.name }</strong> }
               secondaryText={ `${group.term} ${group.year}` }
