@@ -3,6 +3,8 @@ import Country from '../Country';
 import UniversityInfoItem from '../UniversityInfoItem';
 import UniversityInfoSection from '../UniversityInfoSection';
 
+import { mapObjPropsToArray } from '../../util/helper';
+
 if (Meteor.isServer) {
 
   Meteor.methods({
@@ -32,8 +34,21 @@ if (Meteor.isServer) {
     'University.getInfoItems'(universityId) {
       check(universityId, Number);
 
-      return UniversityInfoItem.findAll({ where: { universityId }, group: ['sectionId'], include: [ { model: UniversityInfoSection, as: 'section' } ] }).then(function(result) {
-        return result && result.map(item => item.get({ plain: true }));
+      return UniversityInfoItem.findAll({ where: { universityId }, include: [ { model: UniversityInfoSection, as: 'section' } ] }).then(function(result) {
+        if (!result)
+          return [];
+
+        const items = result.map(item => item.get({ plain: true }));
+
+        const newestItems = {};
+        items.forEach(item => {
+          if (!newestItems[item.section.id])
+            newestItems[item.section.id] = item;
+          else if (item.createdAt > newestItems[item.section.id].createdAt)
+            newestItems[item.section.id] = item;
+        });
+
+        return mapObjPropsToArray(newestItems);
       });
     },
 

@@ -28,7 +28,7 @@ const GridItem = ({ about, group, item }) => {
       <GridTile
         className="grid-tile"
         title={ item.section.label }
-        subtitle="132 likes, 55 shares"
+        subtitle={ InfoHelper.getSectionSubtitle(item, group) }
         cols={ item.isFeatured ? 2 : 1 }
         rows={ item.isFeatured ? 2 : 1 }
         onClick={ goToInfoPg }
@@ -39,6 +39,15 @@ const GridItem = ({ about, group, item }) => {
     </Paper>
   );
 };
+
+const GridItemAdd= () => (
+  <div id="grid-item-add">
+    <div id="grid-item-add-overlay">
+      <span id="grid-item-add-icon">+</span>
+      <p>ADD A SECTION</p>
+    </div>
+  </div>
+)
 
 const InfoGridList = ({ about, group, title, items, isMobile }) => (
   <div className="grid-list-container">
@@ -53,6 +62,8 @@ const InfoGridList = ({ about, group, title, items, isMobile }) => (
       style={styles.gridList}>
 
       { items.map((item, idx) => <GridItem key={idx} about={about} group={group} item={item} />) }
+
+      <GridItemAdd />
 
     </GridList>
   </div>

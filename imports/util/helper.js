@@ -11,6 +11,33 @@ export const makeRouteSlug = (routes) => {
 // Objects
 
 /**
+ * Maps object properties using a given function.
+ * @param  {Object}   obj   Target object
+ * @param  {Function} fn    Mapping function that takes in an object property value, and returns a new value to be assigned.
+ *                          Method signature:
+ *                            function(value, key: string) => newValue
+ * @return {Object}         Newly constructed object with mapped properties. Original object is not modified.
+ */
+export const mapObjPropsToObject = function(obj, fn) {
+  if (!fn)
+    fn = (x) => x;
+
+  return Object.keys(obj).reduce(function(accum, curr) {
+    accum[curr] = fn(obj[curr], curr);
+    return accum;
+  }, {});
+};
+
+export const mapObjPropsToArray = function(obj, fn) {
+  if (!fn)
+    fn = (x) => x;
+
+  return Object.keys(obj).map((key) => {
+    return fn(obj[key], key);
+  });
+};
+
+/**
  * Checks if a deeply nested property exists.
  * Takes in an array of properties, where each subsequent element is a property of the previous element.
  *
@@ -36,7 +63,11 @@ export const propExistsDeep = function(parent, arrayOfChildProps) {
 };
 
 export const convertToSlug = (Text) => {
-  return Text.toLowerCase().replace(/[^\w ]+/g,'').split(' ').filter(s => s.length).join('-');
+  return Text.toLowerCase().replace(/[^\w ]+/g,' ').split(' ').filter(s => s.length).join('-');
+};
+
+export const titleCase = (str) => {
+  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
 // Pluralizer
