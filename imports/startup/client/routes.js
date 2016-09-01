@@ -119,7 +119,7 @@ Meteor.startup(() => {
             <IndexRoute name="home" component={ Home } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
-            <Route name="profile" path="profile" component={ Profile } />
+            <Route name="profile" path="profile(/:userId)" component={ Profile } />
             <Route path="group">
               <IndexRoute onEnter={ goToDefaultGroup } />
               <Route path=":id" component={ Group }>
