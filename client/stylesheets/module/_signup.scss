@@ -83,7 +83,12 @@
   }
 }
 
+.page-signup {
+  h1 { margin: 0; }
+  .signup-right { display: flex; flex-direction: column; justify-content: center; }
+}
+
 #stepper-img {
-  @include media-xs-only { width: 0;}
-  width: 102%;
+  @include media-xs-only { height: 250px; }
+  height: 100vh; width: 100%; object-fit: cover;
 }
