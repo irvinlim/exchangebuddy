@@ -15,7 +15,7 @@ const Overlay = ({ item }) => (
 );
 
 const ImageUploadField = ({ input, tile, handler, item }) => (
-  <CardMedia className="info-title-container" mediaStyle={{ maxHeight: 500, overflow:"hidden" }} overlay={ <Overlay item={item}/> }>
+  <CardMedia className="info-title-container" mediaStyle={{ minHeight: 100, maxHeight: 500, overflow:"hidden" }} overlay={ <Overlay item={item}/> }>
     <input type="file" accept="image/*" onChange={ e => handler(input)(e) }
       style={{ cursor: 'pointer', position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, width: '100%', opacity: 0, zIndex: 1, }}
     />

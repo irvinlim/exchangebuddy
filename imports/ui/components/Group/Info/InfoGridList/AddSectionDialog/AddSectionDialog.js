@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import { browserHistory }from 'react-router';
 import { GridList, GridTile } from 'material-ui/GridList';
+import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
 
@@ -34,25 +35,32 @@ const GridItem = ({ about, group, section }) => {
   );
 };
 
-const AddSectionDialog = ({ open, handleClose, group, about, sections, isMobile }) => (
-  <Dialog
-    open={ open }
-    onRequestClose={ handleClose }
-    title="Add a Section"
-    subtitle="Select a section to add to ExchangeBuddy.">
+const AddSectionDialog = ({ open, handleClose, group, about, sections, isMobile }) => {
+  const actions = [
+    <FlatButton label="cancel" onTouchTap={ handleClose } />
+  ];
 
-    <GridList
-      className="grid-list"
-      cols={ isMobile ? 2 : 3 }
-      cellHeight={210}
-      padding={10}
-      style={ styles.gridList }>
+  return (
+    <Dialog
+      open={ open }
+      onRequestClose={ handleClose }
+      title="Add a Section"
+      subtitle="Select a section to add to ExchangeBuddy."
+      actions={ actions }>
 
-      { sections.map((section, idx) => <GridItem key={idx} about={about} group={group} section={section} />) }
+      <GridList
+        className="grid-list"
+        cols={ isMobile ? 2 : 3 }
+        cellHeight={210}
+        padding={10}
+        style={ styles.gridList }>
 
-    </GridList>
+        { sections.map((section, idx) => <GridItem key={idx} about={about} group={group} section={section} />) }
 
-  </Dialog>
-);
+      </GridList>
+
+    </Dialog>
+  );
+};
 
 export default AddSectionDialog;
