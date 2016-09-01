@@ -13,8 +13,8 @@ if (Meteor.isServer) {
     'User.get'(id) {
       check(id, Number);
 
-      return User.findById(id).then(function(result) {
-        return result && result.get();
+      return User.findOne({ where: { id }, include: [{ model: University, as: 'homeUniversity' }] }).then(function(result) {
+        return result && result.get({ plain: true });
       });
     },
 
