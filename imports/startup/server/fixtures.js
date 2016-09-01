@@ -245,7 +245,7 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
 //////////////////////////////////
 
 const uniInfoSections = [
-  { label: 'About' },
+  { label: 'About', defaultImageId: "exchangebuddy/section-images/About" },
   { label: 'General Tips', subtitle: "Must-know tips for every student!", defaultImageId: "exchangebuddy/section-images/General_Tips" },
   { label: 'Pre-Departure', subtitle: "Don't forget your passport!", defaultContentHeadings: JSON.stringify([ 'Essential items', 'Suggested packing list' ]), defaultImageId: "exchangebuddy/section-images/Checklist" },
   { label: 'Expenses', defaultContentHeadings: JSON.stringify([ 'Accommodation', 'Transport', 'Living Costs' ]), defaultImageId: "exchangebuddy/section-images/Expenses" },
