@@ -52,6 +52,17 @@ if (Meteor.isServer) {
       });
     },
 
+    'University.getEmptySections'(universityId) {
+      check(universityId, Number);
+
+      return UniversityInfoSection.findAll({}).then(function(sections) {
+        return UniversityInfoItem.findAll({ where: { universityId } }).then(function(items) {
+          const existingSectionIds = items.map(item => item.get().sectionId);
+          return sections && sections.map(section => section.get({ plain: true })).filter(section => existingSectionIds.indexOf(section.id) == -1);
+        });
+      });
+    },
+
   });
 
   export const bulkCreateOrUpdate = (unis) => {

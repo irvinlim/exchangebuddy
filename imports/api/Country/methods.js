@@ -38,6 +38,17 @@ if (Meteor.isServer) {
       });
     },
 
+    'Country.getEmptySections'(countryCode) {
+      check(countryCode, String);
+
+      return CountryInfoSection.findAll({}).then(function(sections) {
+        return CountryInfoItem.findAll({ where: { countryCode } }).then(function(items) {
+          const existingSectionIds = items.map(item => item.get().sectionId);
+          return sections && sections.map(section => section.get({ plain: true })).filter(section => existingSectionIds.indexOf(section.id) == -1);
+        });
+      });
+    },
+
   });
 
   export const bulkCreateOrUpdate = (countries) => {
