@@ -20,7 +20,7 @@ const saveForm = (callback) => {
     });
   };
 };
-
+let universitiesProps;
 const validate = values => {
   const errors = {};
   const requiredFields = [ 'displayName', 'gender', 'homeUniName' ];
@@ -29,6 +29,8 @@ const validate = values => {
       errors[ field ] = 'Required'
     }
   });
+  if( universitiesProps && universitiesProps.filter(uni => uni.name === values.homeUniName).length === 0 )
+    errors['homeUniName'] = 'University not found'
 
   return errors;
 };
@@ -48,6 +50,7 @@ const filter = (searchText, key) => {
 class Step1 extends React.Component {
   render() {
     const { universities, fields: { displayName, gender, homeUniName }, handleNext, handleSubmit, submitting } = this.props;
+    universitiesProps = universities;
 
     return (
       <form onSubmit={ handleSubmit(saveForm(handleNext)) }>
