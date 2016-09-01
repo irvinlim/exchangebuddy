@@ -15,6 +15,7 @@ import { setCurrentUser } from '../../util/session';
 
 // Layout
 import App from '../../ui/layouts/app';
+import Group from '../../ui/layouts/group';
 
 // Pages
 import Home from '../../ui/pages/home';
@@ -28,7 +29,6 @@ import ViewInfo from '../../ui/pages/info/view-info';
 import EditInfo from '../../ui/pages/info/edit-info';
 
 // Group
-import Group from '../../ui/pages/group/group';
 import GroupHome from '../../ui/pages/group/home';
 import GroupInfo from '../../ui/pages/group/info';
 import GroupInfoPage from '../../ui/pages/group/info'; // temp
