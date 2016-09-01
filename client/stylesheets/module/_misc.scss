@@ -4,3 +4,13 @@
   position: absolute; top: calc(50% - 55px); left: 0; width: 100%;
   > div { margin: 10px auto !important; }
 }
+
+// Flex table
+.flex-table-container {
+  text-align: left;
+
+  p { margin: 0; color: #999; }
+  .row { padding: 10px 0; }
+  .table-header { font-weight: 500; text-transform: uppercase; }
+  .table-cell { color: #999; }
+}

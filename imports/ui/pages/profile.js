@@ -6,7 +6,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import ProfilePaper from '../components/ProfilePaper';
 
-const welcomeStyle = { height: $(window).height(), backgroundColor: "darkslategray" }
+const welcomeStyle = { height: "calc(100vh - 150px)", backgroundColor: "darkslategray", paddingTop: 150 }
 
 const Profile = ({ params }) => (
   <div className="text-center" style={welcomeStyle}>
@@ -18,8 +18,7 @@ const Profile = ({ params }) => (
 
       <Grid>
         <Row>
-          <Col xs={0} md={1}></Col>
-          <Col xs={12} md={10} id="welcome-header-title">
+          <Col xs={12}>
             <ProfilePaper userId={ params.userId } />
           </Col>
         </Row>
