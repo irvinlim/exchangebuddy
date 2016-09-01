@@ -7,7 +7,7 @@ const NextButton = (props) => (
     disableFocusRipple={true}
     primary={true}
     type="submit"
-    style={{ marginRight: 12 }}
+    style={{ margin: 6 }}
     {...props} />
 );
 
