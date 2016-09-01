@@ -34,7 +34,16 @@ export default class InfoView extends Component {
     return (
       <Paper className="info-text-container" zDepth={2}>
 
-        <Helmet title={item.section.label} />
+        <Helmet
+          title={item.section.label}
+          meta={[
+            {"property": "og:type", "content": "article"},
+            {"property": "og:url", "content": Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`) },
+            {"property": "og:title", "content": item.section.label },
+            {"property": "og:description", "content": InfoHelper.getSectionSubtitle(item, group) },
+            {"property": "og:image", "content": InfoHelper.getImageUrl(item, 500) },
+          ]}
+        />
 
         <CardMedia
           className="info-title-container"
