@@ -91,8 +91,8 @@ class Step3 extends React.Component {
     return (
       <form onSubmit={ handleSubmit(submitForm(this)) }>
 
-        <p className="small-text">To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
-        <p className="small-text">We will be sending a verification email to confirm your place at the university.</p>
+        <p style={{ fontSize: "15px" }}>To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
+        <p style={{ fontSize: "15px" }}>We will be sending a verification email to confirm your place at the university.</p>
 
         { emailDomains ?
           <p className="small-text">Email domains allowed: { emailDomains.map(x => `@${x}`).join(', ') }</p> :
