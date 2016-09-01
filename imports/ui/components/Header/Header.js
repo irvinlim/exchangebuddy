@@ -79,9 +79,12 @@ export default class Header extends React.Component {
       <div
         id="header"
         style={{
-          background: `linear-gradient(to bottom, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%),
-            url(${ImagesHelper.getUrlScale(uni.bgImageId, $(window).width())}) center center / cover no-repeat`,
+          backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.5) 0%,rgba(0,0,0,0.9) 100%),
+            url('${ImagesHelper.getUrlScale(uni.bgImageId || 'exchangebuddy/section-images/About', 1000)}')`,
           backgroundColor: "#000000",
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
         }}>
 
         <Helmet title={ getTitle(tab) } titleTemplate ={"%s - "+ uni.name} />
@@ -106,7 +109,7 @@ export default class Header extends React.Component {
         <Grid>
           <div className="row center-xs center-md" id="header-tab-row">
             <Col xs={12} md={8} id="header-tab-col">
-            <Tabs inkBarStyle={{backgroundColor: "#fff"}} initialSelectedIndex={ tabToIdx(tab) } >
+            <Tabs inkBarStyle={{ backgroundColor: "#fff" }} initialSelectedIndex={ tabToIdx(tab) } >
               <Tab icon={IconsHelper.materialIcon("home")} label="HOME" className="header-tab" onActive={ gotourl(params.id) } />
               <Tab icon={IconsHelper.materialIcon("info")} label="INFO" className="header-tab" onActive={ gotourl(params.id, "info") } />
               <Tab icon={IconsHelper.materialIcon("chat")} label="CHAT" className="header-tab" onActive={ gotourl(params.id, "chat") } />
