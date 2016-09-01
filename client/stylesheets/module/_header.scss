@@ -73,13 +73,6 @@ $headerStickyHeight: 95px;
     @include transition(all 450ms);
     img { object-fit: contain; background-color: #fff !important; }
   }
-  > p {
-    display: inline-block;
-    margin: 3px 20px;
-    width: 150px;
-    vertical-align: top;
-    line-height: 1;
-  }
 }
 
 .header-logo {

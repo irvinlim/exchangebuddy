@@ -99,7 +99,7 @@ export default class Header extends React.Component {
             </Col>
 
             <Col xs={6} md={2}>
-              <HeaderProfile user={ user } uni={ uni } actions={ actions } />
+              <HeaderProfile user={ user } uni={ uni } group={ group } actions={ actions } />
             </Col>
           </Row>
         </Grid>
