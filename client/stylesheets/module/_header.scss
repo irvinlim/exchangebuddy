@@ -19,7 +19,10 @@ $headerStickyHeight: 95px;
 
   #logo-image {
     display: flex; align-items: center;
-    img { width: 100%; }
+    img {
+      width: 100%;
+      @include media-xs-only { width: 120px; margin: 0 10px; }
+    }
   }
 
   + #group-container {
@@ -45,7 +48,7 @@ $headerStickyHeight: 95px;
   text-align: center; margin-top: 50px; display: flex; flex-direction: column;
   @include transition(all 450ms);
 
-  @include media-xs-only { order: 10; margin-top: 20px; }
+  @include media-xs-only { order: 10; margin: 20px 0; }
 
   h2, p { margin: 10px 0; }
   #uni-name { line-height: 2.1rem; color: #fff; @include transition(all 450ms); }
