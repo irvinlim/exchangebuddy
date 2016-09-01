@@ -91,8 +91,8 @@ class Step3 extends React.Component {
     return (
       <form onSubmit={ handleSubmit(submitForm(this)) }>
 
-        <p>To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
-        <p>We will be sending a verification email to confirm your place at the university.</p>
+        <p className="small-text">To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
+        <p className="small-text">We will be sending a verification email to confirm your place at the university.</p>
 
         { emailDomains ?
           <p className="small-text">Email domains allowed: { emailDomains.map(x => `@${x}`).join(', ') }</p> :
@@ -106,8 +106,8 @@ class Step3 extends React.Component {
         { this.state.emailSent ? <p>Verification email sent!</p> : null }
 
         <div style={{ marginTop: 12 }}>
-          <PrevButton onTouchTap={ handlePrev } label="Back" disabled={submitting} />
           <NextButton label="Send verification email" disabled={submitting} />
+          <PrevButton onTouchTap={ handlePrev } label="Back" disabled={submitting} />
         </div>
       </form>
     );

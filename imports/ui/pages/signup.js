@@ -5,11 +5,11 @@ import SignupStepper from '../components/SignupStepper';
 import * as ImagesHelper from '../../util/images';
 
 const Signup = () => (
-  <Row>
-    <Col md={6} xs={0}>
+  <Row className="page-signup">
+    <Col md={6} xs={0} className="signup-right">
       <img src={ImagesHelper.getUrlScale(Meteor.settings.public.stepperImageId, 500)} id="stepper-img"/>
     </Col>
-    <Col md={5} xs={12} style={{padding: "30px"}}>
+    <Col md={5} xs={12} className="signup-right">
       <h1>Complete your profile</h1>
       <SignupStepper />
     </Col>
