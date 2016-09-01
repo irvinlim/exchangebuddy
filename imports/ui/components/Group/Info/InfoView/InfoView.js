@@ -20,12 +20,15 @@ const FacebookDialog = Dialog.facebook(Meteor.settings.public.Facebook.appId, wi
 export default class InfoView extends Component {
   render() {
     const { about, aboutId, sectionId, groupId, group, item } = this.props;
+    const imageUrl = InfoHelper.getImageUrl(item, 500),
+          absoluteUrl = Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`),
+          sectionSubtitle = InfoHelper.getSectionSubtitle(item, group);
 
     const Overlay = () => (
       <CardTitle
         className="info-title"
         title={ item.section.label }
-        subtitle={ InfoHelper.getSectionSubtitle(item, group) }
+        subtitle={ sectionSubtitle }
         style={{ zIndex: 10 }}
         titleStyle={{ lineHeight: "3rem", fontWeight: 400, fontSize:"250%", color: Colors.grey50 }}
         subtitleStyle={{ color: Colors.grey200, fontSize: "16px" }} />
@@ -38,10 +41,10 @@ export default class InfoView extends Component {
           title={item.section.label}
           meta={[
             {"property": "og:type", "content": "article"},
-            {"property": "og:url", "content": Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`) },
+            {"property": "og:url", "content": absoluteUrl },
             {"property": "og:title", "content": item.section.label },
-            {"property": "og:description", "content": InfoHelper.getSectionSubtitle(item, group) },
-            {"property": "og:image", "content": InfoHelper.getImageUrl(item, 500) },
+            {"property": "og:description", "content": sectionSubtitle },
+            {"property": "og:image", "content": imageUrl },
           ]}
         />
 
@@ -49,7 +52,7 @@ export default class InfoView extends Component {
           className="info-title-container"
           mediaStyle={{ maxHeight: 500, overflow:"hidden" }}
           overlay={ <Overlay /> }>
-          <img src={ InfoHelper.getImageUrl(item, 500) } />
+          <img src={ imageUrl } />
         </CardMedia>
 
         <Markdown className="md-info" source={ item.content } />
@@ -63,7 +66,7 @@ export default class InfoView extends Component {
           </Col>
           <Col xs={8} md={3} className="info-container-col">
             <FacebookProvider appID={Meteor.settings.public.Facebook.appId} >
-              <Like href={ Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`) } colorScheme="dark" showFaces />
+              <Like href={ absoluteUrl } colorScheme="dark" showFaces />
             </FacebookProvider>
           </Col>
         </div>
