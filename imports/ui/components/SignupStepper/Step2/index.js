@@ -15,15 +15,15 @@ const composer = (props, onData) => {
   const user = Meteor.user();
 
   Meteor.call('User.getGroups', user.id, (err, groups) => {
-    const defaultGroup = groups.reduce((p, group) => group.id == user.defaultGroupId ? group : p);
+    const defaultGroup = groups.length && groups.reduce((p, group) => group.id == user.defaultGroupId ? group : p);
 
-    onData(null, {
-      initialValues: {
-        exchangeUniName: defaultGroup && defaultGroup.university.name,
-        exchangeUniYear: defaultGroup && defaultGroup.year,
-        exchangeTerm: defaultGroup && defaultGroup.term,
-      }
-    });
+    const initialValues = defaultGroup ? {
+      exchangeUniName: defaultGroup.university.name,
+      exchangeUniYear: defaultGroup.year,
+      exchangeTerm: defaultGroup.term,
+    } : {};
+
+    onData(null, { initialValues });
   });
 
 };
