@@ -9,7 +9,7 @@ html body {
 
   a { color: $link-color; font-weight: inherit; }
   p { margin-bottom: 10px; }
-  strong { font-weight: 500; }
+  b, strong { font-weight: 500; }
   label { font-weight: inherit; }
   h2 { font-size: 1.4rem; }
 }
