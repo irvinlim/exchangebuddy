@@ -8,6 +8,7 @@ import Markdown from 'react-markdown';
 import FacebookProvider, { Like } from 'react-facebook';
 import Dialog from 'share-dialog';
 import { browserHistory } from 'react-router';
+import Helmet from "react-helmet";
 
 import * as IconsHelper from '../../../../../util/icons';
 import * as InfoHelper from '../../../../../util/info';
@@ -32,6 +33,8 @@ export default class InfoView extends Component {
 
     return (
       <Paper className="info-text-container" zDepth={2}>
+
+        <Helmet title={item.section.label} />
 
         <CardMedia
           className="info-title-container"
