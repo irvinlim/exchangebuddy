@@ -1,6 +1,7 @@
 import React from 'react';
 import { composeWithTracker } from 'react-komposer';
 import Loading from '../../../Loading';
+import { browserHistory } from 'react-router';
 
 // Redux
 import { bindActionCreators } from 'redux';
@@ -19,12 +20,12 @@ const composer = (props, onData) => {
   Meteor.call('Group.get', groupId, (err, group) => {
 
     if (!group)
-      return;
+      return browserHistory.push('/');
 
     if (about == 'country') {
       Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
         if (!item)
-          return;
+          return browserHistory.push(`/group/${groupId}`);
 
         onData(null, {
           item,
@@ -35,7 +36,7 @@ const composer = (props, onData) => {
     } else if (about == 'university') {
       Meteor.call('UniversityInfoItem.getLatestRevision', group.universityId, sectionId, (err, item) => {
         if (!item)
-          return;
+          return browserHistory.push(`/group/${groupId}`);
 
         onData(null, {
           item,
