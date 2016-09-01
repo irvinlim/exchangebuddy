@@ -35,7 +35,7 @@ export const setCurrentUser = (callback = () => {}) => {
 };
 
 // Used at Meteor.startup
-export const verifyCurrentUser = (callback) => {
+const verifyCurrentUser = (callback) => {
   const sessionUser = Session.get("currentUser");
   const sessionUserToken = Session.get("currentUserToken");
 
