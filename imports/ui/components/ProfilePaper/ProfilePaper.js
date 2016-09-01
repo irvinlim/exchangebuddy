@@ -34,17 +34,25 @@ const table_body_style = {
   width: "65%"
 }
 
+const text_header_style = {
+  fontSize: "-webkit-xxx-large",
+  fontWeight: "bold",
+  textAlign: "left",
+  paddingLeft: "4%"
+}
+
 export default class ProfilePaper extends Component {
   render() {
     return (
-      <Paper className="profile-paper" zDepth={2}>
+      <Paper className="profile-paper" zDepth={2} style="padding: 40px">
         <Grid>
           <Row id="profile-paper">
             <Col xs={12} md={3} id="user-image">
               <p>Facebook avatar goes here</p>
             </Col>
             <Col xs={12} md={7} id="user-info">
-              <h1>Chi Thanh</h1>
+              <h1 style={text_header_style}>Chi Thanh</h1>
+              <div><hr style={{width: "85%", paddingLeft: "4%"}}/></div>
               <Table selectable={false} style={table_style}>
                 <TableBody displayRowCheckbox={false}>
                   <TableRow displayBorder={false}>
@@ -62,6 +70,10 @@ export default class ProfilePaper extends Component {
                   <TableRow displayBorder={false}>
                     <TableRowColumn style={table_header_style}>PHONE</TableRowColumn>
                     <TableRowColumn style={table_body_style}>(+65) 8443 1981</TableRowColumn>
+                  </TableRow>
+                  <TableRow displayBorder={false}>
+                    <TableRowColumn style={table_header_style}>FACEBOOK</TableRowColumn>
+                    <TableRowColumn style={table_body_style}>Link to Facebook</TableRowColumn>
                   </TableRow>
                 </TableBody>
               </Table>
