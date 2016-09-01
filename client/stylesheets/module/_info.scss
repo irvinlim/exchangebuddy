@@ -96,7 +96,7 @@
 
 #info-edit-img {
   opacity: 1; height: 100%; width: 100%; position: absolute; top: 0;
-  box-shadow: inset 1px 1px 40px 0 rgba(0,0,0,.45) !important;
+  @include box-shadow(inset 1px 1px 40px 0 rgba(0,0,0,.45) !important);
   @include transition-standard(all 250ms);
   #info-edit-img-overlay {
     opacity: 0;
