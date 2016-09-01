@@ -6,25 +6,15 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import ProfilePaper from '../components/ProfilePaper';
 
-const welcomeStyle = { height: "calc(100vh - 150px)", backgroundColor: "darkslategray", paddingTop: 150 }
-
 const Profile = ({ params }) => (
-  <div className="text-center" style={welcomeStyle}>
-    <div id="welcome-header">
-
-      <div id="logo-image">
-        { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 99, "exchangebuddy-logo") }
-      </div>
-
-      <Grid>
-        <Row>
-          <Col xs={12}>
-            <ProfilePaper userId={ params.userId } />
-          </Col>
-        </Row>
-      </Grid>
-    </div>
-
+  <div className="page-profile">
+    <Grid>
+      <Row>
+        <Col xs={12}>
+          <ProfilePaper userId={ params.userId } />
+        </Col>
+      </Row>
+    </Grid>
   </div>
 );
 
