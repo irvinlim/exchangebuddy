@@ -25,7 +25,7 @@ const composer = (props, onData) => {
     if (about == 'country') {
       Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
         if (!item)
-          return browserHistory.push(`/group/${groupId}`);
+          return browserHistory.push(`/group/${groupId}/info`);
 
         onData(null, {
           item,
@@ -36,7 +36,7 @@ const composer = (props, onData) => {
     } else if (about == 'university') {
       Meteor.call('UniversityInfoItem.getLatestRevision', group.universityId, sectionId, (err, item) => {
         if (!item)
-          return browserHistory.push(`/group/${groupId}`);
+          return browserHistory.push(`/group/${groupId}/info`);
 
         onData(null, {
           item,
