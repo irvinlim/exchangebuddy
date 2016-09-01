@@ -46,6 +46,10 @@ const User = sequelize.define(tableName, {
     type: DataType.TEXT(),
   },
 
+  fbTokenExpiresAt: {
+    type: DataType.DATE(),
+  },
+
   homeUniId: {
     type: DataType.INTEGER(),
   },

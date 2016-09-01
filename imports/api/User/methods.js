@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+import { HTTP } from 'meteor/http';
 
 // Models
 import User from '.';
@@ -141,31 +142,55 @@ if (Meteor.isServer) {
       if (!response || !response.userID)
         throw new Meteor.Error("User.loginFacebook.invalidResponse", "Invalid response from Facebook.");
 
-      // Get response data and upsert user information.
-      // Return true to continue to set session variable.
-      return User.findOne({
-        where: { fbUserId: response.userID }
-      }).then(function(result) {
-        const values = {
-          fbUserId: response.userID,
-          fbToken: response.accessToken,
-          email: response.email,
-          displayName: response.name,
-          gender: UserHelper.resolveGender(response.gender),
-        };
 
-        // Don't use Sequelize.upsert as it results in AUTO_INCREMENT increasing unnecessarily.
+      return new Promise(function(resolve, reject) {
 
-        if (result)
-          return User.update(values, { where: { fbUserId: response.userID } });
-        else
-          return User.create(values);
-      }).then(function(result) {
+        // Get long-lived Facebook token
+        HTTP.get(`https://graph.facebook.com/v2.7/oauth/access_token?grant_type=fb_exchange_token&client_id=${Meteor.settings.public.Facebook.appId}&client_secret=${Meteor.settings.private.Facebook.appSecret}&fb_exchange_token=${response.accessToken}`, {},
+          function(err, result) {
+            if (err)
+              return reject(err);
+
+            const expiresIn = parseInt(result.data.expires_in);
+
+            resolve({
+              longLivedAccessToken: result.data.access_token,
+              expiresAt: moment().add(expiresIn, 'seconds').toDate()
+            });
+          }
+        );
+
+      }).then(function({ longLivedAccessToken, expiresAt }) {
+
+        // Get response data and upsert user information.
+        // Return true to continue to set session variable.
         return User.findOne({
           where: { fbUserId: response.userID }
+        }).then(function(result) {
+          const values = {
+            fbUserId: response.userID,
+            fbToken: longLivedAccessToken,
+            fbTokenExpiresAt: expiresAt,
+            email: response.email,
+            displayName: response.name,
+            gender: UserHelper.resolveGender(response.gender),
+          };
+
+          // Don't use Sequelize.upsert as it results in AUTO_INCREMENT increasing unnecessarily.
+
+          if (result)
+            return User.update(values, { where: { fbUserId: response.userID } });
+          else
+            return User.create(values);
+        });
+
+      }).then(function(result) {
+        return User.findOne({
+          where: { fbUserId: response.userID },
+          include: [{ model: University, as: 'homeUniversity' }]
         });
       }).then(function(result) {
-        const user = result && result.get();
+        const user = result && result.get({ plain: true });
 
         if (!user)
           throw new Meteor.Error("User.loginFacebook.invalidUser", "Could not fetch authenticated user.");
