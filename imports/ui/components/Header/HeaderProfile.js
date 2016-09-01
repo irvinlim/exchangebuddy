@@ -68,7 +68,7 @@ export default class HeaderProfile extends React.Component {
 
           <List>
             <ListItem
-              innerDivStyle={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }}
+              innerDivStyle={{ lineHeight: "20px", paddingLeft: 90, paddingBottom: 20 }}
               leftAvatar={ UniversityHelper.getImage(uni, cSize) }
               primaryText={ <strong>{ uni.name }</strong> }
               secondaryText={ `${group.term} ${group.year}` }
@@ -82,7 +82,7 @@ export default class HeaderProfile extends React.Component {
             <Divider />
 
             <ListItem
-              innerDivStyle={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }}
+              innerDivStyle={{ lineHeight: "20px", paddingLeft: 90, paddingBottom: 20 }}
               leftAvatar={ UserHelper.getAvatar(user, cSize) }
               primaryText={ <strong>{ user.displayName }</strong> }
               secondaryText={ user.homeUniversity.name }

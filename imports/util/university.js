@@ -21,5 +21,5 @@ export const getImageUrl = (uni, size=90) => {
 };
 
 export const getImage = (uni, size=90, style={}) => (
-  <Avatar src={ getImageUrl(uni, size) } size={ size } style={ style } />
+  <Avatar src={ getImageUrl(uni, size) } size={ size } style={{ objectFit: 'contain', backgroundColor: '#fff', ...style }} />
 );
