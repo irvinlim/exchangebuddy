@@ -231,8 +231,13 @@ if (Meteor.isServer) {
               const dataForHeading = result && JSON.parse(result.get().dataValue);
               const dataForHeadingForCountry = dataForHeading[countryCode] || dataForHeading[-1];
 
-              if (!dataForHeadingForCountry)
-                return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
+              // Don't add redundant headings for Emergency phone number sections
+              if (!dataForHeadingForCountry) {
+                if (section.label == 'Emergencies')
+                  return;
+                else
+                  return content.push(`# ${heading}\n\n*Help ExchangeBuddy by filling in this empty section.*`);
+              }
 
               // Found new content for this section heading for this university
               foundNewContent = true;
