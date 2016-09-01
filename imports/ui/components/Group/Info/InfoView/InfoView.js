@@ -8,13 +8,14 @@ import Markdown from 'react-markdown';
 import FacebookProvider, { Like } from 'react-facebook';
 import Dialog from 'share-dialog';
 import { browserHistory } from 'react-router';
+import Helmet from "react-helmet";
 
 import * as IconsHelper from '../../../../../util/icons';
 import * as InfoHelper from '../../../../../util/info';
 import * as ImagesHelper from '../../../../../util/images';
 import * as Colors from 'material-ui/styles/colors';
 
-const FacebookDialog = Dialog.facebook(Meteor.settings.public.Facebook.appId, "http://app.exchangebuddy.com", "http://app.exchangebuddy.com");
+const FacebookDialog = Dialog.facebook(Meteor.settings.public.Facebook.appId, window.location.href, window.location.href);
 
 export default class InfoView extends Component {
   render() {
@@ -32,6 +33,17 @@ export default class InfoView extends Component {
 
     return (
       <Paper className="info-text-container" zDepth={2}>
+
+        <Helmet
+          title={item.section.label}
+          meta={[
+            {"property": "og:type", "content": "article"},
+            {"property": "og:url", "content": Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`) },
+            {"property": "og:title", "content": item.section.label },
+            {"property": "og:description", "content": InfoHelper.getSectionSubtitle(item, group) },
+            {"property": "og:image", "content": InfoHelper.getImageUrl(item, 500) },
+          ]}
+        />
 
         <CardMedia
           className="info-title-container"

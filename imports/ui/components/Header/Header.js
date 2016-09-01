@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { handleLogout } from '../../../util/session';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import Helmet from "react-helmet";
 
 import HeaderProfile from './HeaderProfile';
 
@@ -32,6 +33,13 @@ const tabToIdx = tab => {
     default:
       return 0;
   }
+}
+
+const getTitle = tab => {
+  if(tab)
+    return tab.charAt(0).toUpperCase() + tab.slice(1);
+  else
+    return 'Home';
 }
 
 const eventHandleScroll = (event) => {
@@ -76,6 +84,7 @@ export default class Header extends React.Component {
           backgroundColor: "#000000",
         }}>
 
+        <Helmet title={ getTitle(tab) } titleTemplate ={"%s - "+ uni.name} />
 
         <Grid>
           <Row id="header-row">
