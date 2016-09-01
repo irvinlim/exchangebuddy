@@ -4,11 +4,11 @@ import * as IconsHelper from '../../util/icons';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
-import ProfilePaper from '../components/ProfilePaper/ProfilePaper.js';
+import ProfilePaper from '../components/ProfilePaper';
 
 const welcomeStyle = { height: $(window).height(), backgroundColor: "darkslategray" }
 
-const Profile = () => (
+const Profile = ({ params }) => (
   <div className="text-center" style={welcomeStyle}>
     <div id="welcome-header">
 
@@ -20,7 +20,7 @@ const Profile = () => (
         <Row>
           <Col xs={0} md={1}></Col>
           <Col xs={12} md={10} id="welcome-header-title">
-            <ProfilePaper />
+            <ProfilePaper userId={ params.userId } />
           </Col>
         </Row>
       </Grid>

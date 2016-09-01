@@ -50,7 +50,7 @@ if (Meteor.isServer) {
       check(userId, Number);
 
       return User.findOne({ where: { id: userId } }).then(function(userResult) {
-        return userResult.getGroups();
+        return userResult.getGroups({ include: [{ model: University }] });
       }).then(function(result) {
         return result.map(x => x.get({ plain: true }));
       });
