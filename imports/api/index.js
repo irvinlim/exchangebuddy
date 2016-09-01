@@ -23,6 +23,8 @@ import './UserGroup/methods';
 import './DataStore/methods';
 import './CountryInfoItem/methods';
 import './UniversityInfoItem/methods';
+import './CountryInfoSection/methods';
+import './UniversityInfoSection/methods';
 
 // Publications
 import './University/publications';
