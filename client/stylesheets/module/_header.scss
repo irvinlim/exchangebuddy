@@ -92,9 +92,9 @@ $headerStickyHeight: 95px;
   width: 100%;
   @include media-xs-only {
     position: fixed;
-    left: 0;
+    left: 16px;
     bottom: 0;
-    width: 109%;
+    width: 100%;
     z-index: 9;
     background: -moz-linear-gradient(top, rgba(25,25,25,0.72) 0%, rgba(0,0,0,0.93) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba(25,25,25,0.72) 0%,rgba(0,0,0,0.93) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -104,6 +104,7 @@ $headerStickyHeight: 95px;
 }
 
 #header-tab-col {
+  padding: 0 !important;
   > div > div { background-color: rgba(255,255,255,0) !important; }
 }
 
