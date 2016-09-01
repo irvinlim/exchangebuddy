@@ -15,7 +15,7 @@ import * as InfoHelper from '../../../../../util/info';
 import * as ImagesHelper from '../../../../../util/images';
 import * as Colors from 'material-ui/styles/colors';
 
-const FacebookDialog = Dialog.facebook(Meteor.settings.public.Facebook.appId, "http://app.exchangebuddy.com", "http://app.exchangebuddy.com");
+const FacebookDialog = Dialog.facebook(Meteor.settings.public.Facebook.appId, window.location.href, window.location.href);
 
 export default class InfoView extends Component {
   render() {
