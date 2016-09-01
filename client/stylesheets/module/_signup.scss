@@ -14,7 +14,11 @@
   min-height: 804px;
   position: relative;
   background-size: cover !important;
-  #logo-image { position: absolute; top: 6%; left: 3%; }
+  #logo-image {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
 }
 
 #welcome-header-title {
