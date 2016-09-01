@@ -6,12 +6,22 @@
   margin-top: 20px;
 }
 
+#landing-container {
+  min-height: 804px
+}
+
 #welcome-header {
-  height: 100%;
+  min-height: 804px;
+  position: relative;
+  background-size: cover !important;
   #logo-image { position: absolute; top: 6%; left: 3%; }
 }
 
-#welcome-header-title { text-align: center; margin: 0 auto; padding-top: 10rem; max-width: 750px;
+#welcome-header-title {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 6rem;
+  max-width: 750px;
 
   #app-title {
     color: #fff;
@@ -45,4 +55,27 @@
 
 .kep-login-facebook.metro{
   border-radius: 39px !important;
+}
+
+#feature-list {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+}
+
+.feature-row  > div {
+  > span {
+    padding: 27px;
+    font-size: 60px !important;
+    border-radius: 18px;
+    color: #fff !important;
+  }
+  > p {
+    font-family: "Lato", sans-serif;
+    position: absolute;
+    padding: 0px 35px;
+    font-size: 0.9rem;
+    bottom: -13px;
+    color: #fff !important
+  }
 }
