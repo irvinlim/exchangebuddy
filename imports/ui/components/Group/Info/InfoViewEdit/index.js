@@ -27,22 +27,22 @@ const composer = (props, onData) => {
     if (about == 'country') {
       Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
         if (!item)
-          return;
+          Meteor.call('CountryInfoSection.get', sectionId, (err, section) => {
+            onData(null, { item: { section }, aboutId: group.university.countryCode });
+          });
 
-        onData(null, {
-          item,
-          aboutId: group.university.countryCode
-        });
+        else
+          onData(null, { item, aboutId: group.university.countryCode});
       });
     } else if (about == 'university') {
       Meteor.call('UniversityInfoItem.getLatestRevision', group.universityId, sectionId, (err, item) => {
         if (!item)
-          return;
+          Meteor.call('UniversityInfoSection.get', sectionId, (err, section) => {
+            onData(null, { item: { section }, aboutId: group.university.countryCode });
+          });
 
-        onData(null, {
-          item,
-          aboutId: group.universityId
-        });
+        else
+          onData(null, { item, aboutId: group.universityId });
       });
     }
 
