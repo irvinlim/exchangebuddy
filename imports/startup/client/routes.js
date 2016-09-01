@@ -21,6 +21,7 @@ import Home from '../../ui/pages/home';
 import Signup from '../../ui/pages/signup';
 import Verify from '../../ui/pages/verify';
 import NotFound from '../../ui/pages/not-found';
+import Profile from '../../ui/pages/profile.js';
 
 // Info
 import ViewInfo from '../../ui/pages/info/view-info';
@@ -118,6 +119,7 @@ Meteor.startup(() => {
             <IndexRoute name="home" component={ Home } />
             <Route name="signup" path="signup" component={ Signup } onEnter={ combine([ requireAuth, verifiedRedirect ]) } />
             <Route name="verify" path="verify/:token" component={ Verify } />
+            <Route name="profile" path="profile" component={ Profile } />
             <Route path="group">
               <IndexRoute onEnter={ goToDefaultGroup } />
               <Route path=":id" component={ Group }>
