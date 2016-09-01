@@ -46,7 +46,8 @@ const AddSectionDialog = ({ open, handleClose, group, about, sections, isMobile 
       onRequestClose={ handleClose }
       title="Add a Section"
       subtitle="Select a section to add to ExchangeBuddy."
-      actions={ actions }>
+      actions={ actions }
+      bodyStyle={{overflowY: "scroll"}} >
 
       <GridList
         className="grid-list"

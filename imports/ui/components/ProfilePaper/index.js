@@ -17,23 +17,35 @@ const composer = (props, onData) => {
   let user;
 
   if (userId)
-    Meteor.call('User.get', userId, (err, userResult) => {
+    Meteor.call('User.get', parseInt(userId), (err, userResult) => {
       user = userResult;
+      Meteor.call('User.getGroups', user.id, (err, groups) => {
+        const exchangeUniversities = groups.map(group => group.university);
+
+        Meteor.call('University.get', user.homeUniId, (err, homeUni) => {
+          onData(null, {
+            user,
+            userHomeUniversity: homeUni,
+            userExchangeUniversities: exchangeUniversities,
+          });
+        });
+      });
+
     });
-  else
+  else {
     user = Meteor.user();
+    Meteor.call('User.getGroups', user.id, (err, groups) => {
+      const exchangeUniversities = groups.map(group => group.university);
 
-  Meteor.call('User.getGroups', user.id, (err, groups) => {
-    const exchangeUniversities = groups.map(group => group.university);
-
-    Meteor.call('University.get', user.homeUniId, (err, homeUni) => {
-      onData(null, {
-        user,
-        userHomeUniversity: homeUni,
-        userExchangeUniversities: exchangeUniversities,
+      Meteor.call('University.get', user.homeUniId, (err, homeUni) => {
+        onData(null, {
+          user,
+          userHomeUniversity: homeUni,
+          userExchangeUniversities: exchangeUniversities,
+        });
       });
     });
-  });
+  }
 };
 
 const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);

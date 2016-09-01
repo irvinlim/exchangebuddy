@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import { ListItem } from 'material-ui/List';
+import { browserHistory } from 'react-router'
 
 import { getAvatar } from '../../../../../util/user';
 
@@ -17,9 +18,17 @@ const styles = {
   },
 };
 
+const gotoProfile = (userId) => () => {
+  browserHistory.push(`/profile/${userId}`);
+}
+
 const MemberTile = ({ user }) => (
   <Col xs={12} sm={6} md={4}>
-    <ListItem primaryText={ user.displayName } secondaryText={ user.homeUniversity.name } leftAvatar={ getAvatar(user, 40) } />
+    <ListItem primaryText={ user.displayName }
+      secondaryText={ user.homeUniversity.name }
+      leftAvatar={ getAvatar(user, 40) }
+      onTouchTap={ gotoProfile(user.id) }
+    />
   </Col>
 );
 
