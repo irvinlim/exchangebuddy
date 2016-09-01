@@ -67,14 +67,26 @@ export default class HeaderProfile extends React.Component {
           style={{ padding: '4px 0', maxWidth: 300 }}>
 
           <List>
-            <ListItem style={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }} disabled={true} leftAvatar={ UniversityHelper.getImage(uni, cSize) } primaryText={ <strong>{ uni.name }</strong> } secondaryText={ `${group.term} ${group.year}` } />
-            <ListItem leftIcon={ IconsHelper.icon("group") } primaryText="Members" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/members') } />
-            <ListItem leftIcon={ IconsHelper.icon("person_add") } primaryText="Invite friends" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/invite') } />
+            <ListItem
+              innerDivStyle={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }}
+              leftAvatar={ UniversityHelper.getImage(uni, cSize) }
+              primaryText={ <strong>{ uni.name }</strong> }
+              secondaryText={ `${group.term} ${group.year}` }
+              onTouchTap={ gotourl(`/group/${group.id}`) } />
+            <ListItem leftIcon={ IconsHelper.icon("people") } primaryText="Group Members" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}`) } />
+            <ListItem leftIcon={ IconsHelper.icon("info") } primaryText="Exchange Info" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/info`) } />
+            <ListItem leftIcon={ IconsHelper.icon("chat") } primaryText="Group Chat" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/chat`) } />
+            <ListItem leftIcon={ IconsHelper.icon("event") } primaryText="Events" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/event`) } />
             <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Switch group" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/invite') } />
 
             <Divider />
 
-            <ListItem style={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }} disabled={true} leftAvatar={ UserHelper.getAvatar(user, cSize) } primaryText={ <strong>{ user.displayName }</strong> } secondaryText={ user.homeUniversity.name } />
+            <ListItem
+              innerDivStyle={{ lineHeight: "30px", paddingLeft: 90, paddingBottom: 20 }}
+              leftAvatar={ UserHelper.getAvatar(user, cSize) }
+              primaryText={ <strong>{ user.displayName }</strong> }
+              secondaryText={ user.homeUniversity.name }
+              onTouchTap={ gotourl(`/profile`) } />
             <ListItem leftIcon={ IconsHelper.icon("person") } primaryText="Profile" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/profile') } />
             <ListItem leftIcon={ IconsHelper.icon("exit_to_app") } primaryText="Log Out" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handle } />
           </List>
