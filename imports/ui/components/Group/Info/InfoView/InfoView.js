@@ -50,7 +50,7 @@ export default class InfoView extends Component {
 
         <CardMedia
           className="info-title-container"
-          mediaStyle={{ maxHeight: 500, overflow:"hidden" }}
+          mediaStyle={{ minHeight: 100, maxHeight: 500, overflow:"hidden" }}
           overlay={ <Overlay /> }>
           <img src={ imageUrl } />
         </CardMedia>
