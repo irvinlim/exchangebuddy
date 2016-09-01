@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import SwitchGroupDialog from '../components/SwitchGroupDialog';
 
 const Group = React.createClass({
   propTypes: {
@@ -13,6 +14,8 @@ const Group = React.createClass({
         <div id="group-container">
           { this.props.children }
         </div>
+
+        <SwitchGroupDialog />
       </div>
     );
   }

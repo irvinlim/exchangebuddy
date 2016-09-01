@@ -46,11 +46,10 @@ export default class HeaderProfile extends React.Component {
     const gotourl = (url) => () => browserHistory.push(url);
     const handle = () => handleLogout( () => this.props.actions.showSnackbar("Logged out."));
 
-    const { uni, group } = this.props;
+    const { uni, group, actions } = this.props;
 
     const bSize = 60;
     const cSize = 60;
-
 
     return (
       <div id="header-profile">
@@ -77,7 +76,7 @@ export default class HeaderProfile extends React.Component {
             <ListItem leftIcon={ IconsHelper.icon("info") } primaryText="Exchange Info" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/info`) } />
             <ListItem leftIcon={ IconsHelper.icon("chat") } primaryText="Group Chat" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/chat`) } />
             <ListItem leftIcon={ IconsHelper.icon("event") } primaryText="Events" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/events`) } />
-            <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Switch group" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl('/invite') } />
+            <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Switch group" innerDivStyle={{ fontSize: 13 }} onTouchTap={ actions.openSwitchGroupDialog } />
 
             <Divider />
 
