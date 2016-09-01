@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { composeWithTracker } from 'react-komposer';
 import Loading from '../Loading';
+import { browserHistory } from 'react-router';
 
 // Redux
 import { bindActionCreators } from 'redux';
@@ -19,9 +20,12 @@ const composer = (props, onData) => {
   const groupId = parseInt(props.params.id);
 
   if (!groupId)
-    return;
+    return browserHistory.push(`/`);
 
   Meteor.call('Group.get', groupId, (err, group) => {
+    if (!group)
+      return browserHistory.push(`/`);
+
     onData(null, {
       user,
       uni: group.university,
