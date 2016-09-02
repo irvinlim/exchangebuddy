@@ -29,7 +29,13 @@ const composer = (props, onData) => {
       Meteor.call('CountryInfoItem.getLatestRevision', group.university.countryCode, sectionId, (err, item) => {
         if (!item)
           Meteor.call('CountryInfoSection.get', sectionId, (err, section) => {
-            onData(null, { item: { section, content: section.defaultContentHeadings && JSON.parse(section.defaultContentHeadings).map(heading => `# ${heading}\n\n*Add content here...*`).join('\n\n') }, aboutId: group.university.countryCode });
+            onData(null, {
+              item: {
+                section,
+                content: section.defaultContentHeadings && JSON.parse(section.defaultContentHeadings).map(heading => `# ${heading}\n\n*Add content here...*`).join('\n\n')
+              },
+              aboutId: group.university.countryCode
+            });
           });
 
         else
@@ -39,7 +45,13 @@ const composer = (props, onData) => {
       Meteor.call('UniversityInfoItem.getLatestRevision', group.universityId, sectionId, (err, item) => {
         if (!item)
           Meteor.call('UniversityInfoSection.get', sectionId, (err, section) => {
-            onData(null, { item: { section, content: section.defaultContentHeadings && JSON.parse(section.defaultContentHeadings).map(heading => `# ${heading}\n\n*Add content here...*`).join('\n\n') }, aboutId: group.universityId });
+            onData(null, {
+              item: {
+                section,
+                content: section.defaultContentHeadings && JSON.parse(section.defaultContentHeadings).map(heading => `# ${heading}\n\n*Add content here...*`).join('\n\n')
+              },
+              aboutId: group.universityId
+            });
           });
 
         else
