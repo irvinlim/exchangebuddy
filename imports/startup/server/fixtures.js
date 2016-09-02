@@ -87,6 +87,7 @@ Country.count({}).then(Meteor.bindEnvironment(function(count) {
       emailDomains: JSON.stringify([ 'smu.edu', 'smu.edu.sg' ]),
       terms: JSON.stringify([ "Semester 1", "Semester 2" ]),
       website: "http://www.smu.edu.sg/",
+      logoImageId: 'university-logos/singapore-management-university',
     }, { where: { name: "Singapore Management University" } });
 
 
