@@ -4,6 +4,7 @@ import { HTTP } from 'meteor/http';
 // Models
 import User from '.';
 import University from '../University';
+import Country from '../Country';
 
 // Helpers
 import UserHelper from '../../util/user';
@@ -14,7 +15,7 @@ if (Meteor.isServer) {
     'User.get'(id) {
       check(id, Number);
 
-      return User.findOne({ where: { id }, include: [{ model: University, as: 'homeUniversity' }] }).then(function(result) {
+      return User.findOne({ where: { id }, include: [{ model: University, as: 'homeUniversity' }, { model: Country, as: 'homeCountry' }] }).then(function(result) {
         return result && result.get({ plain: true });
       });
     },
@@ -39,6 +40,7 @@ if (Meteor.isServer) {
       return University.findOne({ where: { name: homeUniName } }).then(function(result) {
         const homeUni = result && result.get();
         const homeUniId = homeUni ? homeUni.id : null;
+        const homeCountryCode = homeUni ? homeUni.countryCode : null;
 
         if (result)
           return User.update({ displayName, gender, homeUniId }, { where: { id } });
