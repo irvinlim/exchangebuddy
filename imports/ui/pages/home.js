@@ -32,8 +32,10 @@ const Home = () => (
           <p className="app-subtitle">Forget the messy Facebook groups and Google forms, all you need is right here.</p>
         </div>
 
-        { Meteor.user() ?
-          <div id="login-button"><LoginButton /></div>
+        { !Meteor.user() ?
+          <div id="login-button">
+            <LoginButton />
+          </div>
         : <RaisedButton
             primary={true}
             label="Go to your group"
