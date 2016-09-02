@@ -6,6 +6,8 @@ import MemberList from '../../components/Group/Home/MemberList';
 import FacebookShare from '../../components/Button/FacebookShare';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import LoginButton from '../../components/LoginButton';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { showSnackbar } from '../../../client/actions/snackbar';
@@ -36,7 +38,44 @@ const joinedGroupStory = (params, actions) => () => {
     actions.showSnackbar("You must be log in before inviting.");
   }
  });
-}
+};
+
+const LoggedIn = ({ params, actions }) => (
+  <Row>
+    <Col xs={12} style={{ marginTop: 15 }}>
+      <h3 className="pinline" style={{ fontSize: "1.3em" }}><span>ExchangeBuddy is better with friends</span></h3>
+      <p className="small-text" style={{ textAlign: 'center' }}>Get your friends to join in the fun!</p>
+      <Row>
+        <Col xs={8} sm={6} style={buttonStyle}>
+          <RaisedButton primary={true}
+            className="raised-btn"
+            label="Post Story to Facebook"
+            labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }}
+            onTouchTap={ joinedGroupStory(params, actions) }/>
+        </Col>
+        <Col xs={8} sm={6} style={buttonStyle}>
+          <RaisedButton primary={true}
+            className="raised-btn"
+            label="Invite Facebook Friends"
+            labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }} />
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+);
+
+const NotLoggedIn = () => (
+  <Row>
+    <Col xs={12} style={{ marginTop: 15 }}>
+      <h3 className="pinline" style={{ fontSize: "1.3em" }}><span>ExchangeBuddy is better with you!</span></h3>
+      <p className="small-text" style={{ textAlign: 'center' }}>Going on exchange? Find buddies from over 900 universities on ExchangeBuddy!</p>
+
+      <div style={{ textAlign: 'center', margin: '15px auto' }}>
+        <LoginButton />
+      </div>
+    </Col>
+  </Row>
+);
 
 const GroupHome = ({ params, actions }) => (
   <Grid>
@@ -55,27 +94,7 @@ const GroupHome = ({ params, actions }) => (
       </Col>
     </Row>
 
-    <Row>
-      <Col xs={12} style={{ marginTop: 15 }}>
-        <h3 className="pinline" style={{ fontSize: "1.3em" }}><span>ExchangeBuddy is better with friends</span></h3>
-        <p className="small-text" style={{ textAlign: 'center' }}>Get your friends to join in the fun!</p>
-        <Row>
-          <Col xs={8} sm={6} style={buttonStyle}>
-            <RaisedButton primary={true}
-              className="raised-btn"
-              label="Post Story to Facebook"
-              labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }}
-              onTouchTap={ joinedGroupStory(params, actions) }/>
-          </Col>
-          <Col xs={8} sm={6} style={buttonStyle}>
-            <RaisedButton primary={true}
-              className="raised-btn"
-              label="Invite Facebook Friends"
-              labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }} />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    { Meteor.user() ? <LoggedIn params={params} actions={actions} /> : <NotLoggedIn /> }
 
   </Grid>
 );
