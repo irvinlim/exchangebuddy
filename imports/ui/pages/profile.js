@@ -16,7 +16,7 @@ const Profile = ({ params }) => (
   <div id="welcome-header" style={landingImg}>
     <NavigationBar />
 
-    <div style={{paddingTop: "150px"}}>
+    <div style={{paddingTop: "150px", paddingBottom: "30px"}}>
       <Grid>
         <Row>
           <Col xs={12}>
