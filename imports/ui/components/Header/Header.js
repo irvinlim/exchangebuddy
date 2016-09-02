@@ -83,7 +83,10 @@ export default class Header extends React.Component {
     this.setState({ loadingFile: true });
 
     Cloudinary.upload(files, {}, function(err, cloudinaryRes) {
-      Meteor.call('University.setBgImage', self.props.uni.id, cloudinaryRes.public_id, function(err, res) {
+      Meteor.call('University.setBgImage', Meteor.userToken(), self.props.uni.id, cloudinaryRes.public_id, function(err, res) {
+        if (err)
+          return;
+
         self.props.actions.showSnackbar("Updated university cover photo.");
         self.setState({
           loadingFile: false,
