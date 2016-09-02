@@ -89,18 +89,9 @@ const goToDefaultGroup = (nextState, replace) => {
       state: { nextPathname: nextState.location.pathname }
     });
   } else {
-    // Check if have any other group; else just go to home.
-    Meteor.call('User.getGroups', Meteor.userId(), (err, groups) => {
-      let path;
-      if (groups.length)
-        path = `/group/${ groups[0].id }`;
-      else
-        path = '/';
-
-      replace({
-        pathname: path,
-        state: { nextPathname: nextState.location.pathname }
-      });
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
     });
   }
 };
