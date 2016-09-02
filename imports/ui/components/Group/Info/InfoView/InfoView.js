@@ -40,7 +40,7 @@ export default class InfoView extends Component {
   render() {
     const { about, aboutId, sectionId, groupId, group, item } = this.props;
     const imageUrl = InfoHelper.getImageUrl(item, 500),
-          absoluteUrl = Meteor.absoluteUrl(`/likes/info/${about}/${aboutId}/${sectionId}`),
+          absoluteUrl = Meteor.absoluteUrl(`likes/info/${about}/${aboutId}/${sectionId}`),
           sectionSubtitle = InfoHelper.getSectionSubtitle(item, group);
 
     const Overlay = () => (
