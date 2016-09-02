@@ -9,7 +9,7 @@ import NavigationBar from '../components/NavigationBar/NavigationBar.js';
 
 const landingImg = {
   background: `linear-gradient(to top, rgba(25, 25, 25, 0.21) 0%,rgb(0, 0, 0) 215%),
-    url(${ImagesHelper.getUrlScale(Meteor.settings.public.landingImageId, 900)}) no-repeat center center `
+    url(${ImagesHelper.getUrlScale('exchangebuddy/norway', 900)}) no-repeat center center `
 }
 
 const About = ({ params }) => (
@@ -20,8 +20,10 @@ const About = ({ params }) => (
       <Grid>
         <Row>
           <Col xs={12}>
-            <Paper>
-              <p>Exchange Buddy is an app for ...</p>
+            <Paper style={{padding: "5%"}}>
+              <h1>About Exchange Buddy</h1>
+              <p><strong>Exchange Buddy</strong> provides a platform for exchange students to find friends and partners.</p>
+              <p>The application is developed by four students, <strong>Irvin Lim, Leon Mak, Eugene Ng and Lam Chi Thanh</strong> as a school project for module CS3216 (School of Computing, NUS).</p>
             </Paper>
           </Col>
         </Row>

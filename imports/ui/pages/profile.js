@@ -9,7 +9,7 @@ import NavigationBar from '../components/NavigationBar/NavigationBar.js';
 
 const landingImg = {
   background: `linear-gradient(to top, rgba(25, 25, 25, 0.21) 0%,rgb(0, 0, 0) 215%),
-    url(${ImagesHelper.getUrlScale(Meteor.settings.public.landingImageId, 900)}) no-repeat center center `
+    url(${ImagesHelper.getUrlScale('exchangebuddy/norway', 900)}) no-repeat center top `
 }
 
 const Profile = ({ params }) => (
