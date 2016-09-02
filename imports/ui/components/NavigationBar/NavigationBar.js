@@ -7,11 +7,11 @@ import Link from '../Link';
 const NavigationBar = () => (
   <Grid id="navigation-bar">
     <Row>
-      <Col xs={6} id="logo-image">
+      <Col xs={12} md={6} id="logo-image">
         { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 150, "exchangebuddy-logo") }
       </Col>
 
-      <Col xs={6} id="navigation-links">
+      <Col xs={12} md={6} id="navigation-links">
         <div>
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
