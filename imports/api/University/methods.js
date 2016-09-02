@@ -63,6 +63,12 @@ if (Meteor.isServer) {
       });
     },
 
+    'University.setBgImage'(universityId, bgImageId) {
+      check(bgImageId, String);
+
+      return University.update({ bgImageId }, { where: { id: universityId } });
+    },
+
   });
 
   export const bulkCreateOrUpdate = (unis) => {

@@ -3,10 +3,13 @@ import { browserHistory } from 'react-router';
 import { handleLogout } from '../../../util/session';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import IconButton from 'material-ui/IconButton';
+import LinearProgress from 'material-ui/LinearProgress';
 import Helmet from "react-helmet";
 
 import HeaderProfile from './HeaderProfile';
 
+import * as Colors from 'material-ui/styles/colors';
 import * as ImagesHelper from '../../../util/images';
 import * as IconsHelper from '../../../util/icons';
 import * as UniversityHelper from '../../../util/university';
@@ -22,7 +25,7 @@ const gotourl = (groupId, tab) => () => {
 };
 
 const tabToIdx = tab => {
-  switch(tab){
+  switch(tab) {
     case 'home':
       return 0;
     case 'info':
@@ -65,6 +68,37 @@ const eventHandleScroll = (event) => {
 };
 
 export default class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loadingFile: false,
+      bgImageId: null,
+    };
+  }
+
+  handleUpload(event) {
+    const self = this;
+    const files = event.currentTarget.files;
+    this.setState({ loadingFile: true });
+
+    Cloudinary.upload(files, {}, function(err, cloudinaryRes) {
+      Meteor.call('University.setBgImage', self.props.uni.id, cloudinaryRes.public_id, function(err, res) {
+        self.props.actions.showSnackbar("Updated university cover photo.");
+        self.setState({
+          loadingFile: false,
+          bgImageId: cloudinaryRes.secure_url,
+        });
+      });
+    });
+  }
+
+  componentWillMount(nextProps) {
+    this.setState({
+      bgImageId: this.props.uni.bgImageId || 'exchangebuddy/section-images/About'
+    });
+  }
+
   componentDidMount() {
     $(window).on('scroll', eventHandleScroll);
   }
@@ -81,7 +115,7 @@ export default class Header extends React.Component {
         id="header"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(25,25,25,0.5) 0%,rgba(0,0,0,0.9) 100%),
-            url('${ImagesHelper.getUrlScale(uni.bgImageId || 'exchangebuddy/section-images/About', 1000)}')`,
+            url('${ImagesHelper.getUrlScale(this.state.bgImageId, 1000)}')`,
           backgroundColor: "#000000",
           backgroundPosition: 'center center',
           backgroundSize: 'cover',
@@ -119,6 +153,13 @@ export default class Header extends React.Component {
             </Col>
           </div>
         </Grid>
+
+        <input id="file-upload" type="file" accept="image/*"onChange={ this.handleUpload.bind(this) } />
+        <IconButton className="upload_cover_photo" onTouchTap={ () => $("#file-upload").trigger('click') }>
+          { IconsHelper.icon('add_a_photo', { color: Colors.grey100 }) }
+        </IconButton>
+
+        { this.state.loadingFile && <LinearProgress style={{ position: 'absolute', bottom: 0 }} mode="indeterminate" /> }
       </div>
     );
   }
