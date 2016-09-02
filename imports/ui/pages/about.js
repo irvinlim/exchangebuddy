@@ -22,6 +22,7 @@ const About = ({ params }) => (
           <Col xs={12}>
             <Paper style={{padding: "1% 5% 5% 5%"}}>
               <h1>About Exchange Buddy</h1>
+              <p>We are a <strong>GROUP</strong> of students who wished that we could find friends and information for our <strong>Overseas Exchange Programme</strong>. That is why we decided to <strong>GROUP</strong> you with your friends and create <strong>ExchangeBuddy! The MUST-have application for exchange students!</strong></p>
               <p><strong>Exchange Buddy</strong> provides a platform for exchange students to find friends, information and events at the exchange university easily and quickly even before you travel.</p>
               <p>The application is developed by four students, <strong>Irvin Lim, Leon Mak, Eugene Ng and Lam Chi Thanh</strong> as a school project for module CS3216 (School of Computing, NUS).</p>
             </Paper>
