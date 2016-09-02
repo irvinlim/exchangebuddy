@@ -16,7 +16,6 @@ export default class ProfilePaper extends React.Component {
     const { user, userExchangeUniversities, userHomeUniversity } = this.props;
 
     return (
-      <Paper className="profile-paper" zDepth={2} style={{ padding: 40 }}>
         <Grid>
           <Row id="profile-paper">
             <Col xs={12} md={3} id="user-image">
@@ -53,7 +52,6 @@ export default class ProfilePaper extends React.Component {
             </Col>
           </Row>
         </Grid>
-      </Paper>
     )
   }
 }

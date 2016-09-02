@@ -53,12 +53,6 @@ const LoggedIn = ({ params, actions }) => (
             labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }}
             onTouchTap={ joinedGroupStory(params, actions) }/>
         </Col>
-        <Col xs={8} sm={6} style={buttonStyle}>
-          <RaisedButton primary={true}
-            className="raised-btn"
-            label="Invite Facebook Friends"
-            labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }} />
-        </Col>
       </Row>
     </Col>
   </Row>
