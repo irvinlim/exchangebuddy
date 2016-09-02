@@ -35,3 +35,4 @@ universe:react-markdown-wysiwyg
 universe:modules
 momentjs:moment
 fortawesome:fontawesome
+meteorhacks:picker
