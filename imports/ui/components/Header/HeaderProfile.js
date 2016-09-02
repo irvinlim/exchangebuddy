@@ -73,7 +73,7 @@ export default class HeaderProfile extends React.Component {
               primaryText={ <strong>{ uni.name }</strong> }
               secondaryText={ `${group.term} ${group.year}` }
               onTouchTap={ gotourl(`/group/${group.id}`) } />
-            <ListItem leftIcon={ IconsHelper.icon("group") } primaryText="Other groups" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handleOpenSwitch } />
+            <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Switch groups" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handleOpenSwitch } />
 
             <Divider />
 
