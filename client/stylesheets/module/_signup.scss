@@ -44,9 +44,10 @@
   text-align: center;
 }
 
-.kep-login-facebook.metro{
+.kep-login-facebook {
+  background-color: rgba(76, 105, 186, 0.86) !important;
   font-size: 18px; font-family: Roboto; font-weight: 500; @include transition-standard(background-color 150ms); border: 0;
-  &:hover { background-color: #3d5084; }
+  &:hover { background-color: #3d5084 !important; }
 }
 
 .feature-row  > div {

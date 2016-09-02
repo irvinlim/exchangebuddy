@@ -117,3 +117,11 @@ $headerStickyHeight: 95px;
     &:not(span) { font-size: 0 !important; }
   }
 }
+
+.upload_cover_photo {
+  position: absolute !important; bottom: -50px; right: 10px; opacity: 0.75; @include transition-standard(bottom 350ms !important);
+  &:hover { opacity: 1; }
+  #header:hover & { bottom: 10px; }
+}
+
+input#file-upload { display: none; }
