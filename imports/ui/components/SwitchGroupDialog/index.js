@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { composeWithTracker } from 'react-komposer';
-import Loading from '../Loading';
 
 // Redux
 import { bindActionCreators } from 'redux';
@@ -18,14 +17,14 @@ const composer = (props, onData) => {
   const user = Meteor.user();
 
   if (!user)
-    return;
+    return onData(null, { user: null, groups: [] });
 
   Meteor.call('User.getGroups', user.id, (err, groups) => {
     onData(null, { user, groups });
   });
 };
 
-const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
+const ComposedComponent = composeWithTracker(composer, null)(ChildComponent);
 
 // redux
 const mapStateToProps = (state, ownProps) => {

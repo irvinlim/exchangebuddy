@@ -24,6 +24,9 @@ const SwitchGroupDialog = ({ open, actions, user, groups }) => {
     <FlatButton label="cancel" onTouchTap={ handleClose } />
   ];
 
+  if (!user || !groups.length)
+    return null;
+
   return (
     <Dialog
       open={ open }
