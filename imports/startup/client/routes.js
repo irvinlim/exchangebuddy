@@ -129,11 +129,11 @@ Meteor.startup(() => {
                   <Route path=":about">
                     <Route path=":sectionId">
                       <IndexRoute name= "info-page" component={ ViewInfo } />
-                      <Route name="info-page-edit" path="edit" component={ EditInfo } />
+                      <Route name="info-page-edit" path="edit" component={ EditInfo } onEnter={ requireAuth } />
                     </Route>
                   </Route>
                 </Route>
-                <Route name="chat" path="chat" component={ GroupChat } />
+                <Route name="chat" path="chat" component={ GroupChat } onEnter={ requireAuth } />
                 <Route name="events" path="events" component={ GroupEvents } />
                 <Redirect from="*" to="/group" />
               </Route>
