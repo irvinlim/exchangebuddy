@@ -9,11 +9,11 @@ import NavigationBar from '../components/NavigationBar/NavigationBar.js';
 
 const landingImg = {
   background: `linear-gradient(to top, rgba(25, 25, 25, 0.21) 0%,rgb(0, 0, 0) 215%),
-    url(${ImagesHelper.getUrlScale(Meteor.settings.public.landingImageId, 900)}) no-repeat center center `
+    url(${ImagesHelper.getUrlScale(Meteor.settings.public.landingImageId, 900)}) no-repeat center top `
 }
 
 const Profile = ({ params }) => (
-  <div id="welcome-header" style={landingImg}>
+  <div id="half-header" style={landingImg}>
     <NavigationBar />
 
     <div style={{paddingTop: "150px"}}>
