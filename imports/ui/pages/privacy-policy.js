@@ -3,8 +3,8 @@ import * as ImagesHelper from '../../util/images';
 import * as IconsHelper from '../../util/icons';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper';
 
-import ProfilePaper from '../components/ProfilePaper';
 import NavigationBar from '../components/NavigationBar/NavigationBar.js';
 
 const landingImg = {
@@ -12,7 +12,7 @@ const landingImg = {
     url(${ImagesHelper.getUrlScale(Meteor.settings.public.landingImageId, 900)}) no-repeat center center `
 }
 
-const Profile = ({ params }) => (
+const PrivacyPolicy = ({ params }) => (
   <div id="welcome-header" style={landingImg}>
     <NavigationBar />
 
@@ -20,7 +20,9 @@ const Profile = ({ params }) => (
       <Grid>
         <Row>
           <Col xs={12}>
-            <ProfilePaper userId={ params.userId } />
+            <Paper>
+              <p>Exchange Buddy is an app for ...</p>
+            </Paper>
           </Col>
         </Row>
       </Grid>
@@ -28,4 +30,4 @@ const Profile = ({ params }) => (
   </div>
 );
 
-export default Profile;
+export default PrivacyPolicy;

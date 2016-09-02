@@ -21,7 +21,7 @@ export default class InfoView extends Component {
   makeOpenShareDialog(item, subtitle) {
     return event => {
       const appId = Meteor.settings.public.Facebook.appId;
-      const description = `Check out some tips about ${item.title}, ${subtitle}`;
+      const description = `Check out some tips about ${item.section.label}, ${subtitle}`;
       const title = "ExchangeBuddy Tips";
       const link = window.location.href;
 
