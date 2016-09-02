@@ -30,7 +30,7 @@ const ComposedComponent = composeWithTracker(composer, Loading)(ChildComponent);
 // redux
 const mapStateToProps = (state, ownProps) => {
   return {
-    open: state.switchGroupDialogOpen
+    open: !!state.switchGroupDialogOpen
   };
 }
 
