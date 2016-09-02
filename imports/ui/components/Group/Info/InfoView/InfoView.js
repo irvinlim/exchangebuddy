@@ -34,7 +34,6 @@ export default class InfoView extends Component {
 
       const href = `https://www.facebook.com/dialog/feed?${qs}`;
       window.open(href, 'targetWindow', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=320')
-      console.log(href)
     };
   }
 
