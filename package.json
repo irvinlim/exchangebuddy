@@ -25,6 +25,7 @@
     "classnames": "^2.2.5",
     "collapse-whitespace": "^1.1.2",
     "connect": "^3.4.1",
+    "crypto": "0.0.3",
     "crypto-js": "^3.1.6",
     "facebook-events-by-location-core": "^0.1.4",
     "fast-sha256": "^1.0.0",
