@@ -73,11 +73,7 @@ export default class HeaderProfile extends React.Component {
               primaryText={ <strong>{ uni.name }</strong> }
               secondaryText={ `${group.term} ${group.year}` }
               onTouchTap={ gotourl(`/group/${group.id}`) } />
-            <ListItem leftIcon={ IconsHelper.icon("people") } primaryText="Group Members" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}`) } />
-            <ListItem leftIcon={ IconsHelper.icon("info") } primaryText="Exchange Info" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/info`) } />
-            <ListItem leftIcon={ IconsHelper.icon("chat") } primaryText="Group Chat" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/chat`) } />
-            <ListItem leftIcon={ IconsHelper.icon("event") } primaryText="Events" innerDivStyle={{ fontSize: 13 }} onTouchTap={ gotourl(`/group/${group.id}/events`) } />
-            <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Switch group" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handleOpenSwitch } />
+            <ListItem leftIcon={ IconsHelper.icon("subdirectory_arrow_right") } primaryText="Add/Switch group" innerDivStyle={{ fontSize: 13 }} onTouchTap={ handleOpenSwitch } />
 
             <Divider />
 
