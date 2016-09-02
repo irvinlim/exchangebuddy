@@ -155,7 +155,7 @@ export default class Header extends React.Component {
         </Grid>
 
         <input id="file-upload" type="file" accept="image/*"onChange={ this.handleUpload.bind(this) } />
-        <IconButton className="upload_cover_photo" onTouchTap={ () => $("#file-upload").trigger('click') }>
+        <IconButton className="upload_cover_photo" onTouchTap={ () => $("#file-upload").trigger('click') } tooltip="Upload a new university cover photo" tooltipPosition="top-left">
           { IconsHelper.icon('add_a_photo', { color: Colors.grey100 }) }
         </IconButton>
 
