@@ -13,7 +13,8 @@ import { showSnackbar } from '../../../client/actions/snackbar';
 
 const buttonStyle = {
   textAlign: "center",
-  marginTop: 25
+  margin: "15px auto",
+  width: "100%",
 };
 
 const joinedGroupStory = (params, actions) => () => {
@@ -25,7 +26,7 @@ const joinedGroupStory = (params, actions) => () => {
       {
         'access_token': accessToken,
         'exchange_group': window.location.href,
-        'explicitly_shared': true,
+        'fb:explicitly_shared': true,
       },
       function(response) { actions.showSnackbar("Published activity on facebook."); }
     );
@@ -59,13 +60,18 @@ const GroupHome = ({ params, actions }) => (
         <h3 className="pinline" style={{ fontSize: "1.3em" }}><span>ExchangeBuddy is better with friends</span></h3>
         <p className="small-text" style={{ textAlign: 'center' }}>Get your friends to join in the fun!</p>
         <Row>
-          <Col xs={6} style={buttonStyle}>
-            <FacebookShare groupId={ params.id } />
-          </Col>
-          <Col xs={6} style={buttonStyle}>
-            <RaisedButton primary={true} className="raised-btn"
-              label="Post Membership" labelStyle={{paddingLeft:"9px", paddingRight:"9px"}}
+          <Col xs={8} sm={6} style={buttonStyle}>
+            <RaisedButton primary={true}
+              className="raised-btn"
+              label="Post Story to Facebook"
+              labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }}
               onTouchTap={ joinedGroupStory(params, actions) }/>
+          </Col>
+          <Col xs={8} sm={6} style={buttonStyle}>
+            <RaisedButton primary={true}
+              className="raised-btn"
+              label="Invite Facebook Friends"
+              labelStyle={{ paddingLeft: "9px", paddingRight:"9px" }} />
           </Col>
         </Row>
       </Col>
