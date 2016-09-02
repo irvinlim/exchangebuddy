@@ -1,8 +1,9 @@
 import base64url from "base64url";
-import sha256, { Hash, HMAC } from "fast-sha256";
 import { Meteor } from 'meteor/meteor';
 
 import bodyParser from 'body-parser';
+var CryptoJS = require("crypto-js");
+
 
 // Add two middleware calls. The first attempting to parse the request body as
 // JSON data and the second as URL encoded data.
@@ -16,6 +17,8 @@ const postRoutes = Picker.filter(function(req, res) {
 const parse_signed_request = signed_request => {
     // list(encoded_sig, payload) = explode('.', signed_request, 2);
     const [encoded_sig, payload] = signed_request.split('.', 2);
+    console.log(encoded_sig)
+    console.log(payload)
 
     const secret = Meteor.settings.private.Facebook.appSecret; // Use your app secret here
 
@@ -25,14 +28,16 @@ const parse_signed_request = signed_request => {
     const sig = base64url.decode(encoded_sig);
     const data = JSON.parse(base64url.decode(payload));
 
-
     // confirm the signature
     // expected_sig = hash_hmac('sha256', payload, secret, raw = true);
-    const expected_sig = sha256.hmac(secret, payload);
-    console.log(expected_sig, sig, 'checksame')
-    console.log(data, 'fb-posted')
+    var hash = CryptoJS.HmacSHA256(payload, secret);
+    console.log(hash)
+    var expected_sig = hash.toString(CryptoJS.enc.Base64);
+
+    console.log(expected_sig, 'expected', sig,'sig')
+
     if (sig !== expected_sig) {
-      error_log('Bad Signed JSON signature!');
+      console.log('Bad Signed JSON signature!');
       return null;
     }
 
@@ -40,9 +45,6 @@ const parse_signed_request = signed_request => {
   }
 
 postRoutes.route('/facebook/deauth', function(params, req, res) {
-  console.log('params', params)
-  console.log('req', req)
-
-  console.log(parse_signed_request(req.body.signed_request));
-  res.end('OK');
+  const response = parse_signed_request(req.body.signed_request);
+  const userId = response.user_id;
 });
