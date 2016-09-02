@@ -2,7 +2,7 @@ import base64url from "base64url";
 import { Meteor } from 'meteor/meteor';
 
 import bodyParser from 'body-parser';
-var CryptoJS = require("crypto-js");
+var crypto = require("crypto");
 
 
 // Add two middleware calls. The first attempting to parse the request body as
@@ -14,37 +14,32 @@ const postRoutes = Picker.filter(function(req, res) {
   return req.method === "POST";
 });
 
-const parse_signed_request = signed_request => {
-    // list(encoded_sig, payload) = explode('.', signed_request, 2);
-    const [encoded_sig, payload] = signed_request.split('.', 2);
-    console.log(encoded_sig)
-    console.log(payload)
 
-    const secret = Meteor.settings.private.Facebook.appSecret; // Use your app secret here
+function parse_signed_request(signed_request, secret) {
+  encoded_data = signed_request.split('.',2);
+  // decode the data
+  sig = encoded_data[0];
+  json = base64url.decode(encoded_data[1]);
+  data = JSON.parse(json); // ERROR Occurs Here!
 
-    // decode the data
-    // sig = base64_url_decode(encoded_sig);
-    // data = json_decode(base64_url_decode(payload), true);
-    const sig = base64url.decode(encoded_sig);
-    const data = JSON.parse(base64url.decode(payload));
-
-    // confirm the signature
-    // expected_sig = hash_hmac('sha256', payload, secret, raw = true);
-    var hash = CryptoJS.HmacSHA256(payload, secret);
-    console.log(hash)
-    var expected_sig = hash.toString(CryptoJS.enc.Base64);
-
-    console.log(expected_sig, 'expected', sig,'sig')
-
-    if (sig !== expected_sig) {
-      console.log('Bad Signed JSON signature!');
+  // check algorithm - not relevant to error
+  if (!data.algorithm || data.algorithm.toUpperCase() != 'HMAC-SHA256') {
+      console.error('Unknown algorithm. Expected HMAC-SHA256');
       return null;
-    }
-
-    return data;
   }
 
+  // check sig - not relevant to error
+  expected_sig = crypto.createHmac('sha256',secret).update(encoded_data[1]).digest('base64').replace(/\+/g,'-').replace(/\//g,'_').replace('=','');
+  if (sig !== expected_sig) {
+      console.error('Bad signed JSON Signature!');
+      return null;
+  }
+
+  return data;
+}
+
 postRoutes.route('/facebook/deauth', function(params, req, res) {
-  const response = parse_signed_request(req.body.signed_request);
+  const response = parse_signed_request(req.body.signed_request, Meteor.settings.private.Facebook.appSecret);
   const userId = response.user_id;
+  console.log("Facebook user id to delete:" + userId);
 });
