@@ -17,7 +17,7 @@
 .raised-btn > button {
   height: 42px !important;
   > div > div {
-    height: 42px !important;
+    height: 42px !important; line-height: 42px; padding: 0 20px;
   }
 }
 
