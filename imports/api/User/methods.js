@@ -221,4 +221,10 @@ if (Meteor.isServer) {
 
     return decoded;
   };
+
+  // DANGER AREA: No user token authentication!
+  // Should only be called by functions which already have proven their identities.
+  export const deleteUserByFBUserId = (fbUserId) => {
+    return User.destroy({ where: { fbUserId } });
+  };
 }

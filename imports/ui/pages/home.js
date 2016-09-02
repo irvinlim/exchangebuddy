@@ -7,6 +7,8 @@ import * as IconsHelper from '../../util/icons';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
+import NavigationBar from '../components/NavigationBar/NavigationBar';
+
 const landingContainerStyle = {
   backgroundColor: "darkslategray",
 }
@@ -20,9 +22,7 @@ const Home = () => (
   <div id="landing-container" style={landingContainerStyle}>
     <div id="welcome-header" style={landingImg}>
 
-      <div id="logo-image">
-        { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 150, "exchangebuddy-logo") }
-      </div>
+      <NavigationBar />
 
       <div id="welcome-main-container">
         <div id="welcome-header-title">
