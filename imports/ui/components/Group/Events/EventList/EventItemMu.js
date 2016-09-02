@@ -34,9 +34,11 @@ const EventItemMu = ({ groupEvent, groupId }) => (
             <Col xs={12} md={5} >
               <RaisedButton backgroundColor="#E0393D" labelColor="#FFFFFF" style={{margin: "3px 6px"}} label="View on Meetup.com" target="_blank" href={groupEvent.event_url} />
             </Col>
-            <Col xs={12} md={4} >
-              <RaisedButton backgroundColor="#E0393D" labelColor="#FFFFFF" style={{margin: "3px 6px"}} label="Post to Chat" onTouchTap={ ()=> postToChat(groupEvent, parseInt(groupId), groupEvent.description) } />
-            </Col>
+              { Meteor.user() ?
+                <Col xs={12} md={4} >
+                  <RaisedButton backgroundColor="#E0393D" labelColor="#FFFFFF" style={{margin: "3px 6px"}} label="Post to Chat" onTouchTap={ ()=> postToChat(groupEvent, parseInt(groupId), groupEvent.description) } />
+                </Col>
+              : null }
           </div>
         </CardActions>
 
