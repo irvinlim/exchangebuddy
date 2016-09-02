@@ -20,7 +20,7 @@ const PrivacyPolicy = ({ params }) => (
       <Grid>
         <Row>
           <Col xs={12}>
-            <Paper style={{padding: "5%"}}>
+            <Paper style={{padding: "1% 5% 5% 5%"}}>
               <h1>Privacy Policy</h1>
               <h2>Information Collection</h2>
               <p>Browsing our websites does not require your identities to be revealed. However, under the following circumstances, you are not anonymous to us.</p>
