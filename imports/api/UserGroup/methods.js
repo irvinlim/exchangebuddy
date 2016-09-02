@@ -50,7 +50,9 @@ if (Meteor.isServer) {
         }
 
       }).then(function(group) {
-        return User.update({ defaultGroupId: group.id }, { where: { id: userId } });
+        return User.update({ defaultGroupId: group.id }, { where: { id: userId } }).then(function(result) {
+          return group && group.get({ plain: true });
+        });
       });
     },
 
