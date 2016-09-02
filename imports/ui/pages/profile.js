@@ -5,6 +5,7 @@ import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import ProfilePaper from '../components/ProfilePaper';
+import NavigationBar from '../components/NavigationBar/NavigationBar.js';
 
 const landingImg = {
   background: `linear-gradient(to top, rgba(25, 25, 25, 0.21) 0%,rgb(0, 0, 0) 215%),
@@ -13,14 +14,7 @@ const landingImg = {
 
 const Profile = ({ params }) => (
   <div id="welcome-header" style={landingImg}>
-    <div id="logo-image" style={{paddingLeft: "4%"}}>
-      { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 150, "exchangebuddy-logo") }
-    </div>
-    <div id="navigation-link" style={{paddingLeft: "50%", paddingTop: "4%"}}>
-      <a href="www.google.com" className="link">Home</a>
-      <a href="" className="link">About</a>
-      <a href="" className="link">Privacy Policy</a>
-    </div>
+    <NavigationBar />
 
     <div style={{paddingTop: "150px"}}>
       <Grid>
