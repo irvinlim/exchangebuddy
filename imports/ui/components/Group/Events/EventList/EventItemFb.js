@@ -37,12 +37,14 @@ const EventItemFb = ({ groupEvent, groupId }) => {
         </CardText>
         <CardActions expandable={true}>
           <div className="row center-xs">
-          <Col xs={12} md={5} >
+          <Col xs={12} md={5}>
             <RaisedButton primary={true} style={{margin: "3px 6px"}} label="View on Facebook" target="_blank" href={`https://facebook.com/events/${groupEvent.id}`} />
           </Col>
-          <Col xs={12} md={4} >
-            <RaisedButton primary={true} style={{margin: "3px 6px"}} label="Post to Chat" onTouchTap={ ()=> postToChat(groupEvent, parseInt(groupId), cardText) } />
-          </Col>
+            { Meteor.user() ?
+              <Col xs={12} md={4}>
+                <RaisedButton primary={true} style={{margin: "3px 6px"}} label="Post to Chat" onTouchTap={ ()=> postToChat(groupEvent, parseInt(groupId), cardText) } />
+              </Col>
+            : null }
           </div>
         </CardActions>
       </Card>

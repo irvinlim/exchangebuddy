@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { browserHistory }from 'react-router';
 import { GridList, GridTile } from 'material-ui/GridList';
@@ -42,7 +43,7 @@ const GridItem = ({ about, group, item }) => {
 };
 
 const GridItemAdd = ({ onTouchTap }) => (
-  <div id="grid-item-add" onTouchTap={onTouchTap}>
+  <div id="grid-item-add" onTouchTap={onTouchTap} style={{ display: Meteor.user() ? 'inline-block' : 'none' }}>
     <div id="grid-item-add-overlay">
       <span id="grid-item-add-icon">+</span>
       <p>ADD A SECTION</p>
@@ -61,6 +62,7 @@ export default class InfoGridList extends React.Component {
 
   render() {
     const { about, group, title, items, isMobile } = this.props;
+
     return (
       <div className="grid-list-container">
         <h3 className="pinline"><span>About { title }</span></h3>
