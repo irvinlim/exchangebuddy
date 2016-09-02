@@ -38,14 +38,14 @@ class App extends React.Component {
           <link rel="shortcut icon" type="image/png" href="favicon.png?v1" sizes="16x16 32x32 64x64">
           <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-precomposed.png">*/}
           <Helmet
-            defaultTitle="Exchangebuddy - Find your exchange buddies!"
+            defaultTitle="ExchangeBuddy - Find your exchange buddies!"
             meta={[
-                {"name": "description", "content": "Exchangebuddy - Find your exchange buddies!"},
+                {"name": "description", "content": "ExchangeBuddy - Find your exchange buddies!"},
                 {"name": "viewport", "content": "initial-scale=1, minimal-ui, maximum-scale=1, minimum-scale=1"},
                 {"property": "og:type", "content": "exchangebuddy:exchange_group"},
                 {"property": "og:url", "content": "http://app.exchangebuddy.com/"},
                 {"property": "og:description", "content": "Find your exchange buddies!"},
-                {"property": "og:title", "content": "Exchangebuddy.com"},
+                {"property": "og:title", "content": "ExchangeBuddy"},
                 {"property": "og:image", "content": imageUrl},
                 {"property": "fb:app_id", "content": Meteor.settings.public.Facebook.appId }
             ]}
