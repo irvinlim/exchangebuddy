@@ -1,5 +1,7 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import LoginButton from '../components/LoginButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import * as ImagesHelper from '../../util/images';
 import * as IconsHelper from '../../util/icons';
 import { Grid, Row, Col } from 'meteor/lifefilm:react-flexbox-grid';
@@ -30,7 +32,15 @@ const Home = () => (
           <p className="app-subtitle">Forget the messy Facebook groups and Google forms, all you need is right here.</p>
         </div>
 
-        <div id="login-button"><LoginButton /></div>
+        { Meteor.user() ?
+          <div id="login-button"><LoginButton /></div>
+        : <RaisedButton
+            primary={true}
+            label="Go to your group"
+            onTouchTap={ () => browserHistory.push('/group') }
+            style={{ maxWidth: 250, margin: '0 auto', height: 50 }}
+            labelStyle={{ fontSize: "16px", padding: '0 20px' }} />
+        }
 
         <div id="feature-list">
           <Grid>
