@@ -26,7 +26,7 @@ const joinedGroupStory = (params, actions) => () => {
       {
         'access_token': accessToken,
         'exchange_group': window.location.href,
-        'explicitly_shared': true,
+        'fb:explicitly_shared': true,
       },
       function(response) { actions.showSnackbar("Published activity on facebook."); }
     );
