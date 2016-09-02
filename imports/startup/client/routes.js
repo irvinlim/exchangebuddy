@@ -55,10 +55,6 @@ const requireAuth = (nextState, replace) => {
   }
 };
 
-const verifyDeauth = req => {
-  console.log(req)
-}
-
 const authenticatedRedirect = (nextState, replace) => {
   if (Meteor.userId()) {
     let path;
@@ -138,7 +134,6 @@ Meteor.startup(() => {
               </Route>
             </Route>
             <Route path="404" component={ NotFound } />
-            <Route path='facebook/deauth' onEnter={ verifyDeauth }/>
             <Route path="*" component={ NotFound } />
           </Route>
         </Router>

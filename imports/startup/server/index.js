@@ -25,3 +25,6 @@ import './browser-policy';
 
 // Cloudinary
 import './cloudinary';
+
+// Picker - Server side router
+import './picker';
