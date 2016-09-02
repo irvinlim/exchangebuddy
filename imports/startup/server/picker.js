@@ -41,5 +41,5 @@ function parse_signed_request(signed_request, secret) {
 postRoutes.route('/facebook/deauth', function(params, req, res) {
   const response = parse_signed_request(req.body.signed_request, Meteor.settings.private.Facebook.appSecret);
   const userId = response.user_id;
-  console.log("Facebook user id to delete:" + userId);
+  console.log("Facebook user id to delete user: " + userId);
 });

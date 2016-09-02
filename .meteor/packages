@@ -36,4 +36,3 @@ universe:modules
 momentjs:moment
 fortawesome:fontawesome
 meteorhacks:picker
-iron:router
