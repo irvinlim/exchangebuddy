@@ -5,6 +5,8 @@ import UniversityInfoSection from '../UniversityInfoSection';
 
 import { mapObjPropsToArray } from '../../util/helper';
 
+import { verifyToken } from '../User/methods';
+
 if (Meteor.isServer) {
 
   Meteor.methods({
@@ -63,8 +65,15 @@ if (Meteor.isServer) {
       });
     },
 
-    'University.setBgImage'(universityId, bgImageId) {
+    'University.setBgImage'(userToken, universityId, bgImageId) {
+      check(userToken, String);
+      check(universityId, Number);
       check(bgImageId, String);
+
+      const user = verifyToken(userToken);
+
+      if (!user)
+        throw new Meteor.Error("University.setBgImage.notAuthenticated", "User token is not authenticated.");
 
       return University.update({ bgImageId }, { where: { id: universityId } });
     },
