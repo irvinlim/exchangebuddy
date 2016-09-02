@@ -70,17 +70,23 @@ export default class InfoView extends Component {
         <Markdown className="md-info" source={ item.content } />
 
         <div className="row center-md center-xs">
-          <Col xs={8} md={3} className="info-container-col">
-            <RaisedButton label="Edit" className="raised-btn" fullWidth={true} primary={true} icon={IconsHelper.materialIcon('mode_edit')} onTouchTap={ () => browserHistory.push(`${window.location.pathname}/edit`) }/>
-          </Col>
+
+          { Meteor.user() ?
+            <Col xs={8} md={3} className="info-container-col">
+              <RaisedButton label="Edit" className="raised-btn" fullWidth={true} primary={true} icon={IconsHelper.materialIcon('mode_edit')} onTouchTap={ () => browserHistory.push(`${window.location.pathname}/edit`) }/>
+            </Col>
+          : null }
+
           <Col xs={8} md={3} className="info-container-col">
             <RaisedButton label="Share" className="raised-btn" fullWidth={true} primary={true} icon={IconsHelper.icon('fa fa-facebook-f', {color: "#FFFFFF"})} onTouchTap={ this.makeOpenShareDialog(group,sectionSubtitle) }/>
           </Col>
+
           <Col xs={8} md={3} className="info-container-col">
             <FacebookProvider appID={Meteor.settings.public.Facebook.appId} >
               <Like href={ absoluteUrl } colorScheme="dark" showFaces />
             </FacebookProvider>
           </Col>
+
         </div>
 
       </Paper>
