@@ -1,11 +1,16 @@
 import base64url from "base64url";
 import sha256, { Hash, HMAC } from "fast-sha256";
+import { Meteor } from 'meteor/meteor';
+
+import bodyParser from 'body-parser';
+
+// Add two middleware calls. The first attempting to parse the request body as
+// JSON data and the second as URL encoded data.
+Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
+Picker.middleware( bodyParser.json() );
 
 const postRoutes = Picker.filter(function(req, res) {
-  // you can write any logic you want.
-  // but this callback does not run inside a fiber
-  // at the end, you must return either true or false
-  return req.method == "POST";
+  return req.method === "POST";
 });
 
 const parse_signed_request = signed_request => {
@@ -34,13 +39,10 @@ const parse_signed_request = signed_request => {
     return data;
   }
 
-// function base64_url_decode($input) {
-//   return base64_decode(strtr($input, '-_', '+/'));
-// }
+postRoutes.route('/facebook/deauth', function(params, req, res) {
+  console.log('params', params)
+  console.log('req', req)
 
-postRoutes.route('/facebook/deauth', function(params, req, res, next) {
-  console.log(params)
-
-  console.log(parse_signed_request(req.signed_request));
-
+  console.log(parse_signed_request(req.body.signed_request));
+  res.end('OK');
 });
