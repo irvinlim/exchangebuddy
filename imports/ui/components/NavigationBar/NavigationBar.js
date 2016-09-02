@@ -12,7 +12,7 @@ const labelStyle = {
 };
 
 const buttonStyle = {
-  paddingRight: "6%"
+  marginRight: "6%"
 };
 
 const NavigationBar = () => (
