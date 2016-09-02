@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 // Action creators
 import { closeSwitchGroupDialog } from '../../../client/actions/switchGroupDialog';
+import { showSnackbar } from '../../../client/actions/snackbar';
 
 // Component
 import ChildComponent from './SwitchGroupDialog';
@@ -35,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({ closeSwitchGroupDialog }, dispatch),
+    actions: bindActionCreators({ closeSwitchGroupDialog, showSnackbar }, dispatch),
   };
 };
 
