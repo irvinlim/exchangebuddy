@@ -27,7 +27,7 @@ const joinedGroupStory = (params, actions) => () => {
         'exchange_group': window.location.href,
         'explicitly_shared': true,
       },
-      function(response) { actions.showSnackbar("Published event on facebook."); }
+      function(response) { actions.showSnackbar("Published activity on facebook."); }
     );
   } else if (response.status === 'not_authorized') {
     actions.showSnackbar("You must authorize the application.")
@@ -63,7 +63,9 @@ const GroupHome = ({ params, actions }) => (
             <FacebookShare groupId={ params.id } />
           </Col>
           <Col xs={6} style={buttonStyle}>
-            <RaisedButton primary={true} label="Invite Friends" onTouchTap={ joinedGroupStory(params, actions) }/>
+            <RaisedButton primary={true} className="raised-btn"
+              label="Post Membership" labelStyle={{paddingLeft:"9px", paddingRight:"9px"}}
+              onTouchTap={ joinedGroupStory(params, actions) }/>
           </Col>
         </Row>
       </Col>
