@@ -21,9 +21,9 @@ const NavigationBar = () => (
       { ImagesHelper.makeScale(Meteor.settings.public.logoImageId, 150, "exchangebuddy-logo") }
     </div>
     <div id="navigation-link" style={{paddingLeft: "50%", paddingTop: "4%"}}>
-      <FlatButton href="www.google.com" label="Home" labelStyle={labelStyle} style={buttonStyle} />
-      <FlatButton href="" label="About" labelStyle={labelStyle} style={buttonStyle} />
-      <FlatButton href="" label="Privacy Policy" labelStyle={labelStyle} style={buttonStyle} />
+      <FlatButton href="" label="Home" labelStyle={labelStyle} style={buttonStyle} />
+      <FlatButton href="about" label="About" labelStyle={labelStyle} style={buttonStyle} />
+      <FlatButton href="privacy-policy" label="Privacy Policy" labelStyle={labelStyle} style={buttonStyle} />
     </div>
   </div>
 )
