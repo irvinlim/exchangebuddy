@@ -70,15 +70,12 @@ if (Meteor.isServer) {
 
       return User.findOne({
         where: { id: userId }
-      }).then(Meteor.bindEnvironment(function(result) {
-        const user = result.get();
-        const token = jwt.sign({ userId, homeUniEmail }, Meteor.settings.private.jsonWebTokenSecret, { expiresIn: "2d" });
-        const verifyUrl = Meteor.absoluteUrl("verify/" + token);
+      }).then(function(result) {
 
         // Don't actually send the email, disabled.
 
         return User.update({ homeUniEmail, homeUniEmailVerified: true }, { where: { id: userId } });
-      }));
+      });
     },
 
     'User.verifyEmailToken'(token) {
