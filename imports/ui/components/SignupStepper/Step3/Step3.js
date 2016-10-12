@@ -1,6 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import validator from 'validator';
+import { browserHistory } from 'react-router';
 
 import { EmailFormField } from '../../Field';
 import NextButton from '../NextButton';
@@ -67,8 +68,11 @@ const submitForm = (self) => (values) => {
     if (err) {
       return console.log("Error in invoking User.sendVerificationEmail: " + err);
     } else {
-      SessionHelper.setCurrentUser(); // Required so that Meteor.user() will reflect the new user information
-      self.setState({ emailSent: true });
+      // Required so that Meteor.user() will reflect the new user information
+      SessionHelper.setCurrentUser(() => {
+        // Redirect to group page
+        browserHistory.push('/group');
+      });
     }
   });
 };
@@ -92,7 +96,7 @@ class Step3 extends React.Component {
       <form onSubmit={ handleSubmit(submitForm(this)) }>
 
         <p style={{ fontSize: "15px" }}>To complete your registration, please enter your email address at <strong>{ university.name }</strong>.</p>
-        <p style={{ fontSize: "15px" }}>We will be sending a verification email to confirm your place at the university.</p>
+        { /*<p style={{ fontSize: "15px" }}>We will be sending a verification email to confirm your place at the university.</p>*/ }
 
         { emailDomains ?
           <p className="small-text">Email domains allowed: { emailDomains.map(x => `@${x}`).join(', ') }</p> :
@@ -103,10 +107,8 @@ class Step3 extends React.Component {
           name="homeUniEmail"
           floatingLabelText="Your university email address" />
 
-        { this.state.emailSent ? <p>Verification email sent!</p> : null }
-
         <div style={{ marginTop: 12 }}>
-          <NextButton label="Send verification email" disabled={submitting} />
+          <NextButton label="Submit" disabled={submitting} />
           <PrevButton onTouchTap={ handlePrev } label="Back" disabled={submitting} />
         </div>
       </form>

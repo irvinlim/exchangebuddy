@@ -75,18 +75,9 @@ if (Meteor.isServer) {
         const token = jwt.sign({ userId, homeUniEmail }, Meteor.settings.private.jsonWebTokenSecret, { expiresIn: "2d" });
         const verifyUrl = Meteor.absoluteUrl("verify/" + token);
 
-        try {
-          Email.send({
-            to: homeUniEmail,
-            from: "ExchangeBuddy <no-reply@mg.irvinlim.com>",
-            subject: "ExchangeBuddy: Please confirm your email",
-            html: `<p>Hi ${user.displayName},</p><p>Please click the link below to verify your email address.</p><p><a href="${verifyUrl}">${verifyUrl}</a></p><p>Cheers,<br />ExchangeBuddy</p>`,
-          });
-        } catch (error) {
-          throw new Meteor.Error("sendVerificationEmail.cannotSendMail", "Could not send verification email: " + error);
-        }
+        // Don't actually send the email, disabled.
 
-        return User.update({ homeUniEmail }, { where: { id: userId } });
+        return User.update({ homeUniEmail, homeUniEmailVerified: true }, { where: { id: userId } });
       }));
     },
 
